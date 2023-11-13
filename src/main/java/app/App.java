@@ -1,9 +1,9 @@
 package app;
 
-import View.MainFrame;
+import View.MainJFrame;
 
 public class App {
     public static void main(String[] args) {
-        MainFrame app = new MainFrame();
+        MainJFrame app = new MainJFrame();
     }
 }
