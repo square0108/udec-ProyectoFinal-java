@@ -1,11 +1,8 @@
 package Model;
 
 public class Alimento {
-    private DietaEnum tipoAlimento;
-    public Alimento(DietaEnum d) {
-        this.tipoAlimento = d;
-    }
-    public DietaEnum verificarTipoAlimento() {
-        return tipoAlimento;
-    }
+    private boolean consumidoStatus = false;
+    public Alimento() {};
+    public boolean getConsumidoStatus() {return this.consumidoStatus;}
+    public void setConsumidoStatus(boolean b) {this.consumidoStatus = b;}
 }

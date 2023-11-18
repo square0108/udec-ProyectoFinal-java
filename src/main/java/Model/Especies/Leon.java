@@ -1,23 +1,12 @@
 package Model.Especies;
 
-import Model.Carnivoro;
+import Model.Animal;
 import Model.TerrenoEnum;
 
-public class Leon extends Carnivoro {
-    private final int tasaCambioHambre;
+public class Leon extends Animal {
     private final float rangoTempCelsius[];
     public Leon() {
-        super();
-        this.tasaCambioHambre = 15;
+        super(20);
         this.rangoTempCelsius = new float[]{10, 30};
-    }
-
-    @Override
-    public void hambreUp() {
-        restarPorcentajeComida(tasaCambioHambre);
-    }
-    @Override
-    public TerrenoEnum cualTerreno() {
-        return TerrenoEnum.TERRESTRE;
     }
 }
