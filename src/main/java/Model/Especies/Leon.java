@@ -1,12 +1,16 @@
 package Model.Especies;
 
 import Model.Animal;
-import Model.TerrenoEnum;
+import Model.Enumerations.AnimalEnum;
 
 public class Leon extends Animal {
-    private final float rangoTempCelsius[];
     public Leon() {
-        super(20);
-        this.rangoTempCelsius = new float[]{10, 30};
+        super(20, 10.0F, 35.0F);
+    }
+
+    @Override
+    public AnimalEnum[] AnimalesCompatibles() {
+        return new AnimalEnum[]
+                {AnimalEnum.LEON};
     }
 }
