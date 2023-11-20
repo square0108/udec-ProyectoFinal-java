@@ -10,11 +10,20 @@ public abstract class Habitat {
     private final TerrenoEnum tipoTerreno;
     private final float temperatura;
 
+    /**
+     * Clase abstracta que simula las propiedades comunes a todos los Habitat unicos
+     * @param temperatura Temperatura ambiente del habitat. Para que un animal viva aqui, la temperatura ambiente del
+     *                    habitat debe estar dentro del rango de temperatura aceptable del animal.
+     * @param poblacionMax Poblacion maxima de animales que acepta este habitat.
+     *                     TODO: Variar el espacio que ocupan diferentes especies? Puede ser complicado.
+     * @param tipoTerreno Determina el tipo de animales que pueden habitar aqui. Animales terrestres solo con terrenos
+     *                    terrestres, acuaticos solo con terrenos acuaticos, etc.
+     */
     public Habitat(float temperatura, int poblacionMax, TerrenoEnum tipoTerreno) {
         this.temperatura = temperatura;
         this.poblacionMax = poblacionMax;
         this.reservaAlimentos = new Alimento[20]; /* limite arbitrario de "sacos de comida" */
-        this.animales = new Animal[poblacionMax];
+        this.animales = new Animal[poblacionMax]; /* representa los animales que habitan este habitat */
         this.tipoTerreno = tipoTerreno;
     }
 
@@ -27,6 +36,10 @@ public abstract class Habitat {
 
     public Animal[] getHabitantes() {return this.animales;}
 
+    /**
+     * Agrega un nuevo animal a este habitat. Debe pasar por varios checks logicos de compatibilidad.
+     * @param nuevoAnimal Animal nuevo a agregar
+     */
     public void addAnimal(Animal nuevoAnimal) {
         /* TODO: Reemplazar algunos de los if con exception handling? */
         /* Checkear si el habitat ya se encuentra lleno. */
@@ -60,6 +73,11 @@ public abstract class Habitat {
         }
     }
 
+    /**
+     * Remueve un animal del habitat.
+     * TODO: esta implementacion no esta lista!, debe poder removerse un animal en especifico.
+     * @return Animal que se desea remover
+     */
     public Animal removeAnimal() {
         for (int i = 0; i < poblacionMax; i++) {
             if (animales[i] != null) {
