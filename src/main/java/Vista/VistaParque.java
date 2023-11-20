@@ -25,7 +25,7 @@ public class VistaParque extends JPanel implements ActionListener {
         habitats = new ArrayList<VistaHabitat>();
 
         try {
-            fondo = ImageIO.read(new File("src/main/resources/fondo_pasto.jpg"));
+            fondo = ImageIO.read(new File("src/main/java/resources/fondo_pasto.jpg"));
         } catch (IOException e) {
             System.out.println("El archivo no esta....");
         }
