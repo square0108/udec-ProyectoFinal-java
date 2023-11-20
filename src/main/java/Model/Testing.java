@@ -12,8 +12,8 @@ public class Testing {
         System.out.println(CompatibleChecker.isCompatible(new Elefante(), new Leon()));
 
         Sabana sabana1 = new Sabana();
-        System.out.println(sabana1.IsEmpty());
+        System.out.println(sabana1.isEmpty());
         sabana1.addAnimal(manuel);
-        System.out.println(sabana1.IsEmpty());
+        System.out.println(sabana1.isEmpty());
     }
 }
