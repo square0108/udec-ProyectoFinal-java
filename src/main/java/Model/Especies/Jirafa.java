@@ -1,6 +1,5 @@
 package Model.Especies;
 
-import Model.Animal;
 import Model.Enumerations.AnimalEnum;
 
 public class Jirafa extends Animal {

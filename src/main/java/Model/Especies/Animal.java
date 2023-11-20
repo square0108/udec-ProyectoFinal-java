@@ -1,5 +1,6 @@
-package Model;
+package Model.Especies;
 
+import Model.Alimento;
 import Model.Enumerations.AnimalEnum;
 
 public abstract class Animal {
@@ -23,12 +24,11 @@ public abstract class Animal {
     }
 
     /**
-     * Regla importante para el funcionamiento del compatibility handling: todas las implementaciones de este metodo,
-     * deben tener a la misma subclase como la primera constante (indice 0) del arreglo retornado.
+     * Este metodo es abstract ya que cada animal devuelve una lista de compatibilidad distinta.
      * @return array de AnimalEnum conteniendo solo las constantes que representan los animales compatibles con este animal.
      */
     public abstract AnimalEnum[] AnimalesCompatibles();
 
-    /* TODO: void movement()
+    /* TODO: void movement()?
     */
 }

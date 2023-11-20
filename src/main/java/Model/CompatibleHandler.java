@@ -1,6 +1,7 @@
 package Model;
 
 import Model.Enumerations.AnimalEnum;
+import Model.Especies.Animal;
 
 public class CompatibleHandler {
     public static boolean isCompatible(Animal animal1, Animal animal2) {

@@ -1,6 +1,7 @@
 package Model;
 
 import Model.Enumerations.TerrenoEnum;
+import Model.Especies.Animal;
 
 public abstract class Habitat {
     private float temperatura;
