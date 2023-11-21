@@ -1,5 +1,7 @@
 package Vista;
 
+import Model.Enumerations.HabitatEnum;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -8,6 +10,8 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+
+import static Model.Enumerations.HabitatEnum.JUNGLA;
 
 public class VistaParque extends JPanel implements ActionListener {
     private final int PANEL_WIDTH = 1280;
@@ -27,7 +31,7 @@ public class VistaParque extends JPanel implements ActionListener {
         try {
             fondo = ImageIO.read(new File("src/main/java/resources/fondo_pasto.jpg"));
         } catch (IOException e) {
-            System.out.println("El archivo no esta....");
+            System.out.println("NO SE ENCUENTRA TEXTURA!!!(PARQUE)");
         }
         // Seteamos la posición inicial del fondo
         imageCorner = new Point(0,0);
@@ -52,14 +56,14 @@ public class VistaParque extends JPanel implements ActionListener {
         // Dibujamos los habitats
         if(!habitats.isEmpty()){
             for(int i=0;i<habitats.size(); i++){
-                habitats.get(i).draw(g,imageCorner);
+                habitats.get(i).draw(g,this,imageCorner);
             }
         }
         // Aquí deberiamos llamar a Draw, de distintas componentes de la cosita jajaj
         // Habitat.draw(g,xPos,yPos), cosas así
     }
-    public void addHabitat(int x, int y){
-        VistaHabitat habitat = new VistaHabitat(x,y);
+    public void addHabitat(HabitatEnum tipo,int x, int y){
+        VistaHabitat habitat = new VistaHabitat(tipo,x,y);
         habitats.add(habitat);
     }
 

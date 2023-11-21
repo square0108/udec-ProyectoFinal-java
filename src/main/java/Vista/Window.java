@@ -1,7 +1,11 @@
 package Vista;
 
+import Model.Enumerations.HabitatEnum;
+
 import javax.swing.*;
 import java.awt.*;
+
+import static Model.Enumerations.HabitatEnum.JUNGLA;
 
 public class Window extends JFrame {
 
@@ -9,9 +13,7 @@ public class Window extends JFrame {
 
     public Window(){
         zoo = new VistaParque();
-        zoo.addHabitat(10,10);
-
-        zoo.addHabitat(600,40);
+        zoo.addHabitat(JUNGLA,10,10);
 
         this.setLayout(new BorderLayout());
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);

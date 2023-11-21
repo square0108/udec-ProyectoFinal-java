@@ -66,5 +66,6 @@ public abstract class Animal {
     public float[] getRangoTemperatura() {
         return rangoTemperatura;
     }
+    public int getPorcentajeComida(){return porcentajeComida;}
 }
 

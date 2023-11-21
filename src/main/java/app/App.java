@@ -1,9 +1,10 @@
 package app;
 
-import View.MainJFrame;
+import Vista.HebraVisual;
 
 public class App {
     public static void main(String[] args) {
-        MainJFrame app = new MainJFrame();
+        HebraVisual hebraVisual = new HebraVisual();
+        new Thread(hebraVisual).start();
     }
 }
