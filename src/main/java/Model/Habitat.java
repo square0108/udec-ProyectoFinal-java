@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 public abstract class Habitat {
     private final int poblacionMax;
-    private final Alimento[] reservaAlimentos;
+    private final ArrayList<Alimento> reservaAlimentos;
     private final ArrayList<Animal> animales;
     private final TerrenoEnum tipoTerreno;
     private final float temperatura;
@@ -24,7 +24,7 @@ public abstract class Habitat {
     public Habitat(float temperatura, int poblacionMax, TerrenoEnum tipoTerreno) {
         this.temperatura = temperatura;
         this.poblacionMax = poblacionMax;
-        this.reservaAlimentos = new Alimento[20]; /* limite arbitrario de "sacos de comida" */
+        this.reservaAlimentos = new ArrayList<>(); /* se le puede setear un limite, opcionalmente */
         this.animales = new ArrayList<>(); /* representa los animales que habitan este habitat */
         this.tipoTerreno = tipoTerreno;
     }
@@ -32,6 +32,7 @@ public abstract class Habitat {
     /**
      * Actualiza el porcentajeComida de todos los animales presentes en este habitat, llamando el metodo ganarHambre()
      * de cada uno de ellos.
+     * TODO: Los animales deberian actualizar su estado a "intentar consumir alimento" dentro de este mismo metodo?
      */
     public void actualizarHambreAnimales() {
         for (Animal animal : this.animales) {
