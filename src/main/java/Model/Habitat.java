@@ -27,9 +27,13 @@ public abstract class Habitat {
         this.tipoTerreno = tipoTerreno;
     }
 
+    /**
+     * Actualiza el porcentajeComida de todos los animales presentes en este habitat, llamando el metodo ganarHambre()
+     * de cada uno de ellos.
+     */
     public void actualizarHambreAnimales() {
         for (Animal animal : this.animales) {
-            if (animal == null) break;
+            if (animal == null) break; /* con objetivo de no causar NullPointerException (se llamarian metodos en espacios null del arreglo */
             else {
                 animal.ganarHambre();
             }

@@ -14,6 +14,6 @@ public class Testing {
         System.out.println(sabana1.isEmpty());
         sabana1.addAnimal(manuel);
         System.out.println(sabana1.isEmpty());
-        System.out.println(AnimalEnum.animalToEnum(manuel));
+        System.out.println(AnimalEnum.classToEnum(manuel));
     }
 }
