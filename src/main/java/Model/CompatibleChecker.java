@@ -3,6 +3,9 @@ package Model;
 import Model.Enumerations.AnimalEnum;
 import Model.Especies.Animal;
 
+/**
+ * utility class con metodos para verificar compatibilidades entre animal-animal o animal-habitat
+ */
 public class CompatibleChecker {
     /**
      * Devuelve true o false dependiendo de si este par de animales individuales son compatibles para estar en un mismo
