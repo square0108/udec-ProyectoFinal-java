@@ -3,11 +3,12 @@ package Model;
 import Model.Enumerations.AnimalEnum;
 import Model.Enumerations.TerrenoEnum;
 import Model.Especies.Animal;
+import java.util.ArrayList;
 
 public abstract class Habitat {
     private final int poblacionMax;
     private final Alimento[] reservaAlimentos;
-    private final Animal[] animales;
+    private final ArrayList<Animal> animales;
     private final TerrenoEnum tipoTerreno;
     private final float temperatura;
 
@@ -24,7 +25,7 @@ public abstract class Habitat {
         this.temperatura = temperatura;
         this.poblacionMax = poblacionMax;
         this.reservaAlimentos = new Alimento[20]; /* limite arbitrario de "sacos de comida" */
-        this.animales = new Animal[poblacionMax]; /* representa los animales que habitan este habitat */
+        this.animales = new ArrayList<>(); /* representa los animales que habitan este habitat */
         this.tipoTerreno = tipoTerreno;
     }
 
@@ -45,9 +46,10 @@ public abstract class Habitat {
      * El nombre es bastante descriptivo.
      */
     public void removerAnimalesMuertos() {
-        for (int i = 0; i < animales.length; i++) {
-            if (animales[i] == null) break;
-            else if (animales[i].getPorcentajeComida() <= 0) {
+        for (int i = 0; i < animales.size(); i++) {
+            if (animales.get(i) == null) break;
+            else if (animales.get(i).getPorcentajeComida() <= 0) {
+                System.out.println("removed: " + animales.get(i));
                 removeAnimal(i);
             }
         }
@@ -60,7 +62,7 @@ public abstract class Habitat {
     public void addAnimal(Animal nuevoAnimal) {
         /* TODO: Reemplazar algunos de los if con exception handling? */
         /* Checkear si el habitat ya se encuentra lleno. */
-        if (animalesLengthNotNull() == poblacionMax) {
+        if (animales.size() == poblacionMax) {
             System.out.println("El habitat: " + this + " se encuentra lleno, no se pueden agregar mas animales.");
         }
         else {
@@ -69,23 +71,20 @@ public abstract class Habitat {
                 System.out.println("Error." + AnimalEnum.classToEnum(nuevoAnimal) + " no es compatible con este habitat.");
             }
             else{
-                for (int i = 0; i < poblacionMax; i++) {
+                for (int i = 0; i < animales.size(); i++) {
                     /* Para cada animal presente en el habitat, checkear si este es compatible con el animal nuevo.
                      *  TODO: Esto se podria optimizar checkeando solo las especies presentes en vez de animales individuales.*/
-                    if (animales[i] != null && CompatibleChecker.isCompatible(animales[i], nuevoAnimal) == false) {
-                        System.out.println("Error. " + AnimalEnum.classToEnum(nuevoAnimal) + " no es compatible con " + AnimalEnum.classToEnum(animales[i]));
-                        break;
-                    }
-                    /* Finalmente, se ha verificado que:
-                     * 1. el habitat no esta lleno
-                     * 2. el animal nuevo es compatible con el habitat
-                     * 3. el animal nuevo es compatible con todos los otros animales
-                     * por lo tanto, se agrega al habitat. */
-                    else if (animales[i] == null ) {
-                        animales[i] = nuevoAnimal;
-                        break;
+                    if (animales.get(i) != null && CompatibleChecker.isCompatible(animales.get(i), nuevoAnimal) == false) {
+                        System.out.println("Error. " + AnimalEnum.classToEnum(nuevoAnimal) + " no es compatible con " + AnimalEnum.classToEnum(animales.get(i)));
+                        return;
                     }
                 }
+                /* Finalmente, se ha verificado que:
+                 * 1. el habitat no esta lleno
+                 * 2. el animal nuevo es compatible con el habitat
+                 * 3. el animal nuevo es compatible con todos los otros animales
+                 * por lo tanto, se agrega al habitat. */
+                animales.add(nuevoAnimal);
             }
         }
     }
@@ -96,9 +95,9 @@ public abstract class Habitat {
      * @return Animal que se desea remover
      */
     public Animal removeAnimal(int index) {
-        if (animales[index] != null) {
-            Animal copy = animales[index];
-            animales[index] = null;
+        if (animales.get(index) != null) {
+            Animal copy = animales.get(index);
+            animales.remove(index);
             return copy;
         }
         System.out.println("Error, este habitat se encuentra vacio.");
@@ -114,16 +113,13 @@ public abstract class Habitat {
     }
 
     public boolean isEmpty() {
-        for (int i = 0; i < poblacionMax; i++) {
-            if (animales[i] != null) return false;
-        }
-        return true;
+        return animales.isEmpty();
     }
 
     private int animalesLengthNotNull() {
         int len = 0;
-        for (int i = 0; i < animales.length; i++) {
-            if (animales[i] != null) len++;
+        for (int i = 0; i < animales.size(); i++) {
+            if (animales.get(i) != null) len++;
             else break;
         }
         return len;

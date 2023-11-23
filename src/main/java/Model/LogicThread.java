@@ -17,7 +17,7 @@ public class LogicThread implements Runnable {
                 habitat.removerAnimalesMuertos();
             }
             try {
-                Thread.sleep(4000);
+                Thread.sleep(1000);
             } catch (InterruptedException e) {
                 return;
             }

@@ -52,7 +52,9 @@ public abstract class Animal {
             System.out.println(this + " ha muerto de hambre. :(");
 
         }
-        System.out.println("DEBUG: Animal " + this + " tiene " + porcentajeComida + "% hambre restante");
+        else {
+            System.out.println("DEBUG: Animal " + this + " tiene " + porcentajeComida + "% hambre restante");
+        }
     }
 
     /**
