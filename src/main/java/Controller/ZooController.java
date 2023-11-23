@@ -14,7 +14,7 @@ import java.util.ArrayList;
  * existente.
  */
 public class ZooController {
-    protected JFrame GUI; // PLACEHOLDER
+    protected JPanel GUI; // PLACEHOLDER
     protected ArrayList<Habitat> zooHabitats;
     protected LogicThread logicThread;
 
