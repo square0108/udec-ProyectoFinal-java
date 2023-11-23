@@ -15,21 +15,21 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import static Model.Enumerations.HabitatEnum.SABANA;
+
 // Implements Drawable despues
 public class VistaHabitat {
+    private Habitat habitat;
     private Point position;
     private int IMG_WIDTH;
     private int IMG_HEIGHT;
-    private HabitatEnum tipoHabitat;
     private ArrayList<VistaAnimal> animales;
-    private VistaAnimal animal;
     private BufferedImage texture;
-    public VistaHabitat(HabitatEnum tipo, int xPos, int yPos){
+    public VistaHabitat(Habitat habitat, int xPos, int yPos){
         animales = new ArrayList<VistaAnimal>();
         animales.add(new VistaAnimal(new Elefante()));
-        setTexture();
-
-        tipoHabitat = tipo;
+        this.habitat = habitat;
+        setTexture(habitat);
 
         IMG_WIDTH = 400;
         IMG_HEIGHT = 400;
@@ -44,8 +44,6 @@ public class VistaHabitat {
         g.drawImage(texture,(int) (position.getX() + parquePosition.getX()),
                 (int)(position.getY() + parquePosition.getY()),IMG_WIDTH,IMG_HEIGHT,imageObserver);
 
-        //g.fillRect((int) (position.getX() + parquePosition.getX()),
-          //      (int)(position.getY() + parquePosition.getY()),IMG_WIDTH,IMG_HEIGHT);
 
         // Aquí se deberian dibujar Los animalés
 
@@ -56,30 +54,25 @@ public class VistaHabitat {
             }
         }
     }
-    private void setTexture(){
+    private void setTexture(Habitat tipo){
+
         String texture_path;
 
-        /*
-        HAY QUE ARREGLAR ESTO, Y NO SE COMOOOOOOOOOOOOOOOOOOOO, LA CONCHA DE  LA LORAAAAaaaAAaaaaAAaaAaaaaAAaaaaa
-         */
-
-        /*
-        if (tipoHabitat != null){
-            texture_path = switch (tipoHabitat) {
-                case JUNGLA -> "src/main/java/resources/habitats/jungla.jpg";
-                case DESIERTO -> "src/main/java/resources/skins/error.png";
-                default -> "src/main/java/resources/skins/error.png";
-            };
-        }else{
-            texture_path = "src/main/java/resources/skins/error.png";
-            System.out.println("ERROR, EL HABITAT POSEE UN tipoHABITAT NULO");
+        switch (HabitatEnum.classToEnum(tipo)){
+            case SABANA:
+                texture_path = "src/main/java/resources/habitats/jungla.jpg";
+                break;
+            default:
+                texture_path = "src/main/java/resources/skins/error.png";
+                break;
         }
 
         try {
             this.texture = ImageIO.read(new File(texture_path));
         } catch (IOException e) {
-            System.out.println("TEXTURA NO ENCONTRADA!!!!! (VistaAnimal)");
-        }*/
+            System.out.println("TEXTURA NO ENCONTRADA!!!!! (VistaHabitat)");
+        }
+
     }
     public void addAnimal(VistaAnimal animal){
         animales.add(animal);

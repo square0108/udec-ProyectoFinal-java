@@ -1,6 +1,8 @@
 package Vista;
 
+import Controller.ZooController;
 import Model.Enumerations.HabitatEnum;
+import Model.Habitat;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -12,8 +14,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class VistaParque extends JPanel implements ActionListener {
-    private final int PANEL_WIDTH = 1280;
-    private final int PANEL_HEIGTH = 720;
+    private final int PANEL_WIDTH = 1600;
+    private final int PANEL_HEIGTH = 900;
     private BufferedImage fondo;
     private final int IMG_WIDTH= 2356;
     private final int IMG_HEIGTH= 1118;
@@ -60,7 +62,7 @@ public class VistaParque extends JPanel implements ActionListener {
         // Aquí deberiamos llamar a Draw, de distintas componentes de la cosita jajaj
         // Habitat.draw(g,xPos,yPos), cosas así
     }
-    public void addHabitat(HabitatEnum tipo,int x, int y){
+    public void addHabitat(Habitat tipo, int x, int y){
         VistaHabitat habitat = new VistaHabitat(tipo,x,y);
         habitats.add(habitat);
     }
