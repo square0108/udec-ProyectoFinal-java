@@ -1,5 +1,6 @@
 package Model;
 
+import Model.Enumerations.AnimalEnum;
 import Model.Enumerations.TerrenoEnum;
 import Model.Especies.Animal;
 
@@ -41,26 +42,38 @@ public abstract class Habitat {
     }
 
     /**
+     * El nombre es bastante descriptivo.
+     */
+    public void removerAnimalesMuertos() {
+        for (int i = 0; i < animales.length; i++) {
+            if (animales[i] == null) break;
+            else if (animales[i].getPorcentajeComida() <= 0) {
+                removeAnimal(i);
+            }
+        }
+    }
+
+    /**
      * Agrega un nuevo animal a este habitat. Debe pasar por varios checks logicos de compatibilidad.
      * @param nuevoAnimal Animal nuevo a agregar
      */
     public void addAnimal(Animal nuevoAnimal) {
         /* TODO: Reemplazar algunos de los if con exception handling? */
         /* Checkear si el habitat ya se encuentra lleno. */
-        if (!this.isEmpty()) {
+        if (animalesLengthNotNull() == poblacionMax) {
             System.out.println("El habitat: " + this + " se encuentra lleno, no se pueden agregar mas animales.");
         }
         else {
             /* Checkear si este animal es compatible con el habitat */
             if (CompatibleChecker.isCompatible(nuevoAnimal, this) == false) {
-                System.out.println("Este animal no es compatible con este habitat.");
+                System.out.println("Error." + AnimalEnum.classToEnum(nuevoAnimal) + " no es compatible con este habitat.");
             }
             else{
                 for (int i = 0; i < poblacionMax; i++) {
                     /* Para cada animal presente en el habitat, checkear si este es compatible con el animal nuevo.
                      *  TODO: Esto se podria optimizar checkeando solo las especies presentes en vez de animales individuales.*/
                     if (animales[i] != null && CompatibleChecker.isCompatible(animales[i], nuevoAnimal) == false) {
-                        System.out.println("Este animal es incompatible con: " + animales[i].getClass());
+                        System.out.println("Error. " + AnimalEnum.classToEnum(nuevoAnimal) + " no es compatible con " + AnimalEnum.classToEnum(animales[i]));
                         break;
                     }
                     /* Finalmente, se ha verificado que:
@@ -78,23 +91,19 @@ public abstract class Habitat {
     }
 
     /**
-     * Remueve un animal del habitat.
-     * TODO: esta implementacion no esta lista!, debe poder removerse un animal en especifico.
+     * Remueve un animal del habitat en el indice especifico.
+     * @param index indice del arreglo
      * @return Animal que se desea remover
      */
-    public Animal removeAnimal() {
-        for (int i = 0; i < poblacionMax; i++) {
-            if (animales[i] != null) {
-                Animal copy = animales[i];
-                animales[i] = null;
-                return copy;
-            }
+    public Animal removeAnimal(int index) {
+        if (animales[index] != null) {
+            Animal copy = animales[index];
+            animales[index] = null;
+            return copy;
         }
         System.out.println("Error, este habitat se encuentra vacio.");
         return null;
     }
-
-    public Animal[] getAnimales() {return this.animales;}
 
     public TerrenoEnum getTipoTerreno() {
         return tipoTerreno;
@@ -109,5 +118,14 @@ public abstract class Habitat {
             if (animales[i] != null) return false;
         }
         return true;
+    }
+
+    private int animalesLengthNotNull() {
+        int len = 0;
+        for (int i = 0; i < animales.length; i++) {
+            if (animales[i] != null) len++;
+            else break;
+        }
+        return len;
     }
 }

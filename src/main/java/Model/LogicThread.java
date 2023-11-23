@@ -14,6 +14,7 @@ public class LogicThread implements Runnable {
         while(true) {
             for (Habitat habitat : habitats) {
                 habitat.actualizarHambreAnimales();
+                habitat.removerAnimalesMuertos();
             }
             try {
                 Thread.sleep(4000);
