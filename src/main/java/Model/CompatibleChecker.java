@@ -3,10 +3,10 @@ package Model;
 import Model.Enumerations.AnimalEnum;
 import Model.Especies.Animal;
 
+/**
+ * utility class con metodos para verificar compatibilidades entre animal-animal o animal-habitat
+ */
 public class CompatibleChecker {
-    /* TODO: implementar compatibilidad entre animales tal que este metodo no requiera que animalesCompatibles[0] sea
-     *   siempre una constante especifica. */
-
     /**
      * Devuelve true o false dependiendo de si este par de animales individuales son compatibles para estar en un mismo
      * habitat. Este metodo DEPENDE de que el primer elemento en la lista de compatibilidad en cualquier animal sea
@@ -16,10 +16,16 @@ public class CompatibleChecker {
      * @return booleano que describe la relacion de compatibilidad
      */
     public static boolean isCompatible(Animal animal1, Animal animal2) {
-        AnimalEnum[] List = animal1.animalesCompatibles();
+        /* TODO: devolver todos los animales que no son compatibles */
+        AnimalEnum[] List1 = animal1.animalesCompatibles();
+        AnimalEnum[] List2 = animal2.animalesCompatibles();
 
-        for (int i = 0; i < List.length; i++) {
-            if (List[i] == animal2.animalesCompatibles()[0]) return true;
+        for (AnimalEnum anEnum : List1) {
+            if (anEnum == AnimalEnum.classToEnum(animal2)) return true;
+        }
+        /* Checkea ambas listas *por si acaso*. ¿Será esto un error? */
+        for (AnimalEnum animalEnum : List2) {
+            if (animalEnum == AnimalEnum.classToEnum(animal1)) return true;
         }
 
         return false;
