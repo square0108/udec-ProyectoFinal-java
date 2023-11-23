@@ -19,6 +19,7 @@ public class CompatibleChecker {
         for (AnimalEnum anEnum : List1) {
             if (anEnum == AnimalEnum.animalToEnum(animal2)) return true;
         }
+        /* Checkea ambas listas *por si acaso*. ¿Será esto un error? */
         for (AnimalEnum animalEnum : List2) {
             if (animalEnum == AnimalEnum.animalToEnum(animal1)) return true;
         }
