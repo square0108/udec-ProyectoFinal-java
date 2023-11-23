@@ -13,6 +13,7 @@ public class CompatibleChecker {
      * @return booleano que describe la relacion de compatibilidad
      */
     public static boolean isCompatible(Animal animal1, Animal animal2) {
+        /* TODO: devolver todos los animales que no son compatibles */
         AnimalEnum[] List1 = animal1.animalesCompatibles();
         AnimalEnum[] List2 = animal2.animalesCompatibles();
 
