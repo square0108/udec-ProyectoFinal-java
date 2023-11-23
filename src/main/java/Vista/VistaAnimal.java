@@ -17,6 +17,10 @@ import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 
+/*
+TODO: Sistema de movimiento / animaciones Animales
+TODO: hacer mas escalable las skins
+ */
 // Implements Drawable despues
 public class VistaAnimal implements ActionListener {
     final private Animal animal;
@@ -67,7 +71,7 @@ public class VistaAnimal implements ActionListener {
     private void setTexture(){
         String texture_path = "src/main/java/resources/skins/error.png";
         if(animal instanceof Elefante){
-          texture_path = "src/main/java/resources/skins/error.png"; // cambiar luego
+          texture_path = "src/main/java/resources/skins/elephant.png"; // cambiar luego
         } else if (animal instanceof Jirafa) {
             texture_path = "";
         } else if (animal instanceof Leon) {
