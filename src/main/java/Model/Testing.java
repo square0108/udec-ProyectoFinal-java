@@ -2,6 +2,7 @@ package Model;
 
 import Model.EntornosHabitat.Sabana;
 import Model.Especies.*;
+import Model.Enumerations.*;
 
 public class Testing {
     public static void main(String[] args) {
@@ -13,5 +14,6 @@ public class Testing {
         System.out.println(sabana1.isEmpty());
         sabana1.addAnimal(manuel);
         System.out.println(sabana1.isEmpty());
+        System.out.println(AnimalEnum.classToEnum(manuel));
     }
 }

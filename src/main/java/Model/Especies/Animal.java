@@ -11,7 +11,7 @@ public abstract class Animal {
     private int porcentajeComida;
     private final int gananciaHambre;
     private final float rangoTemperatura[]; // celsius
-    private Timer hambreTimer;
+    private Timer HambreTimer;
 
     /**
      * Clase que simula las propiedades comunes a todos los animales del zoologico.
@@ -28,8 +28,6 @@ public abstract class Animal {
         this.rangoTemperatura = new float[]{limInferiorTemperatura, limSuperiorTemperatura};
         this.porcentajeComida = 100;
         this.gananciaHambre = gananciaHambre;
-
-        this.hambreTimer = new Timer();
     }
 
     /**
@@ -50,6 +48,13 @@ public abstract class Animal {
      */
     public void ganarHambre() {
         porcentajeComida = porcentajeComida - gananciaHambre;
+        if (porcentajeComida <= 0) {
+            System.out.println(this + " ha muerto de hambre. :(");
+
+        }
+        else {
+            System.out.println("DEBUG: Animal " + this + " tiene " + porcentajeComida + "% hambre restante");
+        }
     }
 
     /**
@@ -66,6 +71,9 @@ public abstract class Animal {
     public float[] getRangoTemperatura() {
         return rangoTemperatura;
     }
-    public int getPorcentajeComida(){return porcentajeComida;}
+
+    public int getPorcentajeComida() {
+        return this.porcentajeComida;
+    }
 }
 

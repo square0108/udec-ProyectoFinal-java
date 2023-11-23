@@ -11,8 +11,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import static Model.Enumerations.HabitatEnum.JUNGLA;
-
 public class VistaParque extends JPanel implements ActionListener {
     private final int PANEL_WIDTH = 1280;
     private final int PANEL_HEIGTH = 720;

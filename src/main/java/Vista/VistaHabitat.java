@@ -63,6 +63,7 @@ public class VistaHabitat {
         HAY QUE ARREGLAR ESTO, Y NO SE COMOOOOOOOOOOOOOOOOOOOO, LA CONCHA DE  LA LORAAAAaaaAAaaaaAAaaAaaaaAAaaaaa
          */
 
+        /*
         if (tipoHabitat != null){
             texture_path = switch (tipoHabitat) {
                 case JUNGLA -> "src/main/java/resources/habitats/jungla.jpg";
@@ -78,7 +79,7 @@ public class VistaHabitat {
             this.texture = ImageIO.read(new File(texture_path));
         } catch (IOException e) {
             System.out.println("TEXTURA NO ENCONTRADA!!!!! (VistaAnimal)");
-        }
+        }*/
     }
     public void addAnimal(VistaAnimal animal){
         animales.add(animal);
