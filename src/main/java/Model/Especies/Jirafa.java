@@ -1,16 +1,16 @@
 package Model.Especies;
 
-import Model.Enumerations.AnimalEnum;
+import Model.Enumerations.EspeciesEnum;
 import Model.Enumerations.TerrenoEnum;
 
 public class Jirafa extends Animal {
-    private static final AnimalEnum[] animalesCompatiblesList = {AnimalEnum.JIRAFA, AnimalEnum.ELEFANTE};
+    private static final EspeciesEnum[] animalesCompatiblesList = {EspeciesEnum.JIRAFA, EspeciesEnum.ELEFANTE};
     public Jirafa() {
         super(TerrenoEnum.TERRESTRE,10, 18.0F, 32.0F);
     }
 
     @Override
-    public AnimalEnum[] animalesCompatibles() {
+    public EspeciesEnum[] animalesCompatibles() {
         return animalesCompatiblesList;
     }
 }

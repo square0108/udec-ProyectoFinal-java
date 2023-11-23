@@ -17,9 +17,9 @@ public enum HabitatEnum {
      * @param habitat instancia de una subclase de Habitat
      * @return constante equivalente/representante del habitat ingresado
      */
-    public static AnimalEnum classToEnum(Habitat habitat) {
-        for (int i = 0; i < AnimalEnum.values().length; i++) {
-            if (habitat.getClass() == AnimalEnum.values()[i].claseAsociada) return AnimalEnum.values()[i];
+    public static EspeciesEnum classToEnum(Habitat habitat) {
+        for (int i = 0; i < EspeciesEnum.values().length; i++) {
+            if (habitat.getClass() == EspeciesEnum.values()[i].claseAsociada) return EspeciesEnum.values()[i];
         }
         // todo: exception handling
         System.out.println("Error en el metodo animalToEnum(); Input: " + habitat + "; Ninguna constante corresponde con esta clase.");

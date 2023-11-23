@@ -1,6 +1,6 @@
 package Model;
 
-import Model.Enumerations.AnimalEnum;
+import Model.Enumerations.EspeciesEnum;
 import Model.Enumerations.TerrenoEnum;
 import Model.Especies.Animal;
 import java.util.ArrayList;
@@ -69,14 +69,14 @@ public abstract class Habitat {
         else {
             /* Checkear si este animal es compatible con el habitat */
             if (CompatibleChecker.isCompatible(nuevoAnimal, this) == false) {
-                System.out.println("Error." + AnimalEnum.classToEnum(nuevoAnimal) + " no es compatible con este habitat.");
+                System.out.println("Error." + EspeciesEnum.classToEnum(nuevoAnimal) + " no es compatible con este habitat.");
             }
             else{
                 for (int i = 0; i < animales.size(); i++) {
                     /* Para cada animal presente en el habitat, checkear si este es compatible con el animal nuevo.
                      *  TODO: Esto se podria optimizar checkeando solo las especies presentes en vez de animales individuales.*/
                     if (animales.get(i) != null && CompatibleChecker.isCompatible(animales.get(i), nuevoAnimal) == false) {
-                        System.out.println("Error. " + AnimalEnum.classToEnum(nuevoAnimal) + " no es compatible con " + AnimalEnum.classToEnum(animales.get(i)));
+                        System.out.println("Error. " + EspeciesEnum.classToEnum(nuevoAnimal) + " no es compatible con " + EspeciesEnum.classToEnum(animales.get(i)));
                         return;
                     }
                 }

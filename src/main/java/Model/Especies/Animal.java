@@ -1,7 +1,7 @@
 package Model.Especies;
 
 import Model.Alimento;
-import Model.Enumerations.AnimalEnum;
+import Model.Enumerations.EspeciesEnum;
 import Model.Enumerations.TerrenoEnum;
 
 import java.util.Timer;
@@ -62,7 +62,7 @@ public abstract class Animal {
      * deben tener a la misma subclase como la primera constante (indice 0) del arreglo retornado.
      * @return array de AnimalEnum conteniendo solo las constantes que representan los animales compatibles con este animal.
      */
-    public abstract AnimalEnum[] animalesCompatibles();
+    public abstract EspeciesEnum[] animalesCompatibles();
 
     public TerrenoEnum getTipoTerreno() {
         return this.tipoTerreno;
