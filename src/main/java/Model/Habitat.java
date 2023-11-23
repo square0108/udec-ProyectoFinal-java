@@ -27,14 +27,14 @@ public abstract class Habitat {
         this.tipoTerreno = tipoTerreno;
     }
 
-    public boolean isEmpty() {
-        for (int i = 0; i < poblacionMax; i++) {
-            if (animales[i] != null) return false;
+    public void actualizarHambreAnimales() {
+        for (Animal animal : this.animales) {
+            if (animal == null) break;
+            else {
+                animal.ganarHambre();
+            }
         }
-        return true;
     }
-
-    public Animal[] getHabitantes() {return this.animales;}
 
     /**
      * Agrega un nuevo animal a este habitat. Debe pasar por varios checks logicos de compatibilidad.
@@ -90,11 +90,20 @@ public abstract class Habitat {
         return null;
     }
 
+    public Animal[] getAnimales() {return this.animales;}
+
     public TerrenoEnum getTipoTerreno() {
         return tipoTerreno;
     }
 
     public float getTemperatura() {
         return temperatura;
+    }
+
+    public boolean isEmpty() {
+        for (int i = 0; i < poblacionMax; i++) {
+            if (animales[i] != null) return false;
+        }
+        return true;
     }
 }
