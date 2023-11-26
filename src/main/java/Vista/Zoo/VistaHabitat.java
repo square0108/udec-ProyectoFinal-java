@@ -1,10 +1,7 @@
 package Vista;
 
 import Model.Enumerations.HabitatEnum;
-import Model.Especies.Animal;
 import Model.Especies.Elefante;
-import Model.Especies.Jirafa;
-import Model.Especies.Leon;
 import Model.Habitat;
 
 import javax.imageio.ImageIO;
@@ -14,8 +11,6 @@ import java.awt.image.ImageObserver;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-
-import static Model.Enumerations.HabitatEnum.SABANA;
 
 // Implements Drawable despues
 public class VistaHabitat {
@@ -55,9 +50,7 @@ public class VistaHabitat {
         }
     }
     private void setTexture(Habitat tipo){
-
         String texture_path;
-
         switch (HabitatEnum.classToEnum(tipo)){
             case SABANA:
                 texture_path = "src/main/java/resources/habitats/jungla.jpg";
@@ -66,7 +59,6 @@ public class VistaHabitat {
                 texture_path = "src/main/java/resources/skins/error.png";
                 break;
         }
-
         try {
             this.texture = ImageIO.read(new File(texture_path));
         } catch (IOException e) {
@@ -75,7 +67,11 @@ public class VistaHabitat {
 
     }
     public void addAnimal(VistaAnimal animal){
+        habitat.addAnimal(animal.getAnimal());
         animales.add(animal);
+    }
+    public Habitat getHabitat(){
+        return this.habitat;
     }
     public int getWidth(){
         return IMG_WIDTH;

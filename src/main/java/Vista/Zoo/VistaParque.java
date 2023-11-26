@@ -14,7 +14,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class VistaParque extends JPanel implements ActionListener {
-    private final int PANEL_WIDTH = 1600;
+    private final int PANEL_WIDTH = 1400;
     private final int PANEL_HEIGTH = 900;
     private BufferedImage fondo;
     private final int IMG_WIDTH= 2356;

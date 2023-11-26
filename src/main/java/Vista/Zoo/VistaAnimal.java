@@ -8,7 +8,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
 import java.awt.image.ImageObserver;
 import java.io.File;
@@ -20,17 +19,15 @@ TODO: hacer mas escalable las skins
  */
 // Implements Drawable despues
 public class VistaAnimal implements ActionListener {
-    final private int animationSize = 250;
+    final private Animal animal;
     private int state; // Es por ahora nomas, tiene que cambiar por enum
+    final private int animationSize = 250; // Pixeles que tiene en pixeles un frame de animación
     private int currentFrame;
     private int cantFrames;
-    final private Animal animal;
     private int animalSize;
-    private int xVelocity = 1;
-    private int yVelocity = 1;
+    private int Velocity = 1;
     private BufferedImage texture;
     private Timer timer;
-    private int radiousWalk;
     private Point position;
     private Point trackingPoint;
     public VistaAnimal(Animal animal){
@@ -43,7 +40,6 @@ public class VistaAnimal implements ActionListener {
         animalSize = 250;
 
         setTexture();
-        radiousWalk = 100;
         trackingPoint = new Point(10,10);
         position = new Point(10,10);
         timer = new Timer(250,this);
@@ -72,7 +68,6 @@ public class VistaAnimal implements ActionListener {
      * @param habitatHeight Alto del habitat
      */
     public void updatePosition(int habitatWidth, int habitatHeight){
-
         switch (this.state){
             case 0: // Quieto
                 System.out.println("Esta quieto!!!!");
@@ -94,7 +89,7 @@ public class VistaAnimal implements ActionListener {
                     double deltaY = trackingPoint.getY() - position.getY();
                     double distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
 
-                    double ratio = xVelocity / distance;
+                    double ratio = Velocity / distance;
                     double moveX = ratio * deltaX;
                     double moveY = ratio * deltaY;
 
@@ -111,20 +106,14 @@ public class VistaAnimal implements ActionListener {
                 break;
 
         }
-        /*
-        if((int)position.getX()<0 || habitatWidth-50<(int)position.getX()){
-            xVelocity = xVelocity * -1;
-        }
-        if((int)position.getY()<0 || habitatHeight-50<(int)position.getY()){
-            yVelocity = yVelocity * -1;
-        }
-        position.setLocation(position.getX() + xVelocity, position.getY()+ yVelocity);*/
     }
 
     /**
      * Funcion usada por VistaAnimal, para configurar la textura que se usara en este.
      */
     private void setTexture(){
+        // Se podria mejorar esto si Animales guardaces su path "animal.png"
+
         String texture_path = switch (AnimalEnum.classToEnum(this.animal)) {
             case ELEFANTE -> "src/main/java/resources/skins/elephant.png";
             case LEON -> "src/main/java/resources/skins/animation_tile.png";
@@ -139,7 +128,10 @@ public class VistaAnimal implements ActionListener {
         }
     }
     public void changeState(){
+    }
 
+    public Animal getAnimal(){
+        return animal;
     }
     @Override
     public void actionPerformed(ActionEvent e) {
