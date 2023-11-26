@@ -1,4 +1,4 @@
-package Vista;
+package Vista.Zoo;
 
 import Model.Enumerations.AnimalEnum;
 import Model.Especies.Animal;

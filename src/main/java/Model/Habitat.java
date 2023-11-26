@@ -69,6 +69,8 @@ public abstract class Habitat {
         else {
             /* Checkear si este animal es compatible con el habitat */
             if (CompatibleChecker.isCompatible(nuevoAnimal, this) == false) {
+                /*TODO: QUizas seria bueno poner un error aquí para atraparlo en vista y mostrar un
+                *  mensaje cuando no se pueda poner un animal*/
                 System.out.println("Error." + AnimalEnum.classToEnum(nuevoAnimal) + " no es compatible con este habitat.");
             }
             else{

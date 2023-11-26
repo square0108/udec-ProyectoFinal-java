@@ -1,7 +1,5 @@
-package Vista;
+package Vista.Zoo;
 
-import Controller.ZooController;
-import Model.Enumerations.HabitatEnum;
 import Model.Habitat;
 
 import javax.imageio.ImageIO;
