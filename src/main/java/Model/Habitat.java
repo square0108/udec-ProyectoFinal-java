@@ -1,8 +1,14 @@
 package Model;
 
 import Model.Enumerations.EspeciesEnum;
+import Model.Enumerations.EstadosEnum;
+import Model.Enumerations.HabitatEnum;
 import Model.Enumerations.TerrenoEnum;
 import Model.Especies.Animal;
+import Model.Exceptions.AnimalesIncompatiblesException;
+import Model.Exceptions.HabitatIncompatibleException;
+import Model.Exceptions.HabitatLlenoException;
+
 import java.util.ArrayList;
 
 public abstract class Habitat {
@@ -49,7 +55,7 @@ public abstract class Habitat {
     public void removerAnimalesMuertos() {
         for (int i = 0; i < animales.size(); i++) {
             if (animales.get(i) == null) break;
-            else if (animales.get(i).getPorcentajeComida() <= 0) {
+            else if (animales.get(i).getEstado() == EstadosEnum.MUERTO) {
                 System.out.println("removed: " + animales.get(i));
                 removeAnimal(i);
             }
@@ -61,32 +67,40 @@ public abstract class Habitat {
      * @param nuevoAnimal Animal nuevo a agregar
      */
     public void addAnimal(Animal nuevoAnimal) {
-        /* TODO: Reemplazar algunos de los if con exception handling? */
-        /* Checkear si el habitat ya se encuentra lleno. */
-        if (animales.size() == poblacionMax) {
-            System.out.println("El habitat: " + this + " se encuentra lleno, no se pueden agregar mas animales.");
-        }
-        else {
+        try {
+            /* Checkear si el habitat ya se encuentra lleno. */
+            if (animales.size() >= poblacionMax) {
+                throw new HabitatLlenoException();
+            }
+
             /* Checkear si este animal es compatible con el habitat */
-            if (CompatibleChecker.isCompatible(nuevoAnimal, this) == false) {
-                System.out.println("Error." + EspeciesEnum.classToEnum(nuevoAnimal) + " no es compatible con este habitat.");
+            if (!CompatibleChecker.isCompatible(nuevoAnimal, this)) {
+                throw new HabitatIncompatibleException();
             }
-            else{
-                for (int i = 0; i < animales.size(); i++) {
-                    /* Para cada animal presente en el habitat, checkear si este es compatible con el animal nuevo.
-                     *  TODO: Esto se podria optimizar checkeando solo las especies presentes en vez de animales individuales.*/
-                    if (animales.get(i) != null && CompatibleChecker.isCompatible(animales.get(i), nuevoAnimal) == false) {
-                        System.out.println("Error. " + EspeciesEnum.classToEnum(nuevoAnimal) + " no es compatible con " + EspeciesEnum.classToEnum(animales.get(i)));
-                        return;
-                    }
+
+            for (Animal animal : animales) {
+                /* Para cada animal presente en el habitat, checkear si este es compatible con el animal nuevo.
+                 *  TODO: Esto se podria optimizar checkeando solo las especies presentes en vez de animales individuales.*/
+                if (animal != null && !CompatibleChecker.isCompatible(animal, nuevoAnimal)) {
+                    throw new AnimalesIncompatiblesException();
                 }
-                /* Finalmente, se ha verificado que:
-                 * 1. el habitat no esta lleno
-                 * 2. el animal nuevo es compatible con el habitat
-                 * 3. el animal nuevo es compatible con todos los otros animales
-                 * por lo tanto, se agrega al habitat. */
-                animales.add(nuevoAnimal);
             }
+
+            /* Finalmente, se ha verificado que:
+             * 1. el habitat no esta lleno
+             * 2. el animal nuevo es compatible con el habitat
+             * 3. el animal nuevo es compatible con todos los otros animales
+             * por lo tanto, se agrega al habitat. */
+            animales.add(nuevoAnimal);
+        }
+        catch(AnimalesIncompatiblesException exc) {
+            System.out.println("El animal: " + EspeciesEnum.classToEnum(nuevoAnimal) + ", no es compatible con alguno de los animales presentes en " + this);
+        }
+        catch (HabitatIncompatibleException exc) {
+            System.out.println("El animal: " + nuevoAnimal + "no es compatible con el habitat: " + HabitatEnum.classToEnum(this));
+        }
+        catch (HabitatLlenoException exc) {
+            System.out.println("El habitat: " + this + " ya se encuentra lleno.");
         }
     }
 
