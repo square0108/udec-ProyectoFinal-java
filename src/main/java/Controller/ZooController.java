@@ -44,4 +44,9 @@ public class ZooController {
             habitat.removerAnimalesMuertos();
         }
     }
+    public void simularMovimiento() {
+        for (Habitat habitat : zooHabitats) {
+            habitat.intentarMoverAnimales();
+        }
+    }
 }
