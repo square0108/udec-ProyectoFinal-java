@@ -1,7 +1,10 @@
 package Vista;
 
 import Model.EntornosHabitat.Sabana;
+import Model.Especies.Elefante;
+import Model.Especies.Jirafa;
 import Vista.Menu.VistaMenu;
+import Vista.Zoo.VistaAnimal;
 import Vista.Zoo.VistaParque;
 
 import javax.imageio.ImageIO;
@@ -21,8 +24,11 @@ public class VistaPrincipal extends JFrame {
     public VistaPrincipal() {
         zoo = new VistaParque();
         zoo.addHabitat(new Sabana(), 10,10);
+        zoo.addAnimal(0,new VistaAnimal(new Elefante()));
+        zoo.addAnimal(0,new VistaAnimal(new Jirafa()));
         menu = new VistaMenu();
 
+        this.setPreferredSize(new Dimension(1600,900));
         this.setLayout(new BorderLayout());
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.add(zoo,BorderLayout.CENTER);

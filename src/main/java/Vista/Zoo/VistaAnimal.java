@@ -37,7 +37,7 @@ public class VistaAnimal implements ActionListener {
         currentFrame = 0;
         //----
         this.animal = animal;
-        animalSize = 250;
+        animalSize = 100;
 
         setTexture();
         trackingPoint = new Point(10,10);

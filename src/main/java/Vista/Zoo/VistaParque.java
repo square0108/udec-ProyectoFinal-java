@@ -1,5 +1,6 @@
 package Vista.Zoo;
 
+import Model.Especies.Animal;
 import Model.Habitat;
 
 import javax.imageio.ImageIO;
@@ -64,7 +65,13 @@ public class VistaParque extends JPanel implements ActionListener {
         VistaHabitat habitat = new VistaHabitat(tipo,x,y);
         habitats.add(habitat);
     }
-
+    /*
+    * Añade un Animal en el habitat con el Id utilizado en el metodo
+    * TODO: Esto quizas deberia pedir una clase ANIMAL dentro, no un VistaAnimal
+    * */
+    public void addAnimal(int id, VistaAnimal animal) {
+        habitats.get(id).addAnimal(animal);
+    }
     public ArrayList<VistaHabitat> getVistaHabitats(){
         return habitats;
     }

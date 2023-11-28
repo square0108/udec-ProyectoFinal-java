@@ -1,9 +1,14 @@
 package Vista;
 
 public class ControllerTest {
-    private static VistaPrincipal principal;
+    private final VistaPrincipal principal;
 
-    public ControllerTest(){
+    public ControllerTest(VistaPrincipal vistaPrincipal) {
+        principal = vistaPrincipal;
+    }
+
+    public static void addAnimal(){
 
     }
+
 }
