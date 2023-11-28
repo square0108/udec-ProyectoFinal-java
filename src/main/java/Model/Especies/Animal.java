@@ -63,9 +63,14 @@ public abstract class Animal {
     }
 
     /**
-     * Metodo que hace al animal sentir hambre. La tasa de cambio es proporcional a gananciaHambre, una propiedad unica
-     * a cada especie.
-     * Animales muertos no ganan hambre.
+     * Animal pierde porcentajeComida proporcionalmente a la tasa de cambio gananciaHambre, la cual es inicializada
+     * de forma única por cada especie subclase de Animal.
+     * La cadena lógica es:
+     * 1. revisar si el animal está muerto, en este caso no gana hambre
+     * 2. revisar si el animal está comiendo, si es así ocurre una llamda de thread.sleep sin que gane hambre
+     * 3. si el animal está pasivo o moviéndose, pierde porcentajeComida.
+     * 4. si esta variable bajó de 0, el animal muere.
+     * 5. si esta variable
      */
     public void ganarHambre() {
         /* Siempre revisar que el animal no este muerto.
@@ -95,9 +100,6 @@ public abstract class Animal {
         if (porcentajeComida < MINIMO_PARA_ALIMENTARSE) {
             comer();
         }
-
-        /* Debugging print */
-        System.out.println("DEBUG: Animal " + this + " tiene " + porcentajeComida + "% hambre restante");
     }
 
     /**
