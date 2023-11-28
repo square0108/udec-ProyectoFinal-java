@@ -1,6 +1,6 @@
 package Model;
 
-import Model.Enumerations.AnimalEnum;
+import Model.Enumerations.EspeciesEnum;
 import Model.Especies.Animal;
 
 /**
@@ -17,15 +17,15 @@ public class CompatibleChecker {
      */
     public static boolean isCompatible(Animal animal1, Animal animal2) {
         /* TODO: devolver todos los animales que no son compatibles */
-        AnimalEnum[] List1 = animal1.animalesCompatibles();
-        AnimalEnum[] List2 = animal2.animalesCompatibles();
+        EspeciesEnum[] List1 = animal1.animalesCompatibles();
+        EspeciesEnum[] List2 = animal2.animalesCompatibles();
 
-        for (AnimalEnum anEnum : List1) {
-            if (anEnum == AnimalEnum.classToEnum(animal2)) return true;
+        for (EspeciesEnum anEnum : List1) {
+            if (anEnum == EspeciesEnum.classToEnum(animal2)) return true;
         }
         /* Checkea ambas listas *por si acaso*. ¿Será esto un error? */
-        for (AnimalEnum animalEnum : List2) {
-            if (animalEnum == AnimalEnum.classToEnum(animal1)) return true;
+        for (EspeciesEnum especiesEnum : List2) {
+            if (especiesEnum == EspeciesEnum.classToEnum(animal1)) return true;
         }
 
         return false;

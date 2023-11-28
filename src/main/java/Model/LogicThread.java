@@ -1,23 +1,22 @@
 package Model;
 
-import java.util.ArrayList;
+import Controller.ZooController;
+
 
 public class LogicThread implements Runnable {
-    protected ArrayList<Habitat> habitats;
+    protected ZooController controller;
 
-    public LogicThread(ArrayList<Habitat> allHabitats) {
-        this.habitats = allHabitats;
+    public LogicThread(ZooController controller) {
+        this.controller = controller;
     }
 
     @Override
     public void run() {
         while(true) {
-            for (Habitat habitat : habitats) {
-                habitat.actualizarHambreAnimales();
-                habitat.removerAnimalesMuertos();
-            }
+            controller.removerTodosLosMuertos();
+            controller.actualizarHambreTodos();
             try {
-                Thread.sleep(1000);
+                Thread.sleep(ZooController.LOGIC_TICKRATE_MS);
             } catch (InterruptedException e) {
                 return;
             }

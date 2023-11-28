@@ -2,12 +2,12 @@ package Model.Enumerations;
 
 import Model.Especies.*;
 
-public enum AnimalEnum {
+public enum EspeciesEnum {
     LEON(Leon.class), JIRAFA(Jirafa.class), ELEFANTE(Elefante.class);
 
     Class<?> claseAsociada;
 
-    AnimalEnum(Class<?> claseEspecie) {
+    EspeciesEnum(Class<?> claseEspecie) {
         this.claseAsociada = claseEspecie;
     }
 
@@ -16,9 +16,9 @@ public enum AnimalEnum {
      * @param animal instancia de una especie
      * @return constante equivalente/representante de la especie ingresada
      */
-    public static AnimalEnum classToEnum(Animal animal) {
-        for (int i = 0; i < AnimalEnum.values().length; i++) {
-            if (animal.getClass() == AnimalEnum.values()[i].claseAsociada) return AnimalEnum.values()[i];
+    public static EspeciesEnum classToEnum(Animal animal) {
+        for (int i = 0; i < EspeciesEnum.values().length; i++) {
+            if (animal.getClass() == EspeciesEnum.values()[i].claseAsociada) return EspeciesEnum.values()[i];
         }
         // todo: exception handling
         System.out.println("Error en el metodo animalToEnum(); Input: " + animal + "; Ninguna constante corresponde con esta clase.");

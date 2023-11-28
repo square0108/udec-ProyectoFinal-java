@@ -1,8 +1,10 @@
 package Controller;
 
 import Model.*;
-import Model.Enumerations.HabitatEnum;
 import Model.Especies.Animal;
+import Model.Exceptions.AnimalesIncompatiblesException;
+import Model.Exceptions.HabitatIncompatibleException;
+import Model.Exceptions.HabitatLlenoException;
 import Vista.*;
 
 import javax.swing.*;
@@ -17,10 +19,11 @@ public class ZooController {
     protected JFrame GUI; // PLACEHOLDER
     protected ArrayList<Habitat> zooHabitats;
     protected LogicThread logicThread;
+    public static final int LOGIC_TICKRATE_MS = 1000; /* frecuencia con la cual LogicThread hace thread.sleep */
 
     public ZooController() {
         this.zooHabitats = new ArrayList<>();
-        this.logicThread = new LogicThread(zooHabitats);
+        this.logicThread = new LogicThread(this);
 
         Thread mainThread = new Thread(logicThread);
         mainThread.start();
@@ -28,7 +31,17 @@ public class ZooController {
     public void nuevoHabitat(Habitat tipo) {
         zooHabitats.add(tipo);
     }
-    public void addAnimal(Animal animal, int habitatIndex) {
+    public void addAnimal(Animal animal, int habitatIndex) throws HabitatLlenoException, AnimalesIncompatiblesException, HabitatIncompatibleException {
         zooHabitats.get(habitatIndex).addAnimal(animal);
+    }
+    public void actualizarHambreTodos() {
+        for (Habitat habitat : zooHabitats) {
+            habitat.actualizarHambreAnimales();
+        }
+    }
+    public void removerTodosLosMuertos() {
+        for (Habitat habitat : zooHabitats) {
+            habitat.removerAnimalesMuertos();
+        }
     }
 }
