@@ -1,14 +1,14 @@
 package Model.Especies;
 
-import Model.Enumerations.AnimalEnum;
+import Model.Enumerations.EspeciesEnum;
 import Model.Enumerations.TerrenoEnum;
 
 public class Elefante extends Animal {
-    private static final AnimalEnum[] animalesCompatiblesList = {AnimalEnum.ELEFANTE, AnimalEnum.JIRAFA};
+    private static final EspeciesEnum[] animalesCompatiblesList = {EspeciesEnum.ELEFANTE, EspeciesEnum.JIRAFA};
     public Elefante() {super(TerrenoEnum.TERRESTRE,15, 18.0F, 42.0F);}
 
     @Override
-    public AnimalEnum[] animalesCompatibles() {
+    public EspeciesEnum[] animalesCompatibles() {
         return animalesCompatiblesList;
     }
 }

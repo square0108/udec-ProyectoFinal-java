@@ -2,7 +2,7 @@ package Model.Enumerations;
 
 import Model.Especies.*;
 
-public enum AnimalEnum {
+public enum EspeciesEnum {
     LEON(Leon.class, "lion.png"),
     JIRAFA(Jirafa.class, "giraffe.png"),
     ELEFANTE(Elefante.class, "elephant.png");
@@ -10,7 +10,7 @@ public enum AnimalEnum {
     Class<?> claseAsociada;
     String texturePath;
 
-    AnimalEnum(Class<?> claseEspecie, String texturePath) {
+    EspeciesEnum(Class<?> claseEspecie, String texturePath) {
         this.claseAsociada = claseEspecie;
         this.texturePath = texturePath;
     }
@@ -20,9 +20,9 @@ public enum AnimalEnum {
      * @param animal instancia de una especie
      * @return constante equivalente/representante de la especie ingresada
      */
-    public static AnimalEnum classToEnum(Animal animal) {
-        for (int i = 0; i < AnimalEnum.values().length; i++) {
-            if (animal.getClass() == AnimalEnum.values()[i].claseAsociada) return AnimalEnum.values()[i];
+    public static EspeciesEnum classToEnum(Animal animal) {
+        for (int i = 0; i < EspeciesEnum.values().length; i++) {
+            if (animal.getClass() == EspeciesEnum.values()[i].claseAsociada) return EspeciesEnum.values()[i];
         }
         // todo: exception handling
         System.out.println("Error en el metodo animalToEnum(); Input: " + animal + "; Ninguna constante corresponde con esta clase.");
@@ -35,13 +35,13 @@ public enum AnimalEnum {
         return texturePath;
     }
 
-    public AnimalEnum siguiente() {
-        int siguienteIndice = (this.ordinal() + 1) % AnimalEnum.values().length;
-        return AnimalEnum.values()[siguienteIndice];
+    public EspeciesEnum siguiente() {
+        int siguienteIndice = (this.ordinal() + 1) % EspeciesEnum.values().length;
+        return EspeciesEnum.values()[siguienteIndice];
     }
 
-    public AnimalEnum anterior() {
-        int anteriorIndice = (this.ordinal() - 1 + AnimalEnum.values().length) % AnimalEnum.values().length;
-        return AnimalEnum.values()[anteriorIndice];
+    public EspeciesEnum anterior() {
+        int anteriorIndice = (this.ordinal() - 1 + EspeciesEnum.values().length) % EspeciesEnum.values().length;
+        return EspeciesEnum.values()[anteriorIndice];
     }
 }

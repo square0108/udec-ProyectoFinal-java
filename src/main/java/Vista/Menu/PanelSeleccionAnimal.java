@@ -1,6 +1,6 @@
 package Vista.Menu;
 
-import Model.Enumerations.AnimalEnum;
+import Model.Enumerations.EspeciesEnum;
 import Vista.ControllerTest;
 import Vista.Enumerations.BotonesEnum;
 import Vista.Enumerations.EnumCursor;
@@ -20,7 +20,7 @@ import java.io.IOException;
 public class PanelSeleccionAnimal implements BotonClickListener, MouseListener {
     private final int WIDTH = 380;
     private final int HEIGHT = 200;
-    private AnimalEnum animal = AnimalEnum.ELEFANTE;
+    private EspeciesEnum animal = EspeciesEnum.ELEFANTE;
     private BufferedImage animalIcon;
     protected BotonFlecha flechaDer;
     protected BotonFlecha flechaIzq;

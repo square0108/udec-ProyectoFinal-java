@@ -1,6 +1,6 @@
 package Vista.Zoo;
 
-import Model.Enumerations.AnimalEnum;
+import Model.Enumerations.EspeciesEnum;
 import Model.Especies.Animal;
 
 import javax.imageio.ImageIO;
@@ -114,7 +114,7 @@ public class VistaAnimal implements ActionListener {
     private void setTexture(){
         // Se podria mejorar esto si Animales guardaces su path "animal.png"
 
-        String texture_path = switch (AnimalEnum.classToEnum(this.animal)) {
+        String texture_path = switch (EspeciesEnum.classToEnum(this.animal)) {
             case ELEFANTE -> "src/main/java/resources/skins/elephant.png";
             case LEON -> "src/main/java/resources/skins/animation_tile.png";
             case JIRAFA -> "src/main/java/resources/skins/animation_tile.png";
