@@ -21,8 +21,6 @@ public class BotonFlecha implements MouseListener, MouseMotionListener {
     private EnumEstadosBoton state;
     private BotonClickListener botonClickListener;
     BufferedImage texture;
-    //private Point position;
-    //private Point posReference;
     private Point posBorders;
 
     /**
@@ -34,12 +32,6 @@ public class BotonFlecha implements MouseListener, MouseMotionListener {
 
     public BotonFlecha(Point posReference,int x ,int y, BotonesEnum botonesEnum){
         this.state = EnumEstadosBoton.DEFAULT;
-
-        // Como los estoy sumando todo el tiempo quizas seria mejor sumarlos y contar solo esa variable
-
-
-        //this.posReference = posReference;
-        //this.position = new Point(x,y);
 
         this.posBorders = new Point((int)posReference.getX()+x, (int)posReference.getY() + y);
         setTexture(botonesEnum);
@@ -67,8 +59,6 @@ public class BotonFlecha implements MouseListener, MouseMotionListener {
                 frameWidth,IMG_HEIGHT,imageObserver);
     }
     private void setTexture(BotonesEnum botonesEnum){
-        // Se podria mejorar esto si Animales guardaces su path "animal.png"
-
         String texture_path = "src/main/java/resources/icons/" + botonesEnum.getDireccionImagen();
         try {
             this.texture = ImageIO.read(new File(texture_path));
@@ -95,7 +85,7 @@ public class BotonFlecha implements MouseListener, MouseMotionListener {
     public void mouseClicked(MouseEvent e) {
         if( ( posBorders.getX() < e.getX() && posBorders.getY() < e.getY() ) &&
                 e.getX()< posBorders.getX() + frameWidth && e.getY()<posBorders.getY()+IMG_HEIGHT) {
-            System.out.println("HA SIDO CLICADO" + this);
+            System.out.println("HA SIDO CLICADO EL BOTON: " + this);
 
         }
     }
@@ -104,7 +94,7 @@ public class BotonFlecha implements MouseListener, MouseMotionListener {
         if ((posBorders.getX() < e.getX() && posBorders.getY() < e.getY()) &&
                 e.getX() < posBorders.getX() + frameWidth && e.getY() < posBorders.getY() + IMG_HEIGHT) {
             this.state = EnumEstadosBoton.CLICK;
-            notifyBotonClick(); // Agrega esta línea para notificar el clic
+            notifyBotonClick();
         }
     }
 
@@ -113,7 +103,7 @@ public class BotonFlecha implements MouseListener, MouseMotionListener {
         if ((posBorders.getX() < e.getX() && posBorders.getY() < e.getY()) &&
                 e.getX() < posBorders.getX() + frameWidth && e.getY() < posBorders.getY() + IMG_HEIGHT) {
             this.state = EnumEstadosBoton.DEFAULT;
-            notifyBotonClick(); // Agrega esta línea para notificar el clic
+            notifyBotonClick();
         }
     }
     @Override

@@ -30,6 +30,8 @@ public class VistaMenu extends JPanel implements ActionListener {
         this.addMouseMotionListener(panelAnimal.flechaIzq);
         this.addMouseMotionListener(panelAnimal.flechaDer);
 
+        this.addMouseListener(panelAnimal);
+
         // Añadimos listeners de Panel Comida
 
         this.addMouseListener(panelComida.flechaDer);

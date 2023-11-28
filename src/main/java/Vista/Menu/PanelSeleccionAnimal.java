@@ -1,19 +1,23 @@
 package Vista.Menu;
 
 import Model.Enumerations.AnimalEnum;
+import Vista.ControllerTest;
 import Vista.Enumerations.BotonesEnum;
+import Vista.Enumerations.EnumCursor;
 import Vista.Enumerations.EnumEstadosBoton;
 import Vista.Interface.BotonClickListener;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.awt.image.ImageObserver;
 import java.io.File;
 import java.io.IOException;
 
 
-public class PanelSeleccionAnimal implements BotonClickListener {
+public class PanelSeleccionAnimal implements BotonClickListener, MouseListener {
     private final int WIDTH = 380;
     private final int HEIGHT = 200;
     private AnimalEnum animal = AnimalEnum.ELEFANTE;
@@ -21,11 +25,16 @@ public class PanelSeleccionAnimal implements BotonClickListener {
     protected BotonFlecha flechaDer;
     protected BotonFlecha flechaIzq;
     private Point position;
+    private Rectangle clickableArea;
+
 
     public PanelSeleccionAnimal(int x, int y) {
         this.position = new Point(x, y);
         flechaDer = new BotonFlecha(this.position, WIDTH - 90, 10, BotonesEnum.FLECHADERECHA);
         flechaIzq = new BotonFlecha(this.position, 10, 10, BotonesEnum.FLECHAIZQUIERDA);
+
+        clickableArea = new Rectangle((int) (this.position.getX() + WIDTH) / 2 - 50,
+                (int) (this.position.getY() + HEIGHT) / 2 - 50, 100, 100);
 
         flechaDer.setBotonClickListener(this);
         flechaIzq.setBotonClickListener(this);
@@ -40,7 +49,7 @@ public class PanelSeleccionAnimal implements BotonClickListener {
         flechaDer.draw(g, imageObserver);
 
         // Dibuja el panel intermedio directamente
-        g.drawImage(animalIcon, (int) (this.position.getX() + WIDTH)/2-50, (int) this.position.getY() + 10,
+        g.drawImage(animalIcon, (int) (this.position.getX() + WIDTH)/2 -50, (int) (this.position.getY() + HEIGHT)/2 - 50,
                 100, 100, imageObserver);
     }
 
@@ -69,5 +78,35 @@ public class PanelSeleccionAnimal implements BotonClickListener {
         } catch (IOException e) {
             System.out.println("TEXTURA NO ENCONTRADA!!!!! (PanelSeleccionAnimal)");
         }
+    }
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        // TODO: VI QUE SE PODIA HACER ESTO Y AHORA ME DAN GANAS DE CAMBIAR TODO EL CODIGO XD
+        // TODO: ES MUCHISIMO MAS LEGIBLEEEEEEEEEE AAAAaaAAAaAAAaAAa (Rectagles supremacy)
+        if (clickableArea.contains(e.getPoint())) {
+            ControllerTest.changeCursor(EnumCursor.ANADIR);
+        }
+
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+
     }
 }
