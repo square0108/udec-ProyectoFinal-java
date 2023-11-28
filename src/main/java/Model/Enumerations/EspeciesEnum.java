@@ -4,7 +4,6 @@ import Model.Especies.*;
 
 public enum EspeciesEnum {
     LEON(Leon.class), JIRAFA(Jirafa.class), ELEFANTE(Elefante.class);
-
     Class<?> claseAsociada;
 
     EspeciesEnum(Class<?> claseEspecie) {
@@ -23,5 +22,8 @@ public enum EspeciesEnum {
         // todo: exception handling
         System.out.println("Error en el metodo animalToEnum(); Input: " + animal + "; Ninguna constante corresponde con esta clase.");
         return null;
+    }
+    public Class<?> getClaseAsociada() {
+        return this.claseAsociada;
     }
 }
