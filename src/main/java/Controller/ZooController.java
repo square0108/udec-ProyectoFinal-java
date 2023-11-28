@@ -4,6 +4,7 @@ import Model.*;
 import Model.Enumerations.HabitatEnum;
 import Model.Especies.Animal;
 import Vista.*;
+import Vista.Zoo.VistaParque;
 
 import javax.swing.*;
 import java.util.ArrayList;
@@ -14,11 +15,13 @@ import java.util.ArrayList;
  * existente.
  */
 public class ZooController {
-    protected JPanel GUI; // PLACEHOLDER
+
+    protected VistaPrincipal GUI; // PLACEHOLDER
     protected ArrayList<Habitat> zooHabitats;
     protected LogicThread logicThread;
 
     public ZooController() {
+
         this.zooHabitats = new ArrayList<>();
         this.logicThread = new LogicThread(zooHabitats);
 

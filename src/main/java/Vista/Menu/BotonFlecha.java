@@ -1,29 +1,45 @@
 package Vista.Menu;
 
-import Model.Enumerations.AnimalEnum;
-import Model.Enumerations.BotonesEnum;
+import Vista.Enumerations.BotonesEnum;
+import Vista.Enumerations.EnumEstadosBoton;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
 import java.awt.image.ImageObserver;
 import java.io.File;
 import java.io.IOException;
 
-public class BotonFlecha{
-    final private int IMG_WIDTH = 50;
-    final private int IMG_HEIGHT = 50;
+public class BotonFlecha implements MouseListener, MouseMotionListener {
+    final private int IMG_WIDTH = 240;
+    final private int IMG_HEIGHT = 180;
+    final private int frameWidth = 80;
+    private EnumEstadosBoton state;
     BufferedImage texture;
-    private Point position;
+    //private Point position;
+    //private Point posReference;
+    private Point posBorders;
 
     /**
-     *
-     * @param position posición de la esquina del panel
+     * @param posReference posición referencial para de la esquina del panel
+     * @param x Posición x con respecto a la referencia
+     * @param y Posición y con respecto a la referencia
      * @param botonesEnum tipo de Flecha
      */
-    public BotonFlecha(Point position,BotonesEnum botonesEnum){
-        this.position = position;
+
+    public BotonFlecha(Point posReference,int x ,int y, BotonesEnum botonesEnum){
+        this.state = EnumEstadosBoton.DEFAULT;
+
+        // Como los estoy sumando todo el tiempo quizas seria mejor sumarlos y contar solo esa variable
+
+
+        //this.posReference = posReference;
+        //this.position = new Point(x,y);
+
+        this.posBorders = new Point((int)posReference.getX()+x, (int)posReference.getY() + y);
         setTexture(botonesEnum);
     }
 
@@ -31,12 +47,21 @@ public class BotonFlecha{
      *
      * @param g
      * @param imageObserver
-     * @param x posicion dentro del limite
-     * @param y posicion dentro del limite
      */
-    public void draw(Graphics g, ImageObserver imageObserver, int x, int y){
-        g.drawImage(texture,(int)(position.getX() + x),(int)(position.getY() + y),
-                IMG_WIDTH,IMG_HEIGHT,imageObserver);
+    public void draw(Graphics g, ImageObserver imageObserver){
+        BufferedImage subImage;
+
+        if(state == EnumEstadosBoton.DEFAULT){
+            subImage = texture.getSubimage(0,0,frameWidth,IMG_HEIGHT);
+        } else if (state == EnumEstadosBoton.HOVER) {
+            subImage = texture.getSubimage(frameWidth * 1,0,frameWidth,IMG_HEIGHT);
+        } else if (state == EnumEstadosBoton.CLICK) {
+            subImage = texture.getSubimage(frameWidth * 2,0,frameWidth,IMG_HEIGHT);
+        }else{
+            subImage = texture.getSubimage(frameWidth*state.getInt(),0,frameWidth,IMG_HEIGHT);
+        }
+        g.drawImage(subImage,(int)(posBorders.getX()),(int)(posBorders.getY()),
+                frameWidth,IMG_HEIGHT,imageObserver);
     }
     private void setTexture(BotonesEnum botonesEnum){
         // Se podria mejorar esto si Animales guardaces su path "animal.png"
@@ -48,5 +73,58 @@ public class BotonFlecha{
             System.out.println("TEXTURA NO ENCONTRADA!!!!! (VistaAnimal)");
         }
     }
+    public int getWIDTH(){
+        return frameWidth;
+    }
+    public int getHEIGHT(){
+        return IMG_HEIGHT;
+    }
 
+    @Override
+    public void mouseClicked(MouseEvent e) {
+
+    }
+    @Override
+    public void mousePressed(MouseEvent e) {
+        if( ( posBorders.getX() < e.getX() && posBorders.getY() < e.getY() ) &&
+                e.getX()< posBorders.getX()+frameWidth && e.getY()<posBorders.getY()+IMG_HEIGHT){
+            this.state = EnumEstadosBoton.CLICK;
+
+        }
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+        if( ( posBorders.getX() < e.getX() && posBorders.getY() < e.getY() ) &&
+                e.getX()< posBorders.getX() + frameWidth && e.getY()<posBorders.getY()+IMG_HEIGHT){
+            this.state = EnumEstadosBoton.DEFAULT;
+
+        }
+
+    }
+    @Override
+    public void mouseEntered(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+    }
+
+    @Override
+    public void mouseDragged(MouseEvent e) {
+    }
+
+
+    // Funciona, pero la hitbox esta media rara
+    @Override
+    public void mouseMoved(MouseEvent e) {
+        if( ( posBorders.getX() < e.getX() && posBorders.getY() < e.getY() ) &&
+        e.getX()< posBorders.getX()+frameWidth && e.getY()<posBorders.getY()+IMG_HEIGHT){
+            this.state = EnumEstadosBoton.HOVER;
+        }
+        else{
+            this.state = EnumEstadosBoton.DEFAULT;
+        }
+    }
 }

@@ -65,11 +65,14 @@ public class VistaParque extends JPanel implements ActionListener {
         habitats.add(habitat);
     }
 
+    public ArrayList<VistaHabitat> getVistaHabitats(){
+        return habitats;
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         repaint();
     }
-
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);

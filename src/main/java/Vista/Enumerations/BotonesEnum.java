@@ -1,9 +1,8 @@
-package Model.Enumerations;
+package Vista.Enumerations;
 
 public enum BotonesEnum {
     FLECHAIZQUIERDA("flechaizquierda.png"),
-    FLECHADERECHA("flechaderecha.png"),
-    AGREGARITEM("agregaritem.png");
+    FLECHADERECHA("flechaderecha.png");
     private String direccionImagen;
     BotonesEnum(String direccionImagen) {
         this.direccionImagen = direccionImagen;

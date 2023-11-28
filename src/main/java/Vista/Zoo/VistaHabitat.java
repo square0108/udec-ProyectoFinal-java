@@ -22,7 +22,7 @@ public class VistaHabitat {
     private BufferedImage texture;
     public VistaHabitat(Habitat habitat, int xPos, int yPos){
         animales = new ArrayList<VistaAnimal>();
-        animales.add(new VistaAnimal(new Elefante()));
+        // TODO: esto es para probar
         this.habitat = habitat;
         setTexture(habitat);
 
