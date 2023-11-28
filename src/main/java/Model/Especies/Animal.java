@@ -2,16 +2,24 @@ package Model.Especies;
 
 import Model.Alimento;
 import Model.Enumerations.EspeciesEnum;
+import Model.Enumerations.EstadosEnum;
 import Model.Enumerations.TerrenoEnum;
+import Model.Habitat;
 
-import java.util.Timer;
+import java.util.Random;
 
 public abstract class Animal {
     private final TerrenoEnum tipoTerreno;
+    private final float rangoTemperatura[]; // celsius
+    private Habitat habitatHogar;
     private int porcentajeComida;
     private final int gananciaHambre;
-    private final float rangoTemperatura[]; // celsius
-    private Timer HambreTimer;
+    private EstadosEnum estado;
+
+    /* Constantes */
+    public static final int MINIMO_PARA_ALIMENTARSE = 50;
+    public static final int PORCENTAJE_CHANCE_MOVIMIENTO = 50;
+    private static final Random rand = new Random(); /* generador de numeros aleatorios */
 
     /**
      * Clase que simula las propiedades comunes a todos los animales del zoologico.
@@ -25,19 +33,31 @@ public abstract class Animal {
      */
     public Animal(TerrenoEnum tipoTerreno, int gananciaHambre, float limInferiorTemperatura, float limSuperiorTemperatura) {
         this.tipoTerreno = tipoTerreno;
+        this.habitatHogar = null;
         this.rangoTemperatura = new float[]{limInferiorTemperatura, limSuperiorTemperatura};
         this.porcentajeComida = 100;
         this.gananciaHambre = gananciaHambre;
+        this.estado = EstadosEnum.PASIVO;
     }
 
     /**
      * Consume un Alimento, en la version actual los alimentos solo se consumen completamente o no se consumen.
-     * @param alimento alimento a consumir
+     * Animales muertos no pueden comer.
      */
-    public void comer(Alimento alimento) {
-        if (alimento != null && !alimento.estaConsumido()) {
+    public void comer() {
+        /* Siempre revisar que el animal no este muerto antes de efectuar alguna operacion tipo "write" sobre Habitat
+        *  Podría incluir estado == COMIENDO también, pero no debería ser necesario? */
+        if (this.estado == EstadosEnum.MUERTO) {
+            return;
+        }
+
+        /* Si el alimento recibido es nulo (lo cual significa que no queda alimento), el animal simplemente no consume
+        * nada.*/
+        Alimento alimento = this.habitatHogar.popAlimento();
+        if (alimento != null) {
             /* Alimentos siempre sacian el hambre completamente. */
             this.porcentajeComida = 100;
+            this.estado = EstadosEnum.COMIENDO;
             alimento.setConsumidoStatus(true);
         }
     }
@@ -45,15 +65,59 @@ public abstract class Animal {
     /**
      * Metodo que hace al animal sentir hambre. La tasa de cambio es proporcional a gananciaHambre, una propiedad unica
      * a cada especie.
+     * Animales muertos no ganan hambre.
      */
     public void ganarHambre() {
+        /* Siempre revisar que el animal no este muerto.
+        *  Si el animal esta comiendo, se demora 1 tick de LogicThread y no gana hambre durante este periodo. */
+        switch (getEstado()) {
+            case MUERTO:
+                return;
+            case COMIENDO:
+                System.out.println("DEBUG: Animal " + this + " esta comiendo... ");
+                this.estado = EstadosEnum.PASIVO;
+                return;
+            default:
+                break;
+        }
+
+        /* Incrementar hambre de acuerdo con la tasa de cambio de la especie*/
         porcentajeComida = porcentajeComida - gananciaHambre;
+
+        /* Matar al animal si el cambio anterior causo que porcentajeComida bajara de 0 */
         if (porcentajeComida <= 0) {
             System.out.println(this + " ha muerto de hambre. :(");
-
+            this.estado = EstadosEnum.MUERTO;
+            return;
         }
-        else {
-            System.out.println("DEBUG: Animal " + this + " tiene " + porcentajeComida + "% hambre restante");
+
+        /* Si porcentajeComida desciende del umbral de hambre, el animal intenta alimentarse */
+        if (porcentajeComida < MINIMO_PARA_ALIMENTARSE) {
+            comer();
+        }
+
+        /* Debugging print */
+        System.out.println("DEBUG: Animal " + this + " tiene " + porcentajeComida + "% hambre restante");
+    }
+
+    /**
+     * el LogicThread utiliza este metodo para aleatoriamente "mover" al animal, aunque solo de forma simulada.
+     * Bajo estos dos estados el animal no puede cambiar su estado de movimiento:
+     * 1. si el animal esta muerto
+     * 2. si el animal esta alimentandose
+     */
+    public void intentarMovimiento() {
+        switch (this.getEstado()) {
+            case PASIVO -> {
+                if (rand.nextInt(101) < PORCENTAJE_CHANCE_MOVIMIENTO) {
+                    this.estado = EstadosEnum.MOVIENDO;
+                }
+            }
+            case MOVIENDO ->
+                    this.estado = EstadosEnum.PASIVO;
+            default -> {
+                break;
+            }
         }
     }
 
@@ -75,5 +139,9 @@ public abstract class Animal {
     public int getPorcentajeComida() {
         return this.porcentajeComida;
     }
+
+    public EstadosEnum getEstado() {return this.estado;}
+
+    public void setHabitatHogar(Habitat h) {this.habitatHogar = h;}
 }
 
