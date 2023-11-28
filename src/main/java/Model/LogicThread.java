@@ -15,6 +15,7 @@ public class LogicThread implements Runnable {
         while(true) {
             controller.removerTodosLosMuertos();
             controller.actualizarHambreTodos();
+            controller.simularMovimiento();
             try {
                 Thread.sleep(ZooController.LOGIC_TICKRATE_MS);
             } catch (InterruptedException e) {
