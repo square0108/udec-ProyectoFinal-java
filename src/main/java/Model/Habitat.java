@@ -40,7 +40,6 @@ public abstract class Habitat {
         this.poblacionMax = poblacionMax;
         this.animales = new ArrayList<>();
         this.reservaAlimentos = new ArrayList<>();
-        this.hayAlimento = true;
         this.tipoTerreno = tipoTerreno;
         this.temperatura = temperatura;
 
@@ -48,6 +47,8 @@ public abstract class Habitat {
         for (int i = 0; i < ALIMENTO_INICIAL; i++) {
             reservaAlimentos.add(new Alimento());
         }
+
+        this.hayAlimento = true;
     }
 
     /**
@@ -75,6 +76,17 @@ public abstract class Habitat {
                 System.out.println("removed: " + animales.get(i));
                 removeAnimal(i);
             }
+        }
+    }
+
+    /**
+     * Llama el método interno de animales "intentarMovimiento()" el cual rollea una chance para cambiar el
+     * estado de los animales desde PASIVO -> MOVIENDO. Si ya están moviéndose, los cambia desde MOVIENDO -> PASIVO.
+     * Bajo cualquier otro estado (COMIENDO, MUERTO) no pueden comenzar a moverse.
+     */
+    public void intentarMoverAnimales() {
+        for (Animal animal : animales) {
+            animal.intentarMovimiento();
         }
     }
 
@@ -148,7 +160,8 @@ public abstract class Habitat {
 
     public Alimento popAlimento() {
         /* si es que la reserva ya estaba vacia */
-        if (!hayAlimento) {
+        if (reservaAlimentos.isEmpty()) {
+            hayAlimento = false;
             return null;
         }
 

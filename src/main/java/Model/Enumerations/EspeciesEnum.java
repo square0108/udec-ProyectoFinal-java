@@ -6,7 +6,6 @@ public enum EspeciesEnum {
     LEON(Leon.class, "lion.png"),
     JIRAFA(Jirafa.class, "giraffe.png"),
     ELEFANTE(Elefante.class, "elephant.png");
-
     Class<?> claseAsociada;
     String texturePath;
 
