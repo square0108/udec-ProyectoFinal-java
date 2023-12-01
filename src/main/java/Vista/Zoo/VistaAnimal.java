@@ -17,7 +17,10 @@ import java.io.IOException;
 TODO: Sistema de movimiento / animaciones Animales
 TODO: hacer mas escalable las skins
  */
-// Implements Drawable despues
+
+/**
+ *  Clase que Representa de forma visual a la clase Animal
+ */
 public class VistaAnimal implements ActionListener {
     final private Animal animal;
     private int state; // Es por ahora nomas, tiene que cambiar por enum
@@ -30,12 +33,19 @@ public class VistaAnimal implements ActionListener {
     private Timer timer;
     private Point position;
     private Point trackingPoint;
+
+    /**
+     * Contructo de Metodo VistaAnimal, se le pone de input una instancia de algun animal, ese es el animal que sera
+     * mostrado.
+     * @param animal Animal a ser mostrado de forma grafica.
+     */
     public VistaAnimal(Animal animal){
-        // prueba
+        // TODO prueba
         cantFrames = 4;
         state = 1;
         currentFrame = 0;
-        //----
+        //TODO ----
+
         this.animal = animal;
         animalSize = 100;
 
@@ -110,6 +120,7 @@ public class VistaAnimal implements ActionListener {
 
     /**
      * Funcion usada por VistaAnimal, para configurar la textura que se usara en este.
+     * Solo usada al ser inicializado.
      */
     private void setTexture(){
         // Se podria mejorar esto si Animales guardaces su path "animal.png"
@@ -127,12 +138,25 @@ public class VistaAnimal implements ActionListener {
             System.out.println("TEXTURA NO ENCONTRADA!!!!! (VistaAnimal)");
         }
     }
+
+    /**
+     * Metodo que cambia el estado de VistaAnimal, es utilizado para elegir el comportamiento de este
+     * (Caminando, Comiendo, Muerto, Quieto)
+     */
     public void changeState(){
     }
 
+    /**
+     * Getter de animal dentro de VistaAnimal
+     * @return referencia al animal guardado dentro
+     */
     public Animal getAnimal(){
         return animal;
     }
+
+    /**
+     * Es usado para la actualización de la animación de VistaAnimal
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         currentFrame +=1;

@@ -2,11 +2,9 @@ package Model;
 
 import Model.Enumerations.EspeciesEnum;
 import Model.Enumerations.EstadosEnum;
-import Model.Enumerations.HabitatEnum;
 import Model.Enumerations.TerrenoEnum;
 import Model.Especies.Animal;
 import Model.Exceptions.AnimalesIncompatiblesException;
-import Model.Exceptions.HabitatIncompatibleException;
 import Model.Exceptions.HabitatLlenoException;
 import org.jetbrains.annotations.NotNull;
 

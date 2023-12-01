@@ -1,8 +1,8 @@
 package Model;
 
 import Model.EntornosHabitat.Sabana;
+import Model.Enumerations.EspeciesEnum;
 import Model.Especies.*;
-import Model.Enumerations.*;
 import Model.Exceptions.AnimalesIncompatiblesException;
 import Model.Exceptions.HabitatIncompatibleException;
 import Model.Exceptions.HabitatLlenoException;

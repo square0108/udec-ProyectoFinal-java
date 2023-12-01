@@ -12,6 +12,9 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * Panel que muestra de forma grafica el conjunto de elementos dentro del Parque
+ */
 public class VistaParque extends JPanel implements ActionListener {
     private final int PANEL_WIDTH = 1400;
     private final int PANEL_HEIGTH = 900;
@@ -22,6 +25,10 @@ public class VistaParque extends JPanel implements ActionListener {
     private Point imageCorner;
     private Point previousPoint;
     private ArrayList<VistaHabitat> habitats;
+
+    /**
+     * Cont
+     */
     public VistaParque(){
         // Creamos habitat (cambiar más adelante)
         // Y cargamos imagen de fondo

@@ -1,9 +1,8 @@
 package Vista.Menu;
 
-import Model.Enumerations.EspeciesEnum;
-import Vista.ControllerTest;
+import Model.Enumerations.ComidaEnum;
+import Model.Enumerations.HabitatEnum;
 import Vista.Enumerations.BotonesEnum;
-import Vista.Enumerations.EnumCursor;
 import Vista.Enumerations.EnumEstadosBoton;
 import Vista.Interface.BotonClickListener;
 
@@ -20,11 +19,11 @@ import java.io.IOException;
 Quizas podria hacer una clase Panel Selección y que el panel seleccion animal extienda a esa, lo mismo con
 Panel comida
  */
-public class PanelSeleccionAnimal implements BotonClickListener, MouseListener {
+public class PanelSeleccionHabitat implements BotonClickListener, MouseListener {
     private final int WIDTH = 380;
     private final int HEIGHT = 200;
-    private EspeciesEnum animal = EspeciesEnum.ELEFANTE;
-    private BufferedImage animalIcon;
+    private HabitatEnum habitat = HabitatEnum.SABANA;
+    private BufferedImage comidaIcon;
     private BufferedImage fondo;
     protected BotonFlecha flechaDer;
     protected BotonFlecha flechaIzq;
@@ -32,16 +31,14 @@ public class PanelSeleccionAnimal implements BotonClickListener, MouseListener {
     private Rectangle clickableArea;
 
 
-    public PanelSeleccionAnimal(int x, int y) {
-
+    public PanelSeleccionHabitat(int x, int y) {
         try {
             this.fondo = ImageIO.read(new File("src/main/java/resources/icons/panelsbackgroud.png"));
         } catch (IOException e) {
-            System.out.println("TEXTURA NO ENCONTRADA!!!!! (FondoPanelSelecciónAnimal)");
+            System.out.println("TEXTURA NO ENCONTRADA!!!!! (FondoPanelSelecciónComida)");
         }
 
         this.position = new Point(x, y);
-
         flechaDer = new BotonFlecha(this.position, WIDTH - 90, 10, BotonesEnum.FLECHADERECHA);
         flechaIzq = new BotonFlecha(this.position, 10, 10, BotonesEnum.FLECHAIZQUIERDA);
 
@@ -51,7 +48,7 @@ public class PanelSeleccionAnimal implements BotonClickListener, MouseListener {
         flechaDer.setBotonClickListener(this);
         flechaIzq.setBotonClickListener(this);
 
-        setAnimalIcon();
+        setComidaIcon();
     }
 
     public void draw(Graphics g, ImageObserver imageObserver) {
@@ -61,45 +58,43 @@ public class PanelSeleccionAnimal implements BotonClickListener, MouseListener {
         flechaDer.draw(g, imageObserver);
 
         // Dibuja el panel intermedio directamente
-        g.drawImage(animalIcon, (int) this.position.getX() + WIDTH/2 -50, (int) this.position.getY() + HEIGHT/2 - 50,
+        // TODO: Aquí puede estar el error
+        g.drawImage(comidaIcon, (int) this.position.getX() + WIDTH/2 -50, (int) this.position.getY() + HEIGHT/2 - 50,
                 100, 100, imageObserver);
     }
 
-    public void cambiarSiguienteAnimal() {
-        animal = animal.siguiente();
-        setAnimalIcon();
+    public void cambiarSiguienteHabitat() {
+        habitat = habitat.siguiente();
+        setComidaIcon();
     }
-    public void cambiarAnteriorAnimal() {
-        animal = animal.anterior();
-        setAnimalIcon();
+    public void cambiarAnteriorHabitat() {
+        habitat = habitat.anterior();
+        setComidaIcon();
     }
 
     @Override
     public void onBotonClick() {
         if (flechaDer.getState() == EnumEstadosBoton.CLICK) {
-            cambiarSiguienteAnimal();
+            cambiarSiguienteHabitat();
         } else if (flechaIzq.getState() == EnumEstadosBoton.CLICK) {
-            cambiarAnteriorAnimal();
+            cambiarAnteriorHabitat();
         }
     }
 
-    public void setAnimalIcon() {
-        String texture_path = "src/main/java/resources/icons/" + animal.getTexturePath();
+    public void setComidaIcon() {
+        String texture_path = "src/main/java/resources/icons/" + habitat.getTexturePath();
         try {
-            this.animalIcon = ImageIO.read(new File(texture_path));
+            this.comidaIcon = ImageIO.read(new File(texture_path));
         } catch (IOException e) {
-            System.out.println("TEXTURA NO ENCONTRADA!!!!! (PanelSeleccionAnimal)");
+            System.out.println("TEXTURA NO ENCONTRADA!!!!! (PanelSeleccionHabitat)");
         }
     }
 
     @Override
     public void mouseClicked(MouseEvent e) {
-
         if (clickableArea.contains(e.getPoint())) {
-            System.out.println("CLICK EN ANIMALES");
-            ControllerTest.changeCursor(EnumCursor.ANADIR);
+            System.out.println("CLICK EN HABITAT");
         }
-
     }
 
     @Override

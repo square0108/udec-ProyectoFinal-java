@@ -13,20 +13,28 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-public class VistaPrincipal extends JFrame {
+public class VistaPrincipal extends JFrame implements MouseListener {
 
     private VistaParque zoo;
     private VistaMenu menu;
     Timer timer;
     public VistaPrincipal() {
         zoo = new VistaParque();
+        // TODO: PRUEBAS
         zoo.addHabitat(new Sabana(), 10,10);
         zoo.addAnimal(0,new VistaAnimal(new Elefante()));
         zoo.addAnimal(0,new VistaAnimal(new Jirafa()));
+        zoo.addHabitat(new Sabana(), 500,10);
+        zoo.addAnimal(1,new VistaAnimal(new Elefante()));
+        zoo.addAnimal(1,new VistaAnimal(new Elefante()));
+
+
         menu = new VistaMenu();
         setCursor(EnumCursor.DEFAULT);
 
@@ -54,5 +62,31 @@ public class VistaPrincipal extends JFrame {
         } catch (IOException e) {
             System.out.println("NO CARGO LA IMAGEN DEL CURSOR AAAAA");
         }
+    }
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        setCursor(EnumCursor.DEFAULT);
+        System.out.println("HOLA!!!!");
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+
     }
 }

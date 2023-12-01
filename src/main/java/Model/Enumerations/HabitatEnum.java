@@ -4,11 +4,12 @@ import Model.EntornosHabitat.*;
 import Model.Habitat;
 
 public enum HabitatEnum {
-    SABANA(Sabana.class);
-
+    SABANA(Sabana.class, "sabana.png");
+    String texture_path;
     Class<?> claseAsociada;
 
-    HabitatEnum(Class<?> claseHabitat) {
+    HabitatEnum(Class<?> claseHabitat, String texture_path) {
+        this.texture_path = texture_path;
         this.claseAsociada = claseHabitat;
     }
 
@@ -24,5 +25,17 @@ public enum HabitatEnum {
         // todo: exception handling
         System.out.println("Error en el metodo animalToEnum(); Input: " + habitat + "; Ninguna constante corresponde con esta clase.");
         return null;
+    }
+    public String getTexturePath() {
+        return texture_path;
+    }
+    public HabitatEnum siguiente() {
+        int siguienteIndice = (this.ordinal() + 1) % HabitatEnum.values().length;
+        return HabitatEnum.values()[siguienteIndice];
+    }
+
+    public HabitatEnum anterior() {
+        int anteriorIndice = (this.ordinal() - 1 + HabitatEnum.values().length) % HabitatEnum.values().length;
+        return HabitatEnum.values()[anteriorIndice];
     }
 }

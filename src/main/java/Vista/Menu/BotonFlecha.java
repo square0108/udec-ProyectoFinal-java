@@ -102,7 +102,7 @@ public class BotonFlecha implements MouseListener, MouseMotionListener {
     public void mouseReleased(MouseEvent e) {
         if ((posBorders.getX() < e.getX() && posBorders.getY() < e.getY()) &&
                 e.getX() < posBorders.getX() + frameWidth && e.getY() < posBorders.getY() + IMG_HEIGHT) {
-            this.state = EnumEstadosBoton.DEFAULT;
+            this.state = EnumEstadosBoton.HOVER;
             notifyBotonClick();
         }
     }
