@@ -40,6 +40,7 @@ public class VistaPrincipal extends JFrame implements MouseListener {
 
         this.setPreferredSize(new Dimension(1600,900));
         this.setLayout(new BorderLayout());
+        this.setResizable(false);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.add(zoo,BorderLayout.CENTER);
         this.add(menu,BorderLayout.WEST);
