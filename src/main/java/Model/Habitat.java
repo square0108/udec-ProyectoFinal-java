@@ -2,11 +2,9 @@ package Model;
 
 import Model.Enumerations.EspeciesEnum;
 import Model.Enumerations.EstadosEnum;
-import Model.Enumerations.HabitatEnum;
 import Model.Enumerations.TerrenoEnum;
 import Model.Especies.Animal;
 import Model.Exceptions.AnimalesIncompatiblesException;
-import Model.Exceptions.HabitatIncompatibleException;
 import Model.Exceptions.HabitatLlenoException;
 import org.jetbrains.annotations.NotNull;
 
@@ -104,8 +102,10 @@ public abstract class Habitat {
             }
 
             /* Checkear si este animal es compatible con el habitat */
-            if (!CompatibleChecker.isCompatible(nuevoAnimal, this)) {
-                throw new HabitatIncompatibleException();
+            if (CompatibleChecker.isCompatible(nuevoAnimal, this) == false) {
+                /*TODO: QUizas seria bueno poner un error aquí para atraparlo en vista y mostrar un
+                *  mensaje cuando no se pueda poner un animal*/
+                System.out.println("Error." + EspeciesEnum.classToEnum(nuevoAnimal) + " no es compatible con este habitat.");
             }
 
             for (Animal animal : animales) {
@@ -126,10 +126,10 @@ public abstract class Habitat {
         }
         catch(AnimalesIncompatiblesException exc) {
             System.out.println("El animal: " + EspeciesEnum.classToEnum(nuevoAnimal) + ", no es compatible con alguno de los animales presentes en " + this);
-        }
+        }/* TODO: ME DA ERROR ESTE CATCH POR ALGUNA RAZON
         catch (HabitatIncompatibleException exc) {
             System.out.println("El animal: " + nuevoAnimal + "no es compatible con el habitat: " + HabitatEnum.classToEnum(this));
-        }
+        }*/
         catch (HabitatLlenoException exc) {
             System.out.println("El habitat: " + this + " ya se encuentra lleno.");
         }

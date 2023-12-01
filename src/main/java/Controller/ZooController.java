@@ -6,6 +6,7 @@ import Model.Exceptions.AnimalesIncompatiblesException;
 import Model.Exceptions.HabitatIncompatibleException;
 import Model.Exceptions.HabitatLlenoException;
 import Vista.*;
+import Vista.Zoo.VistaParque;
 
 import javax.swing.*;
 import java.util.ArrayList;
@@ -16,12 +17,14 @@ import java.util.ArrayList;
  * existente.
  */
 public class ZooController {
-    protected JFrame GUI; // PLACEHOLDER
+
+    protected VistaPrincipal GUI; // PLACEHOLDER
     protected ArrayList<Habitat> zooHabitats;
     protected LogicThread logicThread;
     public static final int LOGIC_TICKRATE_MS = 1000; /* frecuencia con la cual LogicThread hace thread.sleep */
 
     public ZooController() {
+
         this.zooHabitats = new ArrayList<>();
         this.logicThread = new LogicThread(this);
 

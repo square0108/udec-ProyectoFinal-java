@@ -1,4 +1,7 @@
-package Vista;
+package Vista.Zoo;
+
+import Model.Especies.Animal;
+import Model.Habitat;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -9,9 +12,12 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * Panel que muestra de forma grafica el conjunto de elementos dentro del Parque
+ */
 public class VistaParque extends JPanel implements ActionListener {
-    private final int PANEL_WIDTH = 1280;
-    private final int PANEL_HEIGTH = 720;
+    private final int PANEL_WIDTH = 1400;
+    private final int PANEL_HEIGTH = 900;
     private BufferedImage fondo;
     private final int IMG_WIDTH= 2356;
     private final int IMG_HEIGTH= 1118;
@@ -19,6 +25,10 @@ public class VistaParque extends JPanel implements ActionListener {
     private Point imageCorner;
     private Point previousPoint;
     private ArrayList<VistaHabitat> habitats;
+
+    /**
+     * Cont
+     */
     public VistaParque(){
         // Creamos habitat (cambiar más adelante)
         // Y cargamos imagen de fondo
@@ -27,7 +37,7 @@ public class VistaParque extends JPanel implements ActionListener {
         try {
             fondo = ImageIO.read(new File("src/main/java/resources/fondo_pasto.jpg"));
         } catch (IOException e) {
-            System.out.println("El archivo no esta....");
+            System.out.println("NO SE ENCUENTRA TEXTURA!!!(PARQUE)");
         }
         // Seteamos la posición inicial del fondo
         imageCorner = new Point(0,0);
@@ -52,22 +62,31 @@ public class VistaParque extends JPanel implements ActionListener {
         // Dibujamos los habitats
         if(!habitats.isEmpty()){
             for(int i=0;i<habitats.size(); i++){
-                habitats.get(i).draw(g,imageCorner);
+                habitats.get(i).draw(g,this,imageCorner);
             }
         }
         // Aquí deberiamos llamar a Draw, de distintas componentes de la cosita jajaj
         // Habitat.draw(g,xPos,yPos), cosas así
     }
-    public void addHabitat(int x, int y){
-        VistaHabitat habitat = new VistaHabitat(x,y);
+    public void addHabitat(Habitat tipo, int x, int y){
+        VistaHabitat habitat = new VistaHabitat(tipo,x,y);
         habitats.add(habitat);
+    }
+    /*
+    * Añade un Animal en el habitat con el Id utilizado en el metodo
+    * TODO: Esto quizas deberia pedir una clase ANIMAL dentro, no un VistaAnimal
+    * */
+    public void addAnimal(int id, VistaAnimal animal) {
+        habitats.get(id).addAnimal(animal);
+    }
+    public ArrayList<VistaHabitat> getVistaHabitats(){
+        return habitats;
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         repaint();
     }
-
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);

@@ -1,8 +1,13 @@
 package Vista;
 
 
+import Vista.Zoo.VistaParque;
+
 public class HebraVisual extends Thread implements Runnable{
     public void run(){
-        Window window = new Window();
+        VistaPrincipal vistaPrincipal = new VistaPrincipal();
+        ControllerTest controllerTest = new ControllerTest(vistaPrincipal);
+
+
     }
 }
