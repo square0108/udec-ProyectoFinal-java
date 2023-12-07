@@ -2,6 +2,8 @@ package Vista.Zoo;
 
 import Model.Especies.Animal;
 import Model.Habitat;
+import Vista.ControllerTest;
+import Vista.Enumerations.EnumCursor;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -15,7 +17,7 @@ import java.util.ArrayList;
 /**
  * Panel que muestra de forma grafica el conjunto de elementos dentro del Parque
  */
-public class VistaParque extends JPanel implements ActionListener {
+public class VistaParque extends JPanel implements ActionListener, MouseListener {
     private final int PANEL_WIDTH = 1400;
     private final int PANEL_HEIGTH = 900;
     private BufferedImage fondo;
@@ -33,6 +35,7 @@ public class VistaParque extends JPanel implements ActionListener {
         // Creamos habitat (cambiar más adelante)
         // Y cargamos imagen de fondo
         habitats = new ArrayList<VistaHabitat>();
+        this.addMouseListener(this);
 
         try {
             fondo = ImageIO.read(new File("src/main/java/resources/fondo_pasto.jpg"));
@@ -91,6 +94,33 @@ public class VistaParque extends JPanel implements ActionListener {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         draw(g);
+    }
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        // TODO, MANEJAR SI SE PRESIONO DENTRO DE UN LUGAR PARA PONER HABITAT, DISTINTAS COSAS
+        System.out.println("LOL");
+        ControllerTest.changeCursor(EnumCursor.DEFAULT);
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+
     }
 
     // Desde Aquí son cosas para el Mouse Drag

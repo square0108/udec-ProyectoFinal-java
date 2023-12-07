@@ -1,6 +1,7 @@
 package Vista.Zoo;
 
 import Model.Enumerations.EspeciesEnum;
+import Model.Enumerations.EstadosEnum;
 import Model.Especies.Animal;
 
 import javax.imageio.ImageIO;
@@ -144,6 +145,7 @@ public class VistaAnimal implements ActionListener {
      * (Caminando, Comiendo, Muerto, Quieto)
      */
     public void changeState(){
+        state = this.animal.getEstado().getNumber();
     }
 
     /**
@@ -159,6 +161,7 @@ public class VistaAnimal implements ActionListener {
      */
     @Override
     public void actionPerformed(ActionEvent e) {
+        changeState();
         currentFrame +=1;
         if (cantFrames-1 < currentFrame){
             currentFrame = 0;
