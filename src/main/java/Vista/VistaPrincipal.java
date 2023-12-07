@@ -23,17 +23,8 @@ public class VistaPrincipal extends JFrame implements MouseListener {
 
     private VistaParque zoo;
     private VistaMenu menu;
-    Timer timer;
     public VistaPrincipal() {
         zoo = new VistaParque();
-        // TODO: PRUEBAS
-        zoo.addHabitat(new Sabana(), 10,10);
-        zoo.addAnimal(0,new VistaAnimal(new Elefante()));
-        zoo.addAnimal(0,new VistaAnimal(new Jirafa()));
-        zoo.addHabitat(new Sabana(), 500,10);
-        zoo.addAnimal(1,new VistaAnimal(new Elefante()));
-        zoo.addAnimal(1,new VistaAnimal(new Elefante()));
-
 
         menu = new VistaMenu();
         setCursor(EnumCursor.DEFAULT);
@@ -50,7 +41,7 @@ public class VistaPrincipal extends JFrame implements MouseListener {
 
     }
 
-    public VistaParque getZoo(){
+    public VistaParque getVistaParque(){
         return zoo;
     }
     public void setCursor(EnumCursor tipo){

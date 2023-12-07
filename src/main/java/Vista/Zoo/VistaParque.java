@@ -1,6 +1,5 @@
 package Vista.Zoo;
 
-import Model.Especies.Animal;
 import Model.Habitat;
 
 import javax.imageio.ImageIO;
@@ -15,13 +14,12 @@ import java.util.ArrayList;
 /**
  * Panel que muestra de forma grafica el conjunto de elementos dentro del Parque
  */
-public class VistaParque extends JPanel implements ActionListener {
+public class VistaParque extends JPanel implements ActionListener, MouseListener {
     private final int PANEL_WIDTH = 1400;
     private final int PANEL_HEIGTH = 900;
     private BufferedImage fondo;
     private final int IMG_WIDTH= 2356;
     private final int IMG_HEIGTH= 1118;
-    private Timer timer;
     private Point imageCorner;
     private Point previousPoint;
     private ArrayList<VistaHabitat> habitats;
@@ -50,10 +48,15 @@ public class VistaParque extends JPanel implements ActionListener {
         // Configuramos el Tamaño del panel
         this.setPreferredSize(new Dimension(PANEL_WIDTH,PANEL_HEIGTH));
         // Creamos el Timer y lo iniciamos (60 fps)
-        timer = new Timer(17,this);
-        timer.start();
+
+        addMouseListener(this);
+
 
         // OJO: Este JPANEL ES PARA PINTAR EL RESTO DE COSAS, NO HAY QUE PONERLE MAS JPANELS
+    }
+
+    public void update() {
+        this.repaint();
     }
 
     public void draw(Graphics g){
@@ -85,12 +88,37 @@ public class VistaParque extends JPanel implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        repaint();
+        this.update();
     }
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         draw(g);
+    }
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        System.out.println("sadljfalskdfjas");
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+
     }
 
     // Desde Aquí son cosas para el Mouse Drag
