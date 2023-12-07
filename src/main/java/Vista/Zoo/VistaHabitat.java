@@ -68,6 +68,7 @@ public class VistaHabitat {
      * Solo usada al ser inicializado.
      */
     private void setTexture(Habitat tipo){
+        // TODO: REFACTOR DE ESTO
         String texture_path;
         switch (Objects.requireNonNull(HabitatEnum.classToEnum(tipo))){
             case JUNGLA:
@@ -90,9 +91,12 @@ public class VistaHabitat {
      * Crea añade un Habitat dentro de el array de VistaAnimal.
      * @param vistaAnimal Animal a ser añadido a VistaHabitat, debe ser del tipo VistaAnimal
      */
+
     public void addAnimalSprite(VistaAnimal vistaAnimal) throws HabitatLlenoException, AnimalesIncompatiblesException {
         animalSprites.add(vistaAnimal);
-    }
+
+
+}
     // GETTERS Y SETTERS
     public Habitat getModelHabitat(){
         return this.modelHabitat;

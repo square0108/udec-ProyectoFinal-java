@@ -194,4 +194,10 @@ public abstract class Habitat {
      */
     public ArrayList<Alimento> getReservaAlimentos() {return reservaAlimentos;}
     public int getCurrentPop() {return this.animalesCercados.size();}
+    public ArrayList<Animal> getArrayAnimales(){
+        return animalesCercados;
+    }
+    public boolean isFull(){
+        return poblacionMax == animalesCercados.size();
+    }
 }

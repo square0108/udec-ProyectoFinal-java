@@ -1,7 +1,7 @@
 package Vista.Menu;
 
+import Controller.ZooController;
 import Model.Enumerations.EspeciesEnum;
-import Vista.ControllerTest;
 import Vista.Enumerations.BotonesEnum;
 import Vista.Enumerations.EnumCursor;
 import Vista.Enumerations.EnumEstadosBoton;
@@ -97,7 +97,7 @@ public class PanelSeleccionAnimal implements BotonClickListener, MouseListener {
 
         if (clickableArea.contains(e.getPoint())) {
             System.out.println("CLICK EN ANIMALES");
-            ControllerTest.changeCursor(EnumCursor.ANADIR);
+            ZooController.changeCursor(EnumCursor.ANADIR);
         }
 
     }
