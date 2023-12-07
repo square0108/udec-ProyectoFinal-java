@@ -35,9 +35,10 @@ public class ZooController {
     public void nuevoAnimal(EspeciesEnum animal, int habitatIndex) throws AnimalNoExisteException {
         try {
             Animal nuevoAnimal = AnimalHabitatFactory.newAnimalInstance(animal);
+            zooHabitats.get(habitatIndex).addAnimal(nuevoAnimal);
             GUI.getVistaParque().addAnimal(habitatIndex, new VistaAnimal(nuevoAnimal));
 
-            System.out.println(this.zooHabitats.get(0).getCurrentPop());
+            System.out.println("Poblacion del habitat N°" + habitatIndex + ": " + this.zooHabitats.get(0).getCurrentPop());
         }
         catch (HabitatLlenoException e) {
             System.out.println("El habitat de indice " + habitatIndex + " se encuentra lleno.");
@@ -50,6 +51,7 @@ public class ZooController {
         for (Habitat habitat : zooHabitats) {
             habitat.update();
         }
+        GUI.getVistaParque().update();
         GUI.repaint();
     }
 }

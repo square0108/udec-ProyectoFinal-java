@@ -19,7 +19,7 @@ import java.util.Objects;
 public class VistaHabitat {
     /* TODO: sera necesario que VistaHabitat agregue animales directamente a model.Habitat? -martin
     *   si se me olvida que quise decir con esto mañana, me corto tres cuartos de coco */
-    private final Habitat habitat;
+    private final Habitat modelHabitat;
     private final Point position;
     private final int IMG_WIDTH;
     private final int IMG_HEIGHT;
@@ -29,15 +29,15 @@ public class VistaHabitat {
     /**
      * Metodo constructor de VistaHabitat, en este se debe entregar el Habitat a ser mostrado de forma grafica y las
      * posiciones X e Y dentro del Parque del zoologico
-     * @param habitat Habitat a ser mostrado de forma grafica
+     * @param modelHabitat Habitat a ser mostrado de forma grafica
      * @param xPos Posición del eje X con respecto al parque
      * @param yPos Posición del eje Y con respecto al parque
      */
-    public VistaHabitat(Habitat habitat, int xPos, int yPos){
+    public VistaHabitat(Habitat modelHabitat, int xPos, int yPos){
         animalSprites = new ArrayList<VistaAnimal>();
         // TODO: esto es para probar
-        this.habitat = habitat;
-        setTexture(habitat);
+        this.modelHabitat = modelHabitat;
+        setTexture(modelHabitat);
 
         IMG_WIDTH = 400;
         IMG_HEIGHT = 400;
@@ -91,13 +91,12 @@ public class VistaHabitat {
      * Crea añade un Habitat dentro de el array de VistaAnimal.
      * @param vistaAnimal Animal a ser añadido a VistaHabitat, debe ser del tipo VistaAnimal
      */
-    public void addAnimal(VistaAnimal vistaAnimal) throws HabitatLlenoException, AnimalesIncompatiblesException {
-        habitat.addAnimal(vistaAnimal.getAnimal());
+    public void addAnimalSprite(VistaAnimal vistaAnimal) throws HabitatLlenoException, AnimalesIncompatiblesException {
         animalSprites.add(vistaAnimal);
     }
     // GETTERS Y SETTERS
-    public Habitat getHabitat(){
-        return this.habitat;
+    public Habitat getModelHabitat(){
+        return this.modelHabitat;
     }
     public int getWidth(){
         return IMG_WIDTH;

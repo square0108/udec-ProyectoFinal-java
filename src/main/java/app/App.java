@@ -14,5 +14,6 @@ public class App {
         controller.nuevoAnimal(EspeciesEnum.ELEFANTE, 0);
         controller.nuevoAnimal(EspeciesEnum.ELEFANTE, 0);
         controller.nuevoAnimal(EspeciesEnum.ELEFANTE, 0);
+        controller.nuevoAnimal(EspeciesEnum.ELEFANTE, 0);
     }
 }

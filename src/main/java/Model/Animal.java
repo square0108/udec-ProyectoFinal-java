@@ -8,6 +8,8 @@ import Model.Habitat;
 
 import java.util.Random;
 
+import static Model.Enumerations.EstadosEnum.*;
+
 public abstract class Animal {
     private final TerrenoEnum tipoTerreno;
     private final float rangoTemperatura[]; // celsius
@@ -18,7 +20,8 @@ public abstract class Animal {
 
     /* Constantes */
     public static final int MINIMO_PARA_ALIMENTARSE = 50;
-    public static final int PORCENTAJE_CHANCE_MOVIMIENTO = 50;
+    public static final int PORCENTAJE_CHANCE_MOVIMIENTO = 70;
+    public static final int PORCENTAJE_CHANCE_DETENERSE = 50;
     private static final Random rand = new Random(); /* generador de numeros aleatorios */
 
     /**
@@ -37,7 +40,7 @@ public abstract class Animal {
         this.rangoTemperatura = new float[]{limInferiorTemperatura, limSuperiorTemperatura};
         this.porcentajeComida = 100;
         this.gananciaHambre = gananciaHambre;
-        this.estado = EstadosEnum.PASIVO;
+        this.estado = PASIVO;
     }
 
     public void update() {
@@ -85,7 +88,7 @@ public abstract class Animal {
                 return;
             case COMIENDO:
                 System.out.println("DEBUG: Animal " + this + " esta comiendo... ");
-                this.estado = EstadosEnum.PASIVO;
+                this.estado = PASIVO;
                 return;
             default:
                 break;
@@ -120,11 +123,14 @@ public abstract class Animal {
         switch (this.getEstado()) {
             case PASIVO -> {
                 if (rand.nextInt(101) < PORCENTAJE_CHANCE_MOVIMIENTO) {
-                    this.estado = EstadosEnum.MOVIENDO;
+                    setEstado(MOVIENDO);
                 }
             }
-            case MOVIENDO ->
-                    this.estado = EstadosEnum.PASIVO;
+            case MOVIENDO -> {
+                if (rand.nextInt(101) < PORCENTAJE_CHANCE_DETENERSE) {
+                    setEstado(PASIVO);
+                }
+            }
             default -> {
                 break;
             }
@@ -149,6 +155,7 @@ public abstract class Animal {
     }
 
     public EstadosEnum getEstado() {return this.estado;}
+    private void setEstado(EstadosEnum nuevoEstado) {this.estado = nuevoEstado;}
 
     public void setHabitatHogar(Habitat h) {this.habitatHogar = h;}
 }

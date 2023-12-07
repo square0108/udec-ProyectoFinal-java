@@ -18,7 +18,7 @@ import java.util.ArrayList;
 /**
  * Panel que muestra de forma grafica el conjunto de elementos dentro del Parque
  */
-public class VistaParque extends JPanel implements ActionListener, MouseListener {
+public class VistaParque extends JPanel implements MouseListener {
     private final int PANEL_WIDTH = 1400;
     private final int PANEL_HEIGTH = 900;
     private BufferedImage fondo;
@@ -85,16 +85,12 @@ public class VistaParque extends JPanel implements ActionListener, MouseListener
     * TODO: Esto quizas deberia pedir una clase ANIMAL dentro, no un VistaAnimal
     * */
     public void addAnimal(int id, VistaAnimal animal) throws HabitatLlenoException, AnimalesIncompatiblesException {
-        habitatSprites.get(id).addAnimal(animal);
+        habitatSprites.get(id).addAnimalSprite(animal);
     }
     public ArrayList<VistaHabitat> getVistaHabitats(){
         return habitatSprites;
     }
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        this.update();
-    }
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
