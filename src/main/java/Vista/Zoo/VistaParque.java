@@ -5,6 +5,7 @@ import Model.Exceptions.HabitatLlenoException;
 import Model.Habitat;
 import Vista.ControllerTest;
 import Vista.Enumerations.EnumCursor;
+import Vista.VistaPrincipal;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -19,6 +20,7 @@ import java.util.ArrayList;
  * Panel que muestra de forma grafica el conjunto de elementos dentro del Parque
  */
 public class VistaParque extends JPanel implements MouseListener {
+    private VistaPrincipal parentFrame;
     private final int PANEL_WIDTH = 1400;
     private final int PANEL_HEIGTH = 900;
     private BufferedImage fondo;
@@ -31,7 +33,8 @@ public class VistaParque extends JPanel implements MouseListener {
     /**
      * Cont
      */
-    public VistaParque(){
+    public VistaParque(VistaPrincipal parentFrame){
+        this.parentFrame = parentFrame;
         // Creamos habitat (cambiar más adelante)
         // Y cargamos imagen de fondo
         habitatSprites = new ArrayList<VistaHabitat>();
@@ -69,8 +72,8 @@ public class VistaParque extends JPanel implements MouseListener {
         g.drawImage(fondo, (int) imageCorner.getX(), (int) imageCorner.getY(),IMG_WIDTH,IMG_HEIGTH, this);
         // Dibujamos los habitats
         if(!habitatSprites.isEmpty()){
-            for(int i = 0; i< habitatSprites.size(); i++){
-                habitatSprites.get(i).draw(g,this,imageCorner);
+            for (VistaHabitat habitatSprite : habitatSprites) {
+                habitatSprite.draw(g, this, imageCorner);
             }
         }
         // Aquí deberiamos llamar a Draw, de distintas componentes de la cosita jajaj
@@ -101,7 +104,7 @@ public class VistaParque extends JPanel implements MouseListener {
     public void mouseClicked(MouseEvent e) {
         // TODO, MANEJAR SI SE PRESIONO DENTRO DE UN LUGAR PARA PONER HABITAT, DISTINTAS COSAS
         System.out.println("LOL");
-        ControllerTest.changeCursor(EnumCursor.DEFAULT);
+        parentFrame.changeCursor(EnumCursor.DEFAULT);
     }
 
     @Override

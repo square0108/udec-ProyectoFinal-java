@@ -8,6 +8,7 @@ import Model.Exceptions.AnimalesIncompatiblesException;
 import Model.Exceptions.HabitatLlenoException;
 import Model.Factories.AnimalHabitatFactory;
 import Vista.*;
+import Vista.Enumerations.EnumCursor;
 import Vista.Zoo.VistaAnimal;
 
 import java.util.ArrayList;
@@ -24,8 +25,7 @@ public class ZooController {
 
     public ZooController() {
         this.zooHabitats = new ArrayList<>();
-        this.GUI = new VistaPrincipal();
-
+        this.GUI = new VistaPrincipal(this);
         new Thread(new UpdaterThread(this)).start();
     }
     public void nuevoHabitat(Habitat habitat, int coordX, int coordY) {
