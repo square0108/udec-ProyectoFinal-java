@@ -1,6 +1,8 @@
 package Vista.Zoo;
 
 import Model.Habitat;
+import Vista.ControllerTest;
+import Vista.Enumerations.EnumCursor;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -31,6 +33,7 @@ public class VistaParque extends JPanel implements ActionListener, MouseListener
         // Creamos habitat (cambiar más adelante)
         // Y cargamos imagen de fondo
         habitats = new ArrayList<VistaHabitat>();
+        this.addMouseListener(this);
 
         try {
             fondo = ImageIO.read(new File("src/main/java/resources/fondo_pasto.jpg"));
@@ -98,7 +101,9 @@ public class VistaParque extends JPanel implements ActionListener, MouseListener
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        System.out.println("sadljfalskdfjas");
+        // TODO, MANEJAR SI SE PRESIONO DENTRO DE UN LUGAR PARA PONER HABITAT, DISTINTAS COSAS
+        System.out.println("LOL");
+        ControllerTest.changeCursor(EnumCursor.DEFAULT);
     }
 
     @Override
