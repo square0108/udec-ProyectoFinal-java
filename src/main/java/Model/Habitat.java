@@ -3,7 +3,6 @@ package Model;
 import Model.Enumerations.EspeciesEnum;
 import Model.Enumerations.EstadosEnum;
 import Model.Enumerations.TerrenoEnum;
-import Model.Especies.Animal;
 import Model.Exceptions.AnimalesIncompatiblesException;
 import Model.Exceptions.HabitatLlenoException;
 import org.jetbrains.annotations.NotNull;
@@ -13,7 +12,7 @@ import java.util.ArrayList;
 public abstract class Habitat {
     /* variables relacionadas con animales */
     private final int poblacionMax;
-    private final ArrayList<Animal> animales;
+    private final ArrayList<Animal> animalesCercados;
 
     /* variables relacionadas con alimentos */
     private final ArrayList<Alimento> reservaAlimentos;
@@ -26,6 +25,8 @@ public abstract class Habitat {
     /* constantes */
     private static final int ALIMENTO_MAX = 20;
     private static final int ALIMENTO_INICIAL = 3;
+    protected static final int UPDATE_TICK_RATE = 60; // llamadas de run() necesarias para actualizar el backend
+    private int tickCounter;
 
     /**
      * Clase abstracta que simula las propiedades comunes a todos los Habitat unicos
@@ -38,10 +39,11 @@ public abstract class Habitat {
      */
     public Habitat(float temperatura, int poblacionMax, TerrenoEnum tipoTerreno) {
         this.poblacionMax = poblacionMax;
-        this.animales = new ArrayList<>();
+        this.animalesCercados = new ArrayList<>();
         this.reservaAlimentos = new ArrayList<>();
         this.tipoTerreno = tipoTerreno;
         this.temperatura = temperatura;
+        this.tickCounter = 0;
 
         /* cualquier habitat es inicializado con una cantidad de comida inicial "gratis" por default */
         for (int i = 0; i < ALIMENTO_INICIAL; i++) {
@@ -51,6 +53,19 @@ public abstract class Habitat {
         this.hayAlimento = true;
     }
 
+    public void update() {
+        if (this.tickCounter == UPDATE_TICK_RATE) {
+            removerAnimalesMuertos();
+            for (Animal animal : animalesCercados) {
+                animal.update();
+            }
+            this.tickCounter = 0;
+        }
+        else {
+            this.tickCounter++;
+        }
+    }
+
     /**
      * Actualiza el porcentajeComida de todos los animales presentes en este habitat, llamando el metodo ganarHambre()
      * de cada uno de ellos.
@@ -58,7 +73,7 @@ public abstract class Habitat {
     public void actualizarHambreAnimales() {
         /* todo: poner esta alerta en otra parte */
         if (!this.hayAlimento) System.out.println("!!! " + this + " no tiene alimento !!!");
-        for (Animal animal : this.animales) {
+        for (Animal animal : this.animalesCercados) {
             if (animal == null) break; /* con objetivo de no causar NullPointerException (se llamarian metodos en espacios null del arreglo */
             else {
                 animal.ganarHambre();
@@ -70,10 +85,10 @@ public abstract class Habitat {
      * El nombre es bastante descriptivo.
      */
     public void removerAnimalesMuertos() {
-        for (int i = 0; i < animales.size(); i++) {
-            if (animales.get(i) == null) break;
-            else if (animales.get(i).getEstado() == EstadosEnum.MUERTO) {
-                System.out.println("removed: " + animales.get(i));
+        for (int i = 0; i < animalesCercados.size(); i++) {
+            if (animalesCercados.get(i) == null) break;
+            else if (animalesCercados.get(i).getEstado() == EstadosEnum.MUERTO) {
+                System.out.println("removed: " + animalesCercados.get(i));
                 removeAnimal(i);
             }
         }
@@ -85,7 +100,7 @@ public abstract class Habitat {
      * Bajo cualquier otro estado (COMIENDO, MUERTO) no pueden comenzar a moverse.
      */
     public void intentarMoverAnimales() {
-        for (Animal animal : animales) {
+        for (Animal animal : animalesCercados) {
             animal.intentarMovimiento();
         }
     }
@@ -97,7 +112,7 @@ public abstract class Habitat {
     public void addAnimal(Animal nuevoAnimal) {
         try {
             /* Checkear si el habitat ya se encuentra lleno. */
-            if (animales.size() >= poblacionMax) {
+            if (animalesCercados.size() >= poblacionMax) {
                 throw new HabitatLlenoException();
             }
 
@@ -108,7 +123,7 @@ public abstract class Habitat {
                 System.out.println("Error." + EspeciesEnum.classToEnum(nuevoAnimal) + " no es compatible con este habitat.");
             }
 
-            for (Animal animal : animales) {
+            for (Animal animal : animalesCercados) {
                 /* Para cada animal presente en el habitat, checkear si este es compatible con el animal nuevo.
                  *  TODO: Esto se podria optimizar checkeando solo las especies presentes en vez de animales individuales.*/
                 if (animal != null && !CompatibleChecker.isCompatible(animal, nuevoAnimal)) {
@@ -121,7 +136,7 @@ public abstract class Habitat {
              * 2. el animal nuevo es compatible con el habitat
              * 3. el animal nuevo es compatible con todos los otros animales
              * por lo tanto, se agrega al habitat. */
-            animales.add(nuevoAnimal);
+            animalesCercados.add(nuevoAnimal);
             nuevoAnimal.setHabitatHogar(this);
         }
         catch(AnimalesIncompatiblesException exc) {
@@ -141,9 +156,9 @@ public abstract class Habitat {
      * @return Animal que se desea remover
      */
     public Animal removeAnimal(int index) {
-        if (animales.get(index) != null) {
-            Animal copy = animales.get(index);
-            animales.remove(index);
+        if (animalesCercados.get(index) != null) {
+            Animal copy = animalesCercados.get(index);
+            animalesCercados.remove(index);
             return copy;
         }
         System.out.println("Error, este habitat se encuentra vacio.");
@@ -188,4 +203,5 @@ public abstract class Habitat {
      * @return reserva de alimentos del habitat
      */
     public ArrayList<Alimento> getReservaAlimentos() {return reservaAlimentos;}
+    public int getCurrentPop() {return this.animalesCercados.size();}
 }
