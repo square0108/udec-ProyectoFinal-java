@@ -1,8 +1,8 @@
 package Vista.Zoo;
 
 import Controller.ZooController;
+import Model.EntornosHabitat.Sabana;
 import Model.Habitat;
-import Vista.ControllerTest;
 import Vista.Enumerations.EnumCursor;
 
 import javax.imageio.ImageIO;
@@ -21,8 +21,8 @@ public class VistaParque extends JPanel implements ActionListener, MouseListener
     private final int PANEL_WIDTH = 1400;
     private final int PANEL_HEIGTH = 900;
     private BufferedImage fondo;
-    private final int IMG_WIDTH= 2356;
-    private final int IMG_HEIGTH= 1118;
+    private final int IMG_WIDTH= 2800;
+    private final int IMG_HEIGTH= 1800;
     private Point imageCorner;
     private Point previousPoint;
     private ArrayList<VistaHabitat> habitats;
@@ -37,7 +37,7 @@ public class VistaParque extends JPanel implements ActionListener, MouseListener
         this.addMouseListener(this);
 
         try {
-            fondo = ImageIO.read(new File("src/main/java/resources/fondo_pasto.jpg"));
+            fondo = ImageIO.read(new File("src/main/java/resources/fondo_pasto.png"));
         } catch (IOException e) {
             System.out.println("NO SE ENCUENTRA TEXTURA!!!(PARQUE)");
         }
@@ -103,8 +103,11 @@ public class VistaParque extends JPanel implements ActionListener, MouseListener
     @Override
     public void mouseClicked(MouseEvent e) {
         // TODO, MANEJAR SI SE PRESIONO DENTRO DE UN LUGAR PARA PONER HABITAT, DISTINTAS COSAS
-        System.out.println("LOL");
+        System.out.println("Mouse en PanelParque " + (e.getX()-this.imageCorner.getX()) +" "+ (e.getY()-this.imageCorner.getY()));
         ZooController.changeCursor(EnumCursor.DEFAULT);
+
+        // TODO: PRUEBA PARA CREAR HABITATS
+        ZooController.nuevoHabitat(new Sabana(),(int)(e.getX()-imageCorner.getX()),(int)(e.getY()-imageCorner.getY()));
     }
 
     @Override
@@ -142,7 +145,8 @@ public class VistaParque extends JPanel implements ActionListener, MouseListener
             int newY = (int) (imageCorner.getY() + currentPoint.getY() - previousPoint.getY());
 
             // Verificar los límites en X
-            if (newX <= 0 && newX >= -(IMG_WIDTH - PANEL_WIDTH)) {
+            //TODO: BUSCAR OTRA FORMA DE HACER ESTO, el 200 corresponde al ancho del menu
+            if (newX <= 0 && newX >= -(IMG_WIDTH - PANEL_WIDTH+200)) {
                 imageCorner.setLocation(newX, imageCorner.getY());
             }
 
