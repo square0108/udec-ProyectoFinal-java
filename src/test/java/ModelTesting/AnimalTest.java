@@ -35,7 +35,7 @@ public class AnimalTest {
     @Test
     void MuertosNoSeMueven() throws HabitatLlenoException, AnimalesIncompatiblesException {
         Leon L = new Leon();
-        Sabana S = new Sabana();
+        Jungla S = new Jungla();
         S.getReservaAlimentos().remove(0);
         S.getReservaAlimentos().remove(0);
         S.getReservaAlimentos().remove(0);

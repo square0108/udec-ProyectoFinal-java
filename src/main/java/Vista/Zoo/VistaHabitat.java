@@ -59,8 +59,7 @@ public class VistaHabitat {
         // Aquí se dibujan los
         if(!animalSprites.isEmpty()){
             for (VistaAnimal animalSprite : animalSprites) {
-                animalSprite.draw(g, imageObserver, new Point((int) (position.getX() + parquePosition.getX())
-                        , (int) (position.getY() + parquePosition.getY())), IMG_WIDTH, IMG_HEIGHT);
+                animalSprite.draw(g, imageObserver, new Point((int) (position.getX() + parquePosition.getX()), (int) (position.getY() + parquePosition.getY())), IMG_WIDTH, IMG_HEIGHT);
             }
         }
     }
@@ -71,7 +70,7 @@ public class VistaHabitat {
     private void setTexture(Habitat tipo){
         String texture_path;
         switch (Objects.requireNonNull(HabitatEnum.classToEnum(tipo))){
-            case SABANA:
+            case JUNGLA:
                 texture_path = "src/main/java/resources/habitats/jungla.jpg";
                 break;
             default:

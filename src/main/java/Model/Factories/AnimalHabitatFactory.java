@@ -1,7 +1,7 @@
 package Model.Factories;
 
 import Model.Animal;
-import Model.EntornosHabitat.Sabana;
+import Model.EntornosHabitat.Jungla;
 import Model.Enumerations.*;
 import Model.Especies.*;
 import Model.Exceptions.AnimalNoExisteException;
@@ -18,7 +18,7 @@ public class AnimalHabitatFactory {
     }
     public static Habitat newHabitatInstance(HabitatEnum hab) {
         return switch (hab) {
-            case SABANA -> new Sabana();
+            case JUNGLA -> new Jungla();
             default -> null;
         };
     }
