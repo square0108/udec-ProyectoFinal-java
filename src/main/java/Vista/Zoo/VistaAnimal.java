@@ -33,6 +33,7 @@ public class VistaAnimal implements ActionListener {
     private Timer timer;
     private Point position;
     private Point trackingPoint;
+    private int timeremove;
 
     /**
      * Contructo de Metodo VistaAnimal, se le pone de input una instancia de algun animal, ese es el animal que sera
@@ -45,6 +46,7 @@ public class VistaAnimal implements ActionListener {
         state = 1;
         currentFrame = 0;
         //TODO ----
+        timeremove =0;
 
         this.animal = animal;
         animalSize = 100;
@@ -80,7 +82,6 @@ public class VistaAnimal implements ActionListener {
     public void updatePosition(int habitatWidth, int habitatHeight){
         switch (this.state){
             case 0: // Quieto
-                System.out.println("Esta quieto!!!!");
                 break;
             case 1: // Caminar
                 // Primero asignamos Un punto para seguir ...
@@ -109,8 +110,8 @@ public class VistaAnimal implements ActionListener {
             case 2: // Comer
                 // SE queda quieto y come ???
                 break;
-            case 3:
-                break; // Morir
+            case 3: // Morir
+                break;
             default:
                 System.out.println("Se metio a default¿¿??, en AnimalVista");
                 break;
@@ -154,6 +155,9 @@ public class VistaAnimal implements ActionListener {
     public Animal getAnimal(){
         return animal;
     }
+    public int getTimeRemove(){
+        return timeremove;
+    }
 
     /**
      * Es usado para la actualización de la animación de VistaAnimal
@@ -164,6 +168,10 @@ public class VistaAnimal implements ActionListener {
         currentFrame +=1;
         if (cantFrames-1 < currentFrame){
             currentFrame = 0;
+        }
+
+        if (state == 3 && timeremove<4) { // SI esta en estado muerto
+            timeremove++;
         }
     }
 }

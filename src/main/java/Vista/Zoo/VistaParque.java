@@ -1,5 +1,6 @@
 package Vista.Zoo;
 
+import Controller.ZooController;
 import Model.Habitat;
 import Vista.ControllerTest;
 import Vista.Enumerations.EnumCursor;
@@ -103,7 +104,7 @@ public class VistaParque extends JPanel implements ActionListener, MouseListener
     public void mouseClicked(MouseEvent e) {
         // TODO, MANEJAR SI SE PRESIONO DENTRO DE UN LUGAR PARA PONER HABITAT, DISTINTAS COSAS
         System.out.println("LOL");
-        ControllerTest.changeCursor(EnumCursor.DEFAULT);
+        ZooController.changeCursor(EnumCursor.DEFAULT);
     }
 
     @Override

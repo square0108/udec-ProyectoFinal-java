@@ -13,5 +13,9 @@ public class App {
         ZooController controller = new ZooController();
         controller.nuevoHabitat(new Sabana(), 10, 10);
         controller.nuevoAnimal(EspeciesEnum.ELEFANTE, 0);
+        controller.nuevoAnimal(EspeciesEnum.ELEFANTE, 0);
+        controller.nuevoAnimal(EspeciesEnum.ELEFANTE, 0);
+        controller.nuevoAnimal(EspeciesEnum.ELEFANTE, 0);
+        controller.nuevoAnimal(EspeciesEnum.ELEFANTE, 0);
     }
 }

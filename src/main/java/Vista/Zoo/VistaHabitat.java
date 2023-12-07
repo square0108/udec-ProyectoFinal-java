@@ -55,6 +55,9 @@ public class VistaHabitat {
         g.drawImage(texture,(int) (position.getX() + parquePosition.getX()),
                 (int)(position.getY() + parquePosition.getY()),IMG_WIDTH,IMG_HEIGHT,imageObserver);
 
+        // remover animales
+        this.removeDeadAnimals();
+
         // Aquí se dibujan los
         if(!animales.isEmpty()){
             for(int i=0;i<animales.size(); i++){
@@ -68,6 +71,7 @@ public class VistaHabitat {
      * Solo usada al ser inicializado.
      */
     private void setTexture(Habitat tipo){
+        // TODO: REFACTOR DE ESTO
         String texture_path;
         switch (HabitatEnum.classToEnum(tipo)){
             case SABANA:
@@ -91,8 +95,14 @@ public class VistaHabitat {
      * @param vistaAnimal Animal a ser añadido a VistaHabitat, debe ser del tipo VistaAnimal
      */
     public void addAnimal(VistaAnimal vistaAnimal){
-        habitat.addAnimal(vistaAnimal.getAnimal());
-        animales.add(vistaAnimal);
+        if(!habitat.isFull()){
+            habitat.addAnimal(vistaAnimal.getAnimal());
+            animales.add(vistaAnimal);
+        }
+        else{
+            System.out.println("El habitat esta lleno!!!!");
+        }
+
     }
     // GETTERS Y SETTERS
     public Habitat getHabitat(){
@@ -103,5 +113,26 @@ public class VistaHabitat {
     }
     public int getHeight(){
         return IMG_HEIGHT;
+    }
+
+    /**
+     * 1. Ve si el animal en Array animales (VistaAnimal) y el array en habitat (Habitat) son iguales
+     * 2. Si es así ve si el vista animal tiene El timer de muerto hasta el 9, si es así lo elimina.
+     * TODO: igualmente quizas revisar que para si aelimina el animal, como adquiere su estado.
+     */
+    public void removeDeadAnimals(){
+        // Medio confuso, pero creo que se entiende
+        for(int i=0; i<habitat.getArrayAnimales().size(); i++){
+            for(int j=0; j<animales.size();j++){
+                if(( habitat.getArrayAnimales().get(i) == animales.get(j).getAnimal() ) &&
+                        animales.get(j).getTimeRemove()>3){
+
+                    System.out.println("Esta removiendo el animal");
+                    habitat.getArrayAnimales().remove(animales.get(j).getAnimal());
+                    animales.remove(animales.get(j));
+
+                }
+            }
+        }
     }
 }

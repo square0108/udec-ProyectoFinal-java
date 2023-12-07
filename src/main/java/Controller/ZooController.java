@@ -9,6 +9,7 @@ import Model.Exceptions.HabitatIncompatibleException;
 import Model.Exceptions.HabitatLlenoException;
 import Model.Factories.AnimalHabitatFactory;
 import Vista.*;
+import Vista.Enumerations.EnumCursor;
 import Vista.Zoo.VistaAnimal;
 
 import java.util.ArrayList;
@@ -19,7 +20,7 @@ import java.util.ArrayList;
  * existente.
  */
 public class ZooController {
-    protected VistaPrincipal GUI;
+    protected static VistaPrincipal GUI;
     protected ArrayList<Habitat> zooHabitats;
     public final int FRAMETIME_MS = 17; /* frecuencia con la cual LogicThread hace thread.sleep */
 
@@ -44,5 +45,11 @@ public class ZooController {
             habitat.update();
         }
         GUI.repaint();
+    }
+    public static void changeCursor(EnumCursor tipo){
+        GUI.setCursor(tipo);
+        // setear dentro de controller una variable interna que muestre el estado del cursor, sirve mas que nada
+        // cuando por ejemplo queremos añadir algo y no le achuntamos al habitat, que el cursor vuelva a la normalidad
+        // y no deje añadir ningun animal.
     }
 }
