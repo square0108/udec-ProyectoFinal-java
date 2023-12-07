@@ -80,7 +80,6 @@ public class VistaAnimal implements ActionListener {
     public void updatePosition(int habitatWidth, int habitatHeight){
         switch (this.state){
             case 0: // Quieto
-                System.out.println("Esta quieto!!!!");
                 break;
             case 1: // Caminar
                 // Primero asignamos Un punto para seguir ...
