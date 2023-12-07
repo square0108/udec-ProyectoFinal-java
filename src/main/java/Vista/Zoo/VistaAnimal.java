@@ -1,7 +1,7 @@
 package Vista.Zoo;
 
 import Model.Enumerations.EspeciesEnum;
-import Model.Especies.Animal;
+import Model.Animal;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;

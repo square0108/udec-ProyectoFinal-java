@@ -1,7 +1,6 @@
 package Model;
 
 import Model.Enumerations.EspeciesEnum;
-import Model.Especies.Animal;
 
 /**
  * utility class con metodos para verificar compatibilidades entre animal-animal o animal-habitat
