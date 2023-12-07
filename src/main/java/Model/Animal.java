@@ -1,4 +1,4 @@
-package Model.Especies;
+package Model;
 
 import Model.Alimento;
 import Model.Enumerations.EspeciesEnum;
@@ -38,6 +38,11 @@ public abstract class Animal {
         this.porcentajeComida = 100;
         this.gananciaHambre = gananciaHambre;
         this.estado = EstadosEnum.PASIVO;
+    }
+
+    public void update() {
+        this.ganarHambre();
+        this.intentarMovimiento();
     }
 
     /**
@@ -98,8 +103,11 @@ public abstract class Animal {
 
         /* Si porcentajeComida desciende del umbral de hambre, el animal intenta alimentarse */
         if (porcentajeComida < MINIMO_PARA_ALIMENTARSE) {
+            System.out.println("DEBUG: Animal " + this + " tiene hambre y quiere comer... ");
             comer();
         }
+        // debugging prints
+        System.out.println("Hambre: " + this.porcentajeComida + ", Animal: " + this);
     }
 
     /**
@@ -124,8 +132,6 @@ public abstract class Animal {
     }
 
     /**
-     * Regla importante para el funcionamiento del compatibility handling: todas las implementaciones de este metodo,
-     * deben tener a la misma subclase como la primera constante (indice 0) del arreglo retornado.
      * @return array de AnimalEnum conteniendo solo las constantes que representan los animales compatibles con este animal.
      */
     public abstract EspeciesEnum[] animalesCompatibles();

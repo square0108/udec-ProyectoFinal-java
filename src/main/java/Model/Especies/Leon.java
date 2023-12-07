@@ -1,5 +1,6 @@
 package Model.Especies;
 
+import Model.Animal;
 import Model.Enumerations.EspeciesEnum;
 import Model.Enumerations.TerrenoEnum;
 

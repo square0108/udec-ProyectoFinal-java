@@ -16,6 +16,8 @@ import java.util.ArrayList;
  *  Clase que Representa de forma visual a la clase Habitat
  */
 public class VistaHabitat {
+    /* TODO: sera necesario que VistaHabitat agregue animales directamente a model.Habitat? -martin
+    *   si se me olvida que quise decir con esto mañana, me corto tres cuartos de coco */
     private Habitat habitat;
     private Point position;
     private int IMG_WIDTH;

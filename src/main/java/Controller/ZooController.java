@@ -1,14 +1,16 @@
 package Controller;
 
 import Model.*;
-import Model.Especies.Animal;
+import Model.Enumerations.EspeciesEnum;
+import Model.Animal;
+import Model.Exceptions.AnimalNoExisteException;
 import Model.Exceptions.AnimalesIncompatiblesException;
 import Model.Exceptions.HabitatIncompatibleException;
 import Model.Exceptions.HabitatLlenoException;
+import Model.Factories.AnimalHabitatFactory;
 import Vista.*;
-import Vista.Zoo.VistaParque;
+import Vista.Zoo.VistaAnimal;
 
-import javax.swing.*;
 import java.util.ArrayList;
 
 /**
@@ -17,39 +19,30 @@ import java.util.ArrayList;
  * existente.
  */
 public class ZooController {
-
-    protected VistaPrincipal GUI; // PLACEHOLDER
+    protected VistaPrincipal GUI;
     protected ArrayList<Habitat> zooHabitats;
-    protected LogicThread logicThread;
-    public static final int LOGIC_TICKRATE_MS = 1000; /* frecuencia con la cual LogicThread hace thread.sleep */
+    public final int FRAMETIME_MS = 17; /* frecuencia con la cual LogicThread hace thread.sleep */
 
     public ZooController() {
-
         this.zooHabitats = new ArrayList<>();
-        this.logicThread = new LogicThread(this);
+        this.GUI = new VistaPrincipal();
 
-        Thread mainThread = new Thread(logicThread);
-        mainThread.start();
+        new Thread(new UpdaterThread(this)).start();
     }
-    public void nuevoHabitat(Habitat tipo) {
-        zooHabitats.add(tipo);
+    public void nuevoHabitat(Habitat habitat, int coordX, int coordY) {
+        zooHabitats.add(habitat);
+        GUI.getVistaParque().addHabitat(habitat, coordX, coordY);
     }
-    public void addAnimal(Animal animal, int habitatIndex) throws HabitatLlenoException, AnimalesIncompatiblesException, HabitatIncompatibleException {
-        zooHabitats.get(habitatIndex).addAnimal(animal);
+    public void nuevoAnimal(EspeciesEnum animal, int habitatIndex) throws HabitatLlenoException, AnimalesIncompatiblesException, HabitatIncompatibleException, AnimalNoExisteException {
+        Animal nuevoAnimal = AnimalHabitatFactory.newAnimalInstance(animal);
+        GUI.getVistaParque().addAnimal(habitatIndex, new VistaAnimal(nuevoAnimal));
+
+        System.out.println(this.zooHabitats.get(0).getCurrentPop());
     }
-    public void actualizarHambreTodos() {
+    public void updateHabitatsModelView() {
         for (Habitat habitat : zooHabitats) {
-            habitat.actualizarHambreAnimales();
+            habitat.update();
         }
-    }
-    public void removerTodosLosMuertos() {
-        for (Habitat habitat : zooHabitats) {
-            habitat.removerAnimalesMuertos();
-        }
-    }
-    public void simularMovimiento() {
-        for (Habitat habitat : zooHabitats) {
-            habitat.intentarMoverAnimales();
-        }
+        GUI.repaint();
     }
 }

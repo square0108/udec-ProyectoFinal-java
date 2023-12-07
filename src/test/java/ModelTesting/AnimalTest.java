@@ -1,11 +1,11 @@
 package ModelTesting;
+import Model.Animal;
 import Model.Especies.*;
 
 import Model.Especies.Leon;
 import Model.EntornosHabitat.*;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
 
 public class AnimalTest {
     private Leon manuel = new Leon();

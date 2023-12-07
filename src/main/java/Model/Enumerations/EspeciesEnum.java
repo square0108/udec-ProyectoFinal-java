@@ -1,13 +1,14 @@
 package Model.Enumerations;
 
+import Model.Animal;
 import Model.Especies.*;
 
 public enum EspeciesEnum {
     LEON(Leon.class, "lion.png"),
     JIRAFA(Jirafa.class, "giraffe.png"),
     ELEFANTE(Elefante.class, "elephant.png");
-    Class<?> claseAsociada;
-    String texturePath;
+    final Class<?> claseAsociada;
+    final String texturePath;
 
     EspeciesEnum(Class<?> claseEspecie, String texturePath) {
         this.claseAsociada = claseEspecie;
