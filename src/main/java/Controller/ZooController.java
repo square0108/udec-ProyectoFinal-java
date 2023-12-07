@@ -26,6 +26,7 @@ public class ZooController {
     private static ArrayList<Rectangle> coordshabitats;
     private static boolean[] habitatUsability;
     public final int FRAMETIME_MS = 17; /* frecuencia con la cual LogicThread hace thread.sleep */
+    // TODO: Aquí quizas poner el modo en el que se esta: Habitat, Animal, Comida. Para poder hacer o no hacer acciones.
 
     public ZooController() {
         this.zooHabitats = new ArrayList<>();
@@ -77,8 +78,6 @@ public class ZooController {
         coordshabitats.add(new Rectangle(302,1188,400,400));
 
         habitatUsability = new boolean[]{true,true,true,true,true,true,true,true,true};
-
-
     }
     public static void changeCursor(EnumCursor tipo){
         GUI.setCursor(tipo);

@@ -13,7 +13,7 @@ public class App {
         ZooController controller = new ZooController();
 
         controller.nuevoHabitat(new Sabana(), 300, 80);
-        
+
         controller.nuevoAnimal(EspeciesEnum.ELEFANTE, 0);
     }
 

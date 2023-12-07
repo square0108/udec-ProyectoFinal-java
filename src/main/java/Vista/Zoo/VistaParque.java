@@ -102,12 +102,10 @@ public class VistaParque extends JPanel implements ActionListener, MouseListener
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        // TODO, MANEJAR SI SE PRESIONO DENTRO DE UN LUGAR PARA PONER HABITAT, DISTINTAS COSAS
-        System.out.println("Mouse en PanelParque " + (e.getX()-this.imageCorner.getX()) +" "+ (e.getY()-this.imageCorner.getY()));
-        ZooController.changeCursor(EnumCursor.DEFAULT);
-
         // TODO: PRUEBA PARA CREAR HABITATS
-        ZooController.nuevoHabitat(new Sabana(),(int)(e.getX()-imageCorner.getX()),(int)(e.getY()-imageCorner.getY()));
+        ZooController.nuevoHabitat(new Sabana(),(int)(e.getX()-imageCorner.getX()),
+                                                (int)(e.getY()-imageCorner.getY()));
+        ZooController.changeCursor(EnumCursor.DEFAULT);
     }
 
     @Override
