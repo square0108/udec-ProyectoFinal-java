@@ -1,6 +1,5 @@
 package Vista.Menu;
 
-import Model.Enumerations.ComidaEnum;
 import Model.Enumerations.HabitatEnum;
 import Vista.Enumerations.BotonesEnum;
 import Vista.Enumerations.EnumEstadosBoton;
@@ -22,7 +21,7 @@ Panel comida
 public class PanelSeleccionHabitat implements BotonClickListener, MouseListener {
     private final int WIDTH = 380;
     private final int HEIGHT = 200;
-    private HabitatEnum habitat = HabitatEnum.SABANA;
+    private HabitatEnum habitat = HabitatEnum.JUNGLA;
     private BufferedImage comidaIcon;
     private BufferedImage fondo;
     protected BotonFlecha flechaDer;

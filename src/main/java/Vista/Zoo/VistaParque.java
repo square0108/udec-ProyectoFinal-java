@@ -1,9 +1,13 @@
 package Vista.Zoo;
 
 import Controller.ZooController;
+import Model.EntornosHabitat.Jungla;
 import Model.EntornosHabitat.Sabana;
+import Model.Exceptions.AnimalesIncompatiblesException;
+import Model.Exceptions.HabitatLlenoException;
 import Model.Habitat;
 import Vista.Enumerations.EnumCursor;
+import Vista.VistaPrincipal;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -17,7 +21,8 @@ import java.util.ArrayList;
 /**
  * Panel que muestra de forma grafica el conjunto de elementos dentro del Parque
  */
-public class VistaParque extends JPanel implements ActionListener, MouseListener {
+public class VistaParque extends JPanel implements MouseListener {
+    private VistaPrincipal parentFrame;
     private final int PANEL_WIDTH = 1400;
     private final int PANEL_HEIGTH = 900;
     private BufferedImage fondo;
@@ -25,15 +30,16 @@ public class VistaParque extends JPanel implements ActionListener, MouseListener
     private final int IMG_HEIGTH= 1800;
     private Point imageCorner;
     private Point previousPoint;
-    private ArrayList<VistaHabitat> habitats;
+    private ArrayList<VistaHabitat> habitatSprites;
 
     /**
      * Cont
      */
-    public VistaParque(){
+    public VistaParque(VistaPrincipal parentFrame){
+        this.parentFrame = parentFrame;
         // Creamos habitat (cambiar más adelante)
         // Y cargamos imagen de fondo
-        habitats = new ArrayList<VistaHabitat>();
+        habitatSprites = new ArrayList<VistaHabitat>();
         this.addMouseListener(this);
 
         try {
@@ -67,9 +73,9 @@ public class VistaParque extends JPanel implements ActionListener, MouseListener
         // Dibujar fondo
         g.drawImage(fondo, (int) imageCorner.getX(), (int) imageCorner.getY(),IMG_WIDTH,IMG_HEIGTH, this);
         // Dibujamos los habitats
-        if(!habitats.isEmpty()){
-            for(int i=0;i<habitats.size(); i++){
-                habitats.get(i).draw(g,this,imageCorner);
+        if(!habitatSprites.isEmpty()){
+            for (VistaHabitat habitatSprite : habitatSprites) {
+                habitatSprite.draw(g, this, imageCorner);
             }
         }
         // Aquí deberiamos llamar a Draw, de distintas componentes de la cosita jajaj
@@ -77,23 +83,19 @@ public class VistaParque extends JPanel implements ActionListener, MouseListener
     }
     public void addHabitat(Habitat tipo, int x, int y){
         VistaHabitat habitat = new VistaHabitat(tipo,x,y);
-        habitats.add(habitat);
+        habitatSprites.add(habitat);
     }
     /*
     * Añade un Animal en el habitat con el Id utilizado en el metodo
     * TODO: Esto quizas deberia pedir una clase ANIMAL dentro, no un VistaAnimal
     * */
-    public void addAnimal(int id, VistaAnimal animal) {
-        habitats.get(id).addAnimal(animal);
+    public void addAnimal(int id, VistaAnimal animal) throws HabitatLlenoException, AnimalesIncompatiblesException {
+        habitatSprites.get(id).addAnimalSprite(animal);
     }
     public ArrayList<VistaHabitat> getVistaHabitats(){
-        return habitats;
+        return habitatSprites;
     }
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        this.update();
-    }
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -103,7 +105,7 @@ public class VistaParque extends JPanel implements ActionListener, MouseListener
     @Override
     public void mouseClicked(MouseEvent e) {
         // TODO: PRUEBA PARA CREAR HABITATS
-        ZooController.nuevoHabitat(new Sabana(),(int)(e.getX()-imageCorner.getX()),
+        ZooController.nuevoHabitat(new Jungla(),(int)(e.getX()-imageCorner.getX()),
                                                 (int)(e.getY()-imageCorner.getY()));
         ZooController.changeCursor(EnumCursor.DEFAULT);
     }

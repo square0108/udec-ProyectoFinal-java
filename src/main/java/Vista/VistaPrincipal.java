@@ -1,18 +1,13 @@
 package Vista;
 
-import Model.EntornosHabitat.Sabana;
-import Model.Especies.Elefante;
-import Model.Especies.Jirafa;
+import Controller.ZooController;
 import Vista.Enumerations.EnumCursor;
 import Vista.Menu.VistaMenu;
-import Vista.Zoo.VistaAnimal;
 import Vista.Zoo.VistaParque;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
@@ -20,13 +15,14 @@ import java.io.File;
 import java.io.IOException;
 
 public class VistaPrincipal extends JFrame implements MouseListener {
-
     private VistaParque zoo;
     private VistaMenu menu;
-    public VistaPrincipal() {
-        zoo = new VistaParque();
-
+    /* pondre una referencia a Controller, no se si sera necesaria.. */
+    private ZooController parentController;
+    public VistaPrincipal(ZooController parentController) {
+        zoo = new VistaParque(this);
         menu = new VistaMenu();
+        this.parentController = parentController;
         setCursor(EnumCursor.DEFAULT);
 
         this.setPreferredSize(new Dimension(1600,900));
@@ -43,6 +39,12 @@ public class VistaPrincipal extends JFrame implements MouseListener {
 
     public VistaParque getVistaParque(){
         return zoo;
+    }
+    public void changeCursor(EnumCursor tipo){
+        this.setCursor(tipo);
+        // setear dentro de controller una variable interna que muestre el estado del cursor, sirve mas que nada
+        // cuando por ejemplo queremos añadir algo y no le achuntamos al habitat, que el cursor vuelva a la normalidad
+        // y no deje añadir ningun animal.
     }
     public void setCursor(EnumCursor tipo){
         String cursor_path = "src/main/java/resources/icons/" + tipo.getImagePath();

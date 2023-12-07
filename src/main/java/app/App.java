@@ -1,8 +1,7 @@
 package app;
 import Controller.ZooController;
-import Model.EntornosHabitat.Sabana;
+import Model.EntornosHabitat.Jungla;
 import Model.Enumerations.EspeciesEnum;
-import Model.Especies.*;
 import Model.Exceptions.AnimalNoExisteException;
 import Model.Exceptions.AnimalesIncompatiblesException;
 import Model.Exceptions.HabitatIncompatibleException;
@@ -12,8 +11,8 @@ public class App {
     public static void main(String[] args) throws HabitatLlenoException, AnimalesIncompatiblesException, HabitatIncompatibleException, AnimalNoExisteException {
         ZooController controller = new ZooController();
 
-        controller.nuevoHabitat(new Sabana(), 300, 80);
-
+        controller.nuevoHabitat(new Jungla(), 259, 88);
+        controller.nuevoAnimal(EspeciesEnum.ELEFANTE, 0);
         controller.nuevoAnimal(EspeciesEnum.ELEFANTE, 0);
     }
 

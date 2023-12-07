@@ -1,6 +1,6 @@
 package Model;
 
-import Model.EntornosHabitat.Sabana;
+import Model.EntornosHabitat.Jungla;
 import Model.Enumerations.EspeciesEnum;
 import Model.Especies.*;
 import Model.Exceptions.AnimalesIncompatiblesException;
@@ -13,9 +13,9 @@ public class Testing {
         System.out.println(CompatibleChecker.isCompatible(new Elefante(), new Jirafa()));
         System.out.println(CompatibleChecker.isCompatible(new Elefante(), new Leon()));
 
-        Sabana sabana1 = new Sabana();
-        sabana1.addAnimal(manuel);
+        Jungla jungla1 = new Jungla();
+        jungla1.addAnimal(manuel);
         System.out.println(EspeciesEnum.classToEnum(manuel));
-        System.out.println(sabana1.popAlimento());
+        System.out.println(jungla1.popAlimento());
     }
 }

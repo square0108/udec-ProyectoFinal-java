@@ -5,7 +5,6 @@ import Model.Enumerations.EspeciesEnum;
 import Model.Animal;
 import Model.Exceptions.AnimalNoExisteException;
 import Model.Exceptions.AnimalesIncompatiblesException;
-import Model.Exceptions.HabitatIncompatibleException;
 import Model.Exceptions.HabitatLlenoException;
 import Model.Factories.AnimalHabitatFactory;
 import Vista.*;
@@ -30,10 +29,10 @@ public class ZooController {
 
     public ZooController() {
         this.zooHabitats = new ArrayList<>();
-        this.coordshabitats = new ArrayList<>();
-        this.GUI = new VistaPrincipal();
-        setHabitatCoordinates();
 
+        this.coordshabitats = new ArrayList<>();
+        this.GUI = new VistaPrincipal(this);
+        setHabitatCoordinates();
         new Thread(new UpdaterThread(this)).start();
     }
     public static void nuevoHabitat(Habitat habitat, int coordX, int coordY) {
@@ -49,16 +48,26 @@ public class ZooController {
             }
         }
     }
-    public void nuevoAnimal(EspeciesEnum animal, int habitatIndex) throws HabitatLlenoException, AnimalesIncompatiblesException, HabitatIncompatibleException, AnimalNoExisteException {
-        Animal nuevoAnimal = AnimalHabitatFactory.newAnimalInstance(animal);
-        GUI.getVistaParque().addAnimal(habitatIndex, new VistaAnimal(nuevoAnimal));
+    public void nuevoAnimal(EspeciesEnum animal, int habitatIndex) throws AnimalNoExisteException {
+        try {
+            Animal nuevoAnimal = AnimalHabitatFactory.newAnimalInstance(animal);
+            zooHabitats.get(habitatIndex).addAnimal(nuevoAnimal);
+            GUI.getVistaParque().addAnimal(habitatIndex, new VistaAnimal(nuevoAnimal));
 
-        System.out.println(this.zooHabitats.get(0).getCurrentPop());
+            System.out.println("Poblacion del habitat N°" + habitatIndex + ": " + this.zooHabitats.get(0).getCurrentPop());
+        }
+        catch (HabitatLlenoException e) {
+            System.out.println("El habitat de indice " + habitatIndex + " se encuentra lleno.");
+        }
+        catch (AnimalesIncompatiblesException e) {
+            System.out.println("El animal que trataste de ingresar: " + animal + ", no es compatible con alguno de los presentes!");
+        }
     }
     public void updateHabitatsModelView() {
         for (Habitat habitat : zooHabitats) {
             habitat.update();
         }
+        GUI.getVistaParque().update();
         GUI.repaint();
     }
 
