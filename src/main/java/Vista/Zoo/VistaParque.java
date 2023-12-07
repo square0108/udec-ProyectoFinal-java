@@ -1,5 +1,7 @@
 package Vista.Zoo;
 
+import Model.Exceptions.AnimalesIncompatiblesException;
+import Model.Exceptions.HabitatLlenoException;
 import Model.Habitat;
 import Vista.ControllerTest;
 import Vista.Enumerations.EnumCursor;
@@ -24,7 +26,7 @@ public class VistaParque extends JPanel implements ActionListener, MouseListener
     private final int IMG_HEIGTH= 1118;
     private Point imageCorner;
     private Point previousPoint;
-    private ArrayList<VistaHabitat> habitats;
+    private ArrayList<VistaHabitat> habitatSprites;
 
     /**
      * Cont
@@ -32,7 +34,7 @@ public class VistaParque extends JPanel implements ActionListener, MouseListener
     public VistaParque(){
         // Creamos habitat (cambiar más adelante)
         // Y cargamos imagen de fondo
-        habitats = new ArrayList<VistaHabitat>();
+        habitatSprites = new ArrayList<VistaHabitat>();
         this.addMouseListener(this);
 
         try {
@@ -66,9 +68,9 @@ public class VistaParque extends JPanel implements ActionListener, MouseListener
         // Dibujar fondo
         g.drawImage(fondo, (int) imageCorner.getX(), (int) imageCorner.getY(),IMG_WIDTH,IMG_HEIGTH, this);
         // Dibujamos los habitats
-        if(!habitats.isEmpty()){
-            for(int i=0;i<habitats.size(); i++){
-                habitats.get(i).draw(g,this,imageCorner);
+        if(!habitatSprites.isEmpty()){
+            for(int i = 0; i< habitatSprites.size(); i++){
+                habitatSprites.get(i).draw(g,this,imageCorner);
             }
         }
         // Aquí deberiamos llamar a Draw, de distintas componentes de la cosita jajaj
@@ -76,17 +78,17 @@ public class VistaParque extends JPanel implements ActionListener, MouseListener
     }
     public void addHabitat(Habitat tipo, int x, int y){
         VistaHabitat habitat = new VistaHabitat(tipo,x,y);
-        habitats.add(habitat);
+        habitatSprites.add(habitat);
     }
     /*
     * Añade un Animal en el habitat con el Id utilizado en el metodo
     * TODO: Esto quizas deberia pedir una clase ANIMAL dentro, no un VistaAnimal
     * */
-    public void addAnimal(int id, VistaAnimal animal) {
-        habitats.get(id).addAnimal(animal);
+    public void addAnimal(int id, VistaAnimal animal) throws HabitatLlenoException, AnimalesIncompatiblesException {
+        habitatSprites.get(id).addAnimal(animal);
     }
     public ArrayList<VistaHabitat> getVistaHabitats(){
-        return habitats;
+        return habitatSprites;
     }
 
     @Override

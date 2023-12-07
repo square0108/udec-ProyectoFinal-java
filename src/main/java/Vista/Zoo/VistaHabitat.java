@@ -1,9 +1,9 @@
 package Vista.Zoo;
 
 import Model.Enumerations.HabitatEnum;
-import Model.Especies.Elefante;
+import Model.Exceptions.AnimalesIncompatiblesException;
+import Model.Exceptions.HabitatLlenoException;
 import Model.Habitat;
-
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -11,6 +11,7 @@ import java.awt.image.ImageObserver;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Objects;
 
 /**
  *  Clase que Representa de forma visual a la clase Habitat
@@ -18,11 +19,11 @@ import java.util.ArrayList;
 public class VistaHabitat {
     /* TODO: sera necesario que VistaHabitat agregue animales directamente a model.Habitat? -martin
     *   si se me olvida que quise decir con esto mañana, me corto tres cuartos de coco */
-    private Habitat habitat;
-    private Point position;
-    private int IMG_WIDTH;
-    private int IMG_HEIGHT;
-    private ArrayList<VistaAnimal> animales;
+    private final Habitat habitat;
+    private final Point position;
+    private final int IMG_WIDTH;
+    private final int IMG_HEIGHT;
+    private final ArrayList<VistaAnimal> animalSprites;
     private BufferedImage texture;
 
     /**
@@ -33,7 +34,7 @@ public class VistaHabitat {
      * @param yPos Posición del eje Y con respecto al parque
      */
     public VistaHabitat(Habitat habitat, int xPos, int yPos){
-        animales = new ArrayList<VistaAnimal>();
+        animalSprites = new ArrayList<VistaAnimal>();
         // TODO: esto es para probar
         this.habitat = habitat;
         setTexture(habitat);
@@ -56,10 +57,10 @@ public class VistaHabitat {
                 (int)(position.getY() + parquePosition.getY()),IMG_WIDTH,IMG_HEIGHT,imageObserver);
 
         // Aquí se dibujan los
-        if(!animales.isEmpty()){
-            for(int i=0;i<animales.size(); i++){
-                animales.get(i).draw(g,imageObserver,new Point((int) (position.getX() + parquePosition.getX())
-                                , (int)(position.getY() + parquePosition.getY())),IMG_WIDTH,IMG_HEIGHT);
+        if(!animalSprites.isEmpty()){
+            for (VistaAnimal animalSprite : animalSprites) {
+                animalSprite.draw(g, imageObserver, new Point((int) (position.getX() + parquePosition.getX())
+                        , (int) (position.getY() + parquePosition.getY())), IMG_WIDTH, IMG_HEIGHT);
             }
         }
     }
@@ -69,7 +70,7 @@ public class VistaHabitat {
      */
     private void setTexture(Habitat tipo){
         String texture_path;
-        switch (HabitatEnum.classToEnum(tipo)){
+        switch (Objects.requireNonNull(HabitatEnum.classToEnum(tipo))){
             case SABANA:
                 texture_path = "src/main/java/resources/habitats/jungla.jpg";
                 break;
@@ -90,9 +91,9 @@ public class VistaHabitat {
      * Crea añade un Habitat dentro de el array de VistaAnimal.
      * @param vistaAnimal Animal a ser añadido a VistaHabitat, debe ser del tipo VistaAnimal
      */
-    public void addAnimal(VistaAnimal vistaAnimal){
+    public void addAnimal(VistaAnimal vistaAnimal) throws HabitatLlenoException, AnimalesIncompatiblesException {
         habitat.addAnimal(vistaAnimal.getAnimal());
-        animales.add(vistaAnimal);
+        animalSprites.add(vistaAnimal);
     }
     // GETTERS Y SETTERS
     public Habitat getHabitat(){

@@ -109,8 +109,7 @@ public abstract class Habitat {
      * Agrega un nuevo animal a este habitat. Debe pasar por varios checks logicos de compatibilidad.
      * @param nuevoAnimal Animal nuevo a agregar
      */
-    public void addAnimal(Animal nuevoAnimal) {
-        try {
+    public void addAnimal(Animal nuevoAnimal) throws AnimalesIncompatiblesException, HabitatLlenoException {
             /* Checkear si el habitat ya se encuentra lleno. */
             if (animalesCercados.size() >= poblacionMax) {
                 throw new HabitatLlenoException();
@@ -139,16 +138,10 @@ public abstract class Habitat {
             animalesCercados.add(nuevoAnimal);
             nuevoAnimal.setHabitatHogar(this);
         }
-        catch(AnimalesIncompatiblesException exc) {
-            System.out.println("El animal: " + EspeciesEnum.classToEnum(nuevoAnimal) + ", no es compatible con alguno de los animales presentes en " + this);
-        }/* TODO: ME DA ERROR ESTE CATCH POR ALGUNA RAZON
+        /* TODO: ME DA ERROR ESTE CATCH POR ALGUNA RAZON
         catch (HabitatIncompatibleException exc) {
             System.out.println("El animal: " + nuevoAnimal + "no es compatible con el habitat: " + HabitatEnum.classToEnum(this));
         }*/
-        catch (HabitatLlenoException exc) {
-            System.out.println("El habitat: " + this + " ya se encuentra lleno.");
-        }
-    }
 
     /**
      * Remueve un animal del habitat en el indice especifico.

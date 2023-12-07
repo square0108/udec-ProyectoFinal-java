@@ -4,12 +4,14 @@ import Model.Especies.*;
 
 import Model.Especies.Leon;
 import Model.EntornosHabitat.*;
+import Model.Exceptions.AnimalesIncompatiblesException;
+import Model.Exceptions.HabitatLlenoException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 public class AnimalTest {
-    private Leon manuel = new Leon();
-    private Jirafa pepe = new Jirafa();
+    private final Leon manuel = new Leon();
+    private final Jirafa pepe = new Jirafa();
     void PrintMovimiento(Animal animal) {
         animal.intentarMovimiento();
         System.out.println(animal + ", " + animal.getEstado());
@@ -31,7 +33,7 @@ public class AnimalTest {
     }
 
     @Test
-    void MuertosNoSeMueven() {
+    void MuertosNoSeMueven() throws HabitatLlenoException, AnimalesIncompatiblesException {
         Leon L = new Leon();
         Sabana S = new Sabana();
         S.getReservaAlimentos().remove(0);

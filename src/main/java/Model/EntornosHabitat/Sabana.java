@@ -5,6 +5,6 @@ import Model.Enumerations.TerrenoEnum;
 
 public class Sabana extends Habitat {
     public Sabana(){
-        super(30.0F,15, TerrenoEnum.TERRESTRE);
+        super(30.0F,4, TerrenoEnum.TERRESTRE);
     }
 }
