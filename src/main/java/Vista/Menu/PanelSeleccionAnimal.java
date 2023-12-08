@@ -1,11 +1,11 @@
 package Vista.Menu;
 
-import Controller.ZooController;
 import Model.Enumerations.EspeciesEnum;
 import Vista.Enumerations.BotonesEnum;
-import Vista.Enumerations.EnumCursor;
 import Vista.Enumerations.EnumEstadosBoton;
 import Vista.Interface.BotonClickListener;
+import Vista.Interface.ParentPanel;
+import Vista.Interface.SubPanel;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -20,7 +20,7 @@ import java.io.IOException;
 Quizas podria hacer una clase Panel Selección y que el panel seleccion animal extienda a esa, lo mismo con
 Panel comida
  */
-public class PanelSeleccionAnimal implements BotonClickListener, MouseListener {
+public class PanelSeleccionAnimal implements BotonClickListener, MouseListener, SubPanel {
     private final int WIDTH = 380;
     private final int HEIGHT = 200;
     private EspeciesEnum animal = EspeciesEnum.ELEFANTE;
@@ -30,6 +30,7 @@ public class PanelSeleccionAnimal implements BotonClickListener, MouseListener {
     protected BotonFlecha flechaIzq;
     private Point position;
     private Rectangle clickableArea;
+    protected ParentPanel parentPanel;
 
 
     public PanelSeleccionAnimal(int x, int y) {
@@ -93,9 +94,8 @@ public class PanelSeleccionAnimal implements BotonClickListener, MouseListener {
 
     @Override
     public void mouseClicked(MouseEvent e) {
-
         if (clickableArea.contains(e.getPoint())) {
-            ZooController.changeCursorMode(EnumCursor.ANADIR_ANIMAL);
+            notifyParent();
             // TODO: aqui algo deberia, Además deeria cambia el modo en zooController???
         }
 
@@ -119,5 +119,10 @@ public class PanelSeleccionAnimal implements BotonClickListener, MouseListener {
     @Override
     public void mouseExited(MouseEvent e) {
 
+    }
+
+    @Override
+    public void notifyParent() {
+        parentPanel.contextualUpdate(this);
     }
 }

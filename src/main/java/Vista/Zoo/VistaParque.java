@@ -21,7 +21,7 @@ import java.util.ArrayList;
  * Panel que muestra de forma grafica el conjunto de elementos dentro del Parque
  */
 public class VistaParque extends JPanel implements MouseListener {
-    private VistaPrincipal parentFrame;
+    private VistaPrincipal vistaPrincipal;
     private final int PANEL_WIDTH = 1400;
     private final int PANEL_HEIGTH = 900;
     private BufferedImage fondo;
@@ -35,7 +35,7 @@ public class VistaParque extends JPanel implements MouseListener {
      * Cont
      */
     public VistaParque(VistaPrincipal parentFrame){
-        this.parentFrame = parentFrame;
+        this.vistaPrincipal = parentFrame;
         // Creamos habitat (cambiar más adelante)
         // Y cargamos imagen de fondo
         habitatSprites = new ArrayList<VistaHabitat>();
@@ -106,7 +106,7 @@ public class VistaParque extends JPanel implements MouseListener {
         // TODO: PRUEBA PARA CREAR HABITATS
         ZooController.nuevoHabitat(new Jungla(),(int)(e.getX()-imageCorner.getX()),
                                                 (int)(e.getY()-imageCorner.getY()));
-        ZooController.changeCursorMode(EnumCursor.DEFAULT);
+        vistaPrincipal.setCursor(EnumCursor.DEFAULT);
     }
 
     @Override

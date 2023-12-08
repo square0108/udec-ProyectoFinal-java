@@ -66,8 +66,7 @@ public class ZooController {
         for (Habitat habitat : zooHabitats) {
             habitat.update();
         }
-        GUI.getVistaParque().update();
-        GUI.repaint();
+        GUI.update();
     }
 
     /**
@@ -86,11 +85,5 @@ public class ZooController {
         coordshabitats.add(new Rectangle(302,1188,400,400));
 
         habitatUsability = new boolean[]{true,true,true,true,true,true,true,true,true};
-    }
-    public static void changeCursorMode(EnumCursor tipo){
-        GUI.setCursor(tipo);
-        // setear dentro de controller una variable interna que muestre el estado del cursor, sirve mas que nada
-        // cuando por ejemplo queremos añadir algo y no le achuntamos al habitat, que el cursor vuelva a la normalidad
-        // y no deje añadir ningun animal.
     }
 }

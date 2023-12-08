@@ -1,5 +1,8 @@
 package Vista.Menu;
 
+import Vista.Enumerations.EnumCursor;
+import Vista.Interface.ParentPanel;
+import Vista.Interface.SubPanel;
 import Vista.VistaPrincipal;
 
 import javax.imageio.ImageIO;
@@ -14,23 +17,26 @@ import java.io.IOException;
 /**
  * Es un panel el cual muestra el menu de opciones
  */
-public class VistaMenu extends JPanel implements ActionListener {
+public class VistaMenu extends JPanel implements ParentPanel {
     final private int IMG_WIDTH = 400;
     final private int IMG_HEIGHT = 900;
     private BufferedImage fondo;
     private Point imageCorner;
-    private PanelSeleccionAnimal panelAnimal;
-    private PanelSeleccionComida panelComida;
-    private PanelSeleccionHabitat panelHabitat;
-    private Timer timer;
+    private final PanelSeleccionAnimal panelAnimal;
+    private final PanelSeleccionComida panelComida;
+    private final PanelSeleccionHabitat panelHabitat;
+    private final VistaPrincipal vistaPrincipal;
     public VistaMenu(VistaPrincipal parentFrame){
         this.setPreferredSize(new Dimension(IMG_WIDTH,IMG_HEIGHT));
         imageCorner = new Point(0,0);
 
         panelHabitat = new PanelSeleccionHabitat(10,30);
+        panelHabitat.parentPanel = this;
         panelAnimal = new PanelSeleccionAnimal(10,260);
-
+        panelAnimal.parentPanel = this;
         panelComida = new PanelSeleccionComida(10, 490);
+        panelComida.parentPanel = this;
+        this.vistaPrincipal = parentFrame;
 
         // Cargamos textura fondo
         try {
@@ -67,8 +73,6 @@ public class VistaMenu extends JPanel implements ActionListener {
 
         this.addMouseListener(panelComida);
 
-        this.timer = new Timer(50, this);
-        this.timer.start();
     }
     public void draw(Graphics g){
         g.setColor(Color.red);
@@ -86,7 +90,13 @@ public class VistaMenu extends JPanel implements ActionListener {
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
+    public void contextualUpdate(SubPanel subPanel) {
+        if (subPanel == panelAnimal) {
+            System.out.println("whyyyyy");
+            vistaPrincipal.setCursor(EnumCursor.ANADIR_ANIMAL);
+        }
+        else if (subPanel == panelComida) vistaPrincipal.setCursor(EnumCursor.ANADIR_COMIDA);
+        else if (subPanel == panelHabitat) vistaPrincipal.setCursor(EnumCursor.ANADIR_HABITAT);
         repaint();
     }
 }

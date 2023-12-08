@@ -17,6 +17,7 @@ import java.io.IOException;
 public class VistaPrincipal extends JFrame implements MouseListener {
     private VistaParque zoo;
     private VistaMenu menu;
+    private EnumCursor cursorState;
     /* pondre una referencia a Controller, no se si sera necesaria.. */
     private ZooController parentController;
     public VistaPrincipal(ZooController parentController) {
@@ -34,18 +35,21 @@ public class VistaPrincipal extends JFrame implements MouseListener {
         this.pack();
         this.setLocationRelativeTo(null);
         this.setVisible(true);
+        this.cursorState = EnumCursor.DEFAULT;
+    }
 
+    public void update() {
+        this.zoo.repaint();
+        this.menu.repaint();
+        this.repaint();
     }
 
     public VistaParque getVistaParque(){
         return zoo;
     }
-    public void changeCursor(EnumCursor tipo){
-        this.setCursor(tipo);
-        // setear dentro de controller una variable interna que muestre el estado del cursor, sirve mas que nada
-        // cuando por ejemplo queremos añadir algo y no le achuntamos al habitat, que el cursor vuelva a la normalidad
-        // y no deje añadir ningun animal.
-    }
+
+    public EnumCursor getCursorState() {return this.cursorState;}
+
     public void setCursor(EnumCursor tipo){
         String cursor_path = "src/main/java/resources/icons/" + tipo.getImagePath();
         BufferedImage image;
@@ -53,6 +57,7 @@ public class VistaPrincipal extends JFrame implements MouseListener {
             image = ImageIO.read(new File(cursor_path));
             setCursor(Toolkit.getDefaultToolkit().createCustomCursor(image.getScaledInstance(50,50,0),
                     new Point(0,0), "Custom Cursor"));
+            cursorState = tipo;
         } catch (IOException e) {
             System.out.println("NO CARGO LA IMAGEN DEL CURSOR AAAAA");
         }
