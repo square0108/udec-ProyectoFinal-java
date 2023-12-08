@@ -109,6 +109,9 @@ public class VistaParque extends JPanel implements MouseListener {
         ZooController.nuevoHabitat(PanelSeleccionHabitat.getSelectedHabitat(),(int)(e.getX()-imageCorner.getX()),
                                                 (int)(e.getY()-imageCorner.getY()));
         int index = 0;
+
+        // TODO: Arreglar, solo funciona cuando los habitats los ponemos en orden, si no, falla. Quizas
+        // seria mejor simplemente guardar los animales como un Array normal¿?
         for (Rectangle area : ZooController.getCoordshabitats()) {
             if (area.contains((int)(e.getX()-imageCorner.getX()), (int)(e.getY()-imageCorner.getY()))
                     && !ZooController.getHabitatUsability()[index]

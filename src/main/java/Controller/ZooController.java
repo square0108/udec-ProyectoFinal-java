@@ -36,17 +36,18 @@ public class ZooController {
         setHabitatCoordinates();
         new Thread(new UpdaterThread(this)).start();
     }
-    public static void nuevoHabitat(HabitatEnum habitat, int coordX, int coordY) {
+    public static void nuevoHabitat(HabitatEnum tipoHabitat, int coordX, int coordY) {
         // TODO: Aqui habria que poner restriccion con modo de cursor
         if (GUI.getCursorState() != EnumCursor.ANADIR_HABITAT) return;
         for(int i = 0; i< coordshabitats.size(); i++){
+            // TODO: cambiar esto por un cordshabitats.contains, xd, se me habia olvidado que eso existia.
             if(coordshabitats.get(i).getX()<coordX && coordX < coordshabitats.get(i).getX() + coordshabitats.get(i).getWidth() &&
                     coordshabitats.get(i).getY()<coordY && coordY < coordshabitats.get(i).getY() + coordshabitats.get(i).getWidth() &&
                     habitatUsability[i]){
 
                 habitatUsability[i] = false;
 
-                Habitat newinstance = AnimalHabitatFactory.newHabitatInstance(habitat);
+                Habitat newinstance = AnimalHabitatFactory.newHabitatInstance(tipoHabitat);
                 System.out.println("DEBUG: Nuevo habitat agregado: " + newinstance);
                 zooHabitats.add(newinstance);
                 GUI.getVistaParque().addHabitat(newinstance,(int) coordshabitats.get(i).getX(),(int) coordshabitats.get(i).getY());
