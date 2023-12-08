@@ -100,16 +100,9 @@ public class VistaHabitat {
      * Solo usada al ser inicializado.
      */
     private void setTexture(Habitat tipo){
-        // TODO: REFACTOR DE ESTO
-        String texture_path;
-        switch (Objects.requireNonNull(HabitatEnum.classToEnum(tipo))){
-            case JUNGLA:
-                texture_path = "src/main/java/resources/habitats/jungla.jpg";
-                break;
-            default:
-                texture_path = "src/main/java/resources/skins/error.png";
-                break;
-        }
+
+        String texture_path = "src/main/java/resources/habitats/" +
+                HabitatEnum.classToEnum(tipo).getTexturePath();
         try {
             this.texture = ImageIO.read(new File(texture_path));
         } catch (IOException e) {

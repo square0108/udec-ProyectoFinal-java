@@ -87,7 +87,7 @@ public abstract class Animal {
             case MUERTO:
                 return;
             case COMIENDO:
-                System.out.println("DEBUG: Animal " + this + " esta comiendo... ");
+                // System.out.println("DEBUG: Animal " + this + " esta comiendo... ");
                 this.estado = PASIVO;
                 return;
             default:
@@ -106,11 +106,11 @@ public abstract class Animal {
 
         /* Si porcentajeComida desciende del umbral de hambre, el animal intenta alimentarse */
         if (porcentajeComida < MINIMO_PARA_ALIMENTARSE) {
-            System.out.println("DEBUG: Animal " + this + " tiene hambre y quiere comer... ");
+            // System.out.println("DEBUG: Animal " + this + " tiene hambre y quiere comer... ");
             comer();
         }
         // debugging prints
-        System.out.println("Hambre: " + this.porcentajeComida + ", Animal: " + this);
+        // System.out.println("DEBUGHUNGER: Hambre: " + this.porcentajeComida + ", Animal: " + this);
     }
 
     /**
