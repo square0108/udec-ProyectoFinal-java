@@ -2,10 +2,13 @@ package Vista.Zoo;
 
 import Controller.ZooController;
 import Model.EntornosHabitat.Jungla;
+import Model.Enumerations.EspeciesEnum;
+import Model.Exceptions.AnimalNoExisteException;
 import Model.Exceptions.AnimalesIncompatiblesException;
 import Model.Exceptions.HabitatLlenoException;
 import Model.Habitat;
 import Vista.Enumerations.EnumCursor;
+import Vista.Menu.PanelSeleccionHabitat;
 import Vista.VistaPrincipal;
 
 import javax.imageio.ImageIO;
@@ -21,7 +24,6 @@ import java.util.ArrayList;
  * Panel que muestra de forma grafica el conjunto de elementos dentro del Parque
  */
 public class VistaParque extends JPanel implements MouseListener {
-    private VistaPrincipal vistaPrincipal;
     private final int PANEL_WIDTH = 1400;
     private final int PANEL_HEIGTH = 900;
     private BufferedImage fondo;
@@ -29,7 +31,8 @@ public class VistaParque extends JPanel implements MouseListener {
     private final int IMG_HEIGTH= 1800;
     private Point imageCorner;
     private Point previousPoint;
-    private ArrayList<VistaHabitat> habitatSprites;
+    private final ArrayList<VistaHabitat> VistaHabitatList;
+    private final VistaPrincipal vistaPrincipal;
 
     /**
      * Cont
@@ -38,7 +41,7 @@ public class VistaParque extends JPanel implements MouseListener {
         this.vistaPrincipal = parentFrame;
         // Creamos habitat (cambiar más adelante)
         // Y cargamos imagen de fondo
-        habitatSprites = new ArrayList<VistaHabitat>();
+        VistaHabitatList = new ArrayList<VistaHabitat>();
         this.addMouseListener(this);
 
         try {
@@ -58,8 +61,6 @@ public class VistaParque extends JPanel implements MouseListener {
         this.setPreferredSize(new Dimension(PANEL_WIDTH,PANEL_HEIGTH));
         // Creamos el Timer y lo iniciamos (60 fps)
 
-        addMouseListener(this);
-
 
         // OJO: Este JPANEL ES PARA PINTAR EL RESTO DE COSAS, NO HAY QUE PONERLE MAS JPANELS
     }
@@ -72,8 +73,8 @@ public class VistaParque extends JPanel implements MouseListener {
         // Dibujar fondo
         g.drawImage(fondo, (int) imageCorner.getX(), (int) imageCorner.getY(),IMG_WIDTH,IMG_HEIGTH, this);
         // Dibujamos los habitats
-        if(!habitatSprites.isEmpty()){
-            for (VistaHabitat habitatSprite : habitatSprites) {
+        if(!VistaHabitatList.isEmpty()){
+            for (VistaHabitat habitatSprite : VistaHabitatList) {
                 habitatSprite.draw(g, this, imageCorner);
             }
         }
@@ -81,18 +82,18 @@ public class VistaParque extends JPanel implements MouseListener {
         // Habitat.draw(g,xPos,yPos), cosas así
     }
     public void addHabitat(Habitat tipo, int x, int y){
-        VistaHabitat habitat = new VistaHabitat(tipo,x,y);
-        habitatSprites.add(habitat);
+        VistaHabitat habitat = new VistaHabitat(tipo,x,y, this);
+        VistaHabitatList.add(habitat);
     }
     /*
     * Añade un Animal en el habitat con el Id utilizado en el metodo
     * TODO: Esto quizas deberia pedir una clase ANIMAL dentro, no un VistaAnimal
     * */
     public void addAnimal(int id, VistaAnimal animal) throws HabitatLlenoException, AnimalesIncompatiblesException {
-        habitatSprites.get(id).addAnimalSprite(animal);
+        VistaHabitatList.get(id).addAnimalSprite(animal);
     }
     public ArrayList<VistaHabitat> getVistaHabitats(){
-        return habitatSprites;
+        return VistaHabitatList;
     }
 
     @Override
@@ -103,9 +104,25 @@ public class VistaParque extends JPanel implements MouseListener {
 
     @Override
     public void mouseClicked(MouseEvent e) {
+        System.out.println("clicked VistaParque");
         // TODO: PRUEBA PARA CREAR HABITATS
-        ZooController.nuevoHabitat(new Jungla(),(int)(e.getX()-imageCorner.getX()),
+        ZooController.nuevoHabitat(PanelSeleccionHabitat.getSelectedHabitat(),(int)(e.getX()-imageCorner.getX()),
                                                 (int)(e.getY()-imageCorner.getY()));
+        int index = 0;
+        for (Rectangle area : ZooController.getCoordshabitats()) {
+            if (area.contains((int)(e.getX()-imageCorner.getX()), (int)(e.getY()-imageCorner.getY()))
+                    && !ZooController.getHabitatUsability()[index]
+                    && vistaPrincipal.getCursorState() == EnumCursor.ANADIR_ANIMAL) {
+                System.out.println("colocaste habitat wuoouiuouo");
+                try {
+                    ZooController.nuevoAnimal(EspeciesEnum.ELEFANTE, index);
+                } catch (AnimalNoExisteException ex) {
+                    throw new RuntimeException(ex);
+                }
+            }
+            index++;
+        }
+        index = 0;
         vistaPrincipal.setCursor(EnumCursor.DEFAULT);
     }
 
