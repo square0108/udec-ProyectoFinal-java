@@ -1,5 +1,7 @@
 package Vista.Menu;
 
+import Model.Enumerations.EspeciesEnum;
+import Model.Enumerations.HabitatEnum;
 import Vista.Enumerations.EnumCursor;
 import Vista.Interface.ParentPanel;
 import Vista.Interface.SubPanel;
@@ -14,6 +16,8 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
+import static Vista.Enumerations.EnumCursor.*;
+
 /**
  * Es un panel el cual muestra el menu de opciones
  */
@@ -22,7 +26,7 @@ public class VistaMenu extends JPanel implements ParentPanel {
     final private int IMG_HEIGHT = 900;
     private BufferedImage fondo;
     private Point imageCorner;
-    private final PanelSeleccionAnimal panelAnimal;
+    private static final PanelSeleccionAnimal panelAnimal = new PanelSeleccionAnimal(10, 260);
     private final PanelSeleccionComida panelComida;
     private final PanelSeleccionHabitat panelHabitat;
     private final VistaPrincipal vistaPrincipal;
@@ -32,7 +36,6 @@ public class VistaMenu extends JPanel implements ParentPanel {
 
         panelHabitat = new PanelSeleccionHabitat(10,30);
         panelHabitat.parentPanel = this;
-        panelAnimal = new PanelSeleccionAnimal(10,260);
         panelAnimal.parentPanel = this;
         panelComida = new PanelSeleccionComida(10, 490);
         panelComida.parentPanel = this;
@@ -74,6 +77,11 @@ public class VistaMenu extends JPanel implements ParentPanel {
         this.addMouseListener(panelComida);
 
     }
+
+    public static EspeciesEnum getSelectedAnimal() {return panelAnimal.selectedAnimal;}
+
+    public HabitatEnum getSelectedHabitat() {return this.panelHabitat.selectedHabitat;}
+
     public void draw(Graphics g){
         g.setColor(Color.red);
         g.drawImage(fondo,0,0,IMG_WIDTH,IMG_HEIGHT,this);
@@ -91,12 +99,8 @@ public class VistaMenu extends JPanel implements ParentPanel {
 
     @Override
     public void contextualUpdate(SubPanel subPanel) {
-        if (subPanel == panelAnimal) {
-            System.out.println("whyyyyy");
-            vistaPrincipal.setCursor(EnumCursor.ANADIR_ANIMAL);
-        }
-        else if (subPanel == panelComida) vistaPrincipal.setCursor(EnumCursor.ANADIR_COMIDA);
-        else if (subPanel == panelHabitat) vistaPrincipal.setCursor(EnumCursor.ANADIR_HABITAT);
-        repaint();
+        if (subPanel == panelAnimal) vistaPrincipal.setCursor(ANADIR_ANIMAL);
+        else if (subPanel == panelComida) vistaPrincipal.setCursor(ANADIR_COMIDA);
+        else if (subPanel == panelHabitat) vistaPrincipal.setCursor(ANADIR_HABITAT);
     }
 }

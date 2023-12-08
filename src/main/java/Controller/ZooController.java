@@ -3,6 +3,7 @@ package Controller;
 import Model.*;
 import Model.Enumerations.EspeciesEnum;
 import Model.Animal;
+import Model.Enumerations.HabitatEnum;
 import Model.Exceptions.AnimalNoExisteException;
 import Model.Exceptions.AnimalesIncompatiblesException;
 import Model.Exceptions.HabitatLlenoException;
@@ -34,16 +35,19 @@ public class ZooController {
         setHabitatCoordinates();
         new Thread(new UpdaterThread(this)).start();
     }
-    public static void nuevoHabitat(Habitat habitat, int coordX, int coordY) {
+    public static void nuevoHabitat(HabitatEnum habitat, int coordX, int coordY) {
         // TODO: Aqui habria que poner restriccion con modo de cursor
+        if (GUI.getCursorState() != EnumCursor.ANADIR_HABITAT) return;
         for(int i = 0; i< coordshabitats.size(); i++){
             if(coordshabitats.get(i).getX()<coordX && coordX < coordshabitats.get(i).getX() + coordshabitats.get(i).getWidth() &&
                     coordshabitats.get(i).getY()<coordY && coordY < coordshabitats.get(i).getY() + coordshabitats.get(i).getWidth() &&
                     habitatUsability[i]){
 
                 habitatUsability[i] = false;
-                zooHabitats.add(habitat);
-                GUI.getVistaParque().addHabitat(habitat,(int) coordshabitats.get(i).getX(),(int) coordshabitats.get(i).getY());
+                Habitat newinstance = AnimalHabitatFactory.newHabitatInstance(habitat);
+                System.out.println("DEBUG: Nuevo habitat agregado: " + newinstance);
+                zooHabitats.add(newinstance);
+                GUI.getVistaParque().addHabitat(newinstance,(int) coordshabitats.get(i).getX(),(int) coordshabitats.get(i).getY());
             }
         }
     }
@@ -85,5 +89,13 @@ public class ZooController {
         coordshabitats.add(new Rectangle(302,1188,400,400));
 
         habitatUsability = new boolean[]{true,true,true,true,true,true,true,true,true};
+    }
+
+    public static ArrayList<Rectangle> getCoordshabitats() {
+        return coordshabitats;
+    }
+
+    public static boolean[] getHabitatUsability() {
+        return habitatUsability;
     }
 }

@@ -23,7 +23,7 @@ Panel comida
 public class PanelSeleccionHabitat implements BotonClickListener, MouseListener, SubPanel {
     private final int WIDTH = 380;
     private final int HEIGHT = 200;
-    private HabitatEnum habitat = HabitatEnum.JUNGLA;
+    protected static HabitatEnum selectedHabitat = HabitatEnum.JUNGLA;
     private BufferedImage comidaIcon;
     private BufferedImage fondo;
     protected BotonFlecha flechaDer;
@@ -52,6 +52,8 @@ public class PanelSeleccionHabitat implements BotonClickListener, MouseListener,
         setComidaIcon();
     }
 
+    public static HabitatEnum getSelectedHabitat() {return selectedHabitat;} /* todo: ojala reducir la cantidad de metodos static */
+
     public void draw(Graphics g, ImageObserver imageObserver) {
         g.setColor(Color.GRAY);
         g.drawImage(fondo,(int) this.position.getX(), (int) this.position.getY(),WIDTH, HEIGHT,imageObserver);
@@ -65,11 +67,11 @@ public class PanelSeleccionHabitat implements BotonClickListener, MouseListener,
     }
 
     public void cambiarSiguienteHabitat() {
-        habitat = habitat.siguiente();
+        selectedHabitat = selectedHabitat.siguiente();
         setComidaIcon();
     }
     public void cambiarAnteriorHabitat() {
-        habitat = habitat.anterior();
+        selectedHabitat = selectedHabitat.anterior();
         setComidaIcon();
     }
 
@@ -83,7 +85,7 @@ public class PanelSeleccionHabitat implements BotonClickListener, MouseListener,
     }
 
     public void setComidaIcon() {
-        String texture_path = "src/main/java/resources/icons/" + habitat.getTexturePath();
+        String texture_path = "src/main/java/resources/icons/" + selectedHabitat.getTexturePath();
         try {
             this.comidaIcon = ImageIO.read(new File(texture_path));
         } catch (IOException e) {

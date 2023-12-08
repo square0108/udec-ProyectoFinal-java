@@ -23,7 +23,7 @@ Panel comida
 public class PanelSeleccionAnimal implements BotonClickListener, MouseListener, SubPanel {
     private final int WIDTH = 380;
     private final int HEIGHT = 200;
-    private EspeciesEnum animal = EspeciesEnum.ELEFANTE;
+    protected EspeciesEnum selectedAnimal = EspeciesEnum.ELEFANTE;
     private BufferedImage animalIcon;
     private BufferedImage fondo;
     protected BotonFlecha flechaDer;
@@ -66,11 +66,11 @@ public class PanelSeleccionAnimal implements BotonClickListener, MouseListener, 
     }
 
     public void cambiarSiguienteAnimal() {
-        animal = animal.siguiente();
+        selectedAnimal = selectedAnimal.siguiente();
         setAnimalIcon();
     }
     public void cambiarAnteriorAnimal() {
-        animal = animal.anterior();
+        selectedAnimal = selectedAnimal.anterior();
         setAnimalIcon();
     }
 
@@ -84,7 +84,7 @@ public class PanelSeleccionAnimal implements BotonClickListener, MouseListener, 
     }
 
     public void setAnimalIcon() {
-        String texture_path = "src/main/java/resources/icons/" + animal.getTexturePath();
+        String texture_path = "src/main/java/resources/icons/" + selectedAnimal.getTexturePath();
         try {
             this.animalIcon = ImageIO.read(new File(texture_path));
         } catch (IOException e) {

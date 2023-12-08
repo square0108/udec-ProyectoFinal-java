@@ -4,8 +4,14 @@ import Model.Enumerations.HabitatEnum;
 import Model.Exceptions.AnimalesIncompatiblesException;
 import Model.Exceptions.HabitatLlenoException;
 import Model.Habitat;
+import Vista.Interface.SubPanel;
+
 import javax.imageio.ImageIO;
+import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.awt.image.ImageObserver;
 import java.io.File;
@@ -25,6 +31,7 @@ public class VistaHabitat {
     private final int IMG_HEIGHT;
     private final ArrayList<VistaAnimal> animalSprites;
     private BufferedImage texture;
+    protected final VistaParque vistaParque;
 
     /**
      * Metodo constructor de VistaHabitat, en este se debe entregar el Habitat a ser mostrado de forma grafica y las
@@ -33,8 +40,9 @@ public class VistaHabitat {
      * @param xPos Posición del eje X con respecto al parque
      * @param yPos Posición del eje Y con respecto al parque
      */
-    public VistaHabitat(Habitat modelHabitat, int xPos, int yPos){
+    public VistaHabitat(Habitat modelHabitat, int xPos, int yPos, VistaParque parent){
         animalSprites = new ArrayList<VistaAnimal>();
+        vistaParque = parent;
         // TODO: esto es para probar
         this.modelHabitat = modelHabitat;
         setTexture(modelHabitat);
@@ -94,9 +102,9 @@ public class VistaHabitat {
 
     public void addAnimalSprite(VistaAnimal vistaAnimal) throws HabitatLlenoException, AnimalesIncompatiblesException {
         animalSprites.add(vistaAnimal);
+    }
 
 
-}
     // GETTERS Y SETTERS
     public Habitat getModelHabitat(){
         return this.modelHabitat;

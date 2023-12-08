@@ -39,7 +39,7 @@ public class VistaPrincipal extends JFrame implements MouseListener {
     }
 
     public void update() {
-        this.zoo.repaint();
+        this.zoo.update();
         this.menu.repaint();
         this.repaint();
     }
