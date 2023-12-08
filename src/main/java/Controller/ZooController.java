@@ -87,7 +87,7 @@ public class ZooController {
 
         habitatUsability = new boolean[]{true,true,true,true,true,true,true,true,true};
     }
-    public static void changeCursor(EnumCursor tipo){
+    public static void changeCursorMode(EnumCursor tipo){
         GUI.setCursor(tipo);
         // setear dentro de controller una variable interna que muestre el estado del cursor, sirve mas que nada
         // cuando por ejemplo queremos añadir algo y no le achuntamos al habitat, que el cursor vuelva a la normalidad
