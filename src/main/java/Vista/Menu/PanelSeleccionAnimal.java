@@ -96,8 +96,8 @@ public class PanelSeleccionAnimal implements BotonClickListener, MouseListener {
     public void mouseClicked(MouseEvent e) {
 
         if (clickableArea.contains(e.getPoint())) {
-            System.out.println("CLICK EN ANIMALES");
-            ZooController.changeCursor(EnumCursor.ANADIR);
+            ZooController.changeCursorMode(EnumCursor.ANADIR_ANIMAL);
+            // TODO: aqui algo deberia, Además deeria cambia el modo en zooController???
         }
 
     }

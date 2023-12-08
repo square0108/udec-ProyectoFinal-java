@@ -1,7 +1,9 @@
 package Vista.Menu;
 
+import Controller.ZooController;
 import Model.Enumerations.ComidaEnum;
 import Vista.Enumerations.BotonesEnum;
+import Vista.Enumerations.EnumCursor;
 import Vista.Enumerations.EnumEstadosBoton;
 import Vista.Interface.BotonClickListener;
 
@@ -92,7 +94,7 @@ public class PanelSeleccionComida implements BotonClickListener, MouseListener {
     @Override
     public void mouseClicked(MouseEvent e) {
         if (clickableArea.contains(e.getPoint())) {
-            System.out.println("CLICK EN COMIDA");
+            ZooController.changeCursorMode(EnumCursor.ANADIR_COMIDA);
         }
     }
 

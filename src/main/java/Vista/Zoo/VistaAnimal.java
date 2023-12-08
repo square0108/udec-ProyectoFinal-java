@@ -33,8 +33,6 @@ public class VistaAnimal implements ActionListener {
     private Timer timer;
     private Point position;
     private Point trackingPoint;
-    private int timeremove;
-
     /**
      * Contructo de Metodo VistaAnimal, se le pone de input una instancia de algun animal, ese es el animal que sera
      * mostrado.
@@ -45,8 +43,6 @@ public class VistaAnimal implements ActionListener {
         cantFrames = 4;
         state = 1;
         currentFrame = 0;
-        //TODO ----
-        timeremove =0;
 
         this.animal = animal;
         animalSize = 100;
@@ -155,9 +151,6 @@ public class VistaAnimal implements ActionListener {
     public Animal getAnimal(){
         return animal;
     }
-    public int getTimeRemove(){
-        return timeremove;
-    }
 
     /**
      * Es usado para la actualización de la animación de VistaAnimal
@@ -168,10 +161,6 @@ public class VistaAnimal implements ActionListener {
         currentFrame +=1;
         if (cantFrames-1 < currentFrame){
             currentFrame = 0;
-        }
-
-        if (state == 3 && timeremove<4) { // SI esta en estado muerto
-            timeremove++;
         }
     }
 }
