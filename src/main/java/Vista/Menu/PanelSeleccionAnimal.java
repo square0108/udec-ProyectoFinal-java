@@ -97,7 +97,8 @@ public class PanelSeleccionAnimal implements BotonClickListener, MouseListener {
 
         if (clickableArea.contains(e.getPoint())) {
             ZooController.changeCursorMode(EnumCursor.ANADIR_ANIMAL);
-            // TODO: aqui algo deberia, Además deeria cambia el modo en zooController???
+            // TODO: esto es para probar
+            PanelAlertas.changeText("MODO AÑADIR ANIMAL");
         }
 
     }

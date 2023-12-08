@@ -9,6 +9,7 @@ import Model.Exceptions.HabitatLlenoException;
 import Model.Factories.AnimalHabitatFactory;
 import Vista.*;
 import Vista.Enumerations.EnumCursor;
+import Vista.Menu.PanelAlertas;
 import Vista.Zoo.VistaAnimal;
 
 import java.awt.*;
@@ -45,6 +46,7 @@ public class ZooController {
                 habitatUsability[i] = false;
                 zooHabitats.add(habitat);
                 GUI.getVistaParque().addHabitat(habitat,(int) coordshabitats.get(i).getX(),(int) coordshabitats.get(i).getY());
+                PanelAlertas.changeText("Se añadió un nuevo habitat.");
             }
         }
     }

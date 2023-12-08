@@ -95,6 +95,8 @@ public class PanelSeleccionHabitat implements BotonClickListener, MouseListener 
     public void mouseClicked(MouseEvent e) {
         if (clickableArea.contains(e.getPoint())) {
             ZooController.changeCursorMode(EnumCursor.ANADIR_HABITAT);
+            // TODO: esto es para probar
+            PanelAlertas.changeText("MODO AÑADIR HABITAT");
         }
     }
 

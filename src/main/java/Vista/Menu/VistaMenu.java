@@ -20,15 +20,19 @@ public class VistaMenu extends JPanel implements ActionListener {
     private PanelSeleccionAnimal panelAnimal;
     private PanelSeleccionComida panelComida;
     private PanelSeleccionHabitat panelHabitat;
+    private PanelAlertas panelAlertas;
     private Timer timer;
     public VistaMenu(){
         this.setPreferredSize(new Dimension(IMG_WIDTH,IMG_HEIGHT));
         imageCorner = new Point(0,0);
 
-        panelHabitat = new PanelSeleccionHabitat(10,30);
-        panelAnimal = new PanelSeleccionAnimal(10,260);
+        panelHabitat = new PanelSeleccionHabitat(10,20);
 
-        panelComida = new PanelSeleccionComida(10, 490);
+        panelAnimal = new PanelSeleccionAnimal(10,250);
+
+        panelComida = new PanelSeleccionComida(10, 480);
+
+        panelAlertas = new PanelAlertas(10,710);
 
         // Cargamos textura fondo
         try {
@@ -74,6 +78,7 @@ public class VistaMenu extends JPanel implements ActionListener {
         panelAnimal.draw(g,this);
         panelComida.draw(g,this);
         panelHabitat.draw(g,this);
+        panelAlertas.draw(g,this);
 
     }
 
