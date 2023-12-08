@@ -1,5 +1,12 @@
 package Vista.Menu;
 
+import Model.Enumerations.EspeciesEnum;
+import Model.Enumerations.HabitatEnum;
+import Vista.Enumerations.EnumCursor;
+import Vista.Interface.ParentPanel;
+import Vista.Interface.SubPanel;
+import Vista.VistaPrincipal;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -9,26 +16,34 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
+import static Vista.Enumerations.EnumCursor.*;
+
 /**
  * Es un panel el cual muestra el menu de opciones
  */
-public class VistaMenu extends JPanel implements ActionListener {
+public class VistaMenu extends JPanel implements ParentPanel {
     final private int IMG_WIDTH = 400;
     final private int IMG_HEIGHT = 900;
     private BufferedImage fondo;
     private Point imageCorner;
-    private PanelSeleccionAnimal panelAnimal;
-    private PanelSeleccionComida panelComida;
-    private PanelSeleccionHabitat panelHabitat;
-    private Timer timer;
-    public VistaMenu(){
+    private static final PanelSeleccionAnimal panelAnimal = new PanelSeleccionAnimal(10, 250);
+    private final PanelSeleccionComida panelComida;
+    private final PanelSeleccionHabitat panelHabitat;
+    private final PanelAlertas panelAlertas;
+    private final VistaPrincipal vistaPrincipal;
+    public VistaMenu(VistaPrincipal parentFrame){
         this.setPreferredSize(new Dimension(IMG_WIDTH,IMG_HEIGHT));
         imageCorner = new Point(0,0);
 
-        panelHabitat = new PanelSeleccionHabitat(10,30);
-        panelAnimal = new PanelSeleccionAnimal(10,260);
+        panelHabitat = new PanelSeleccionHabitat(10,20);
+        panelHabitat.parentPanel = this;
+        panelAnimal.parentPanel = this;
+        panelComida = new PanelSeleccionComida(10, 480);
+        panelComida.parentPanel = this;
 
-        panelComida = new PanelSeleccionComida(10, 490);
+        panelAlertas = new PanelAlertas(10,710);
+
+        this.vistaPrincipal = parentFrame;
 
         // Cargamos textura fondo
         try {
@@ -65,15 +80,19 @@ public class VistaMenu extends JPanel implements ActionListener {
 
         this.addMouseListener(panelComida);
 
-        this.timer = new Timer(50, this);
-        this.timer.start();
     }
+
+    public static EspeciesEnum getSelectedAnimal() {return panelAnimal.selectedAnimal;}
+
+    public HabitatEnum getSelectedHabitat() {return this.panelHabitat.selectedHabitat;}
+
     public void draw(Graphics g){
         g.setColor(Color.red);
         g.drawImage(fondo,0,0,IMG_WIDTH,IMG_HEIGHT,this);
         panelAnimal.draw(g,this);
         panelComida.draw(g,this);
         panelHabitat.draw(g,this);
+        panelAlertas.draw(g,this);
 
     }
 
@@ -84,7 +103,10 @@ public class VistaMenu extends JPanel implements ActionListener {
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
-        repaint();
+    public void contextualUpdate(SubPanel subPanel) {
+        if (subPanel == panelAnimal) vistaPrincipal.setCursor(ANADIR_ANIMAL);
+        else if (subPanel == panelComida) vistaPrincipal.setCursor(ANADIR_COMIDA);
+        else if (subPanel == panelHabitat) vistaPrincipal.setCursor(ANADIR_HABITAT);
     }
 }
+

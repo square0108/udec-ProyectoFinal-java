@@ -144,15 +144,16 @@ public abstract class Habitat {
         }*/
 
     /**
-     * Remueve un animal del habitat en el indice especifico.
+     * Remueve un animal específico y además setea su habitatHogar a NULL, de esta forma el resto del programa sabe que el animal no pertenece a algún habitat.
      * @param index indice del arreglo
      */
     public void removeAnimal(int index) {
         if (animalesCercados.get(index) != null) {
             animalesCercados.get(index).setHabitatHogar(null);
             animalesCercados.remove(index);
+        } else {
+            System.out.println("DEBUG: Se ha intentado llamar removeAnimal() en " + this + ", pero este habitat se encuentra vacio.");
         }
-        System.out.println("DEBUG: Se ha intentado llamar removeAnimal() en " + this + ", pero este habitat se encuentra vacio.");
     }
 
     public TerrenoEnum getTipoTerreno() {
@@ -193,6 +194,7 @@ public abstract class Habitat {
      * @return reserva de alimentos del habitat
      */
     public ArrayList<Alimento> getReservaAlimentos() {return reservaAlimentos;}
+    public int getCantidadAlimento(){return reservaAlimentos.size();}
     public int getCurrentPop() {return this.animalesCercados.size();}
     public ArrayList<Animal> getArrayAnimales(){
         return animalesCercados;

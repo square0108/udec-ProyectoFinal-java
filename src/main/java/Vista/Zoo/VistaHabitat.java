@@ -4,8 +4,14 @@ import Model.Enumerations.HabitatEnum;
 import Model.Exceptions.AnimalesIncompatiblesException;
 import Model.Exceptions.HabitatLlenoException;
 import Model.Habitat;
+import Vista.Interface.SubPanel;
+
 import javax.imageio.ImageIO;
+import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.awt.image.ImageObserver;
 import java.io.File;
@@ -25,6 +31,7 @@ public class VistaHabitat {
     private final int IMG_HEIGHT;
     private final ArrayList<VistaAnimal> animalSprites;
     private BufferedImage texture;
+    protected final VistaParque vistaParque;
 
     /**
      * Metodo constructor de VistaHabitat, en este se debe entregar el Habitat a ser mostrado de forma grafica y las
@@ -33,8 +40,9 @@ public class VistaHabitat {
      * @param xPos Posición del eje X con respecto al parque
      * @param yPos Posición del eje Y con respecto al parque
      */
-    public VistaHabitat(Habitat modelHabitat, int xPos, int yPos){
+    public VistaHabitat(Habitat modelHabitat, int xPos, int yPos, VistaParque parent){
         animalSprites = new ArrayList<VistaAnimal>();
+        vistaParque = parent;
         // TODO: esto es para probar
         this.modelHabitat = modelHabitat;
         setTexture(modelHabitat);
@@ -51,6 +59,9 @@ public class VistaHabitat {
      * @param parquePosition Posición relativa al habitat
      */
     public void draw(Graphics g, ImageObserver imageObserver, Point parquePosition){
+
+        Graphics2D g2d = (Graphics2D) g;
+        g2d.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
         g.setColor(Color.BLUE);
 
         g.drawImage(texture,(int) (position.getX() + parquePosition.getX()),
@@ -61,6 +72,27 @@ public class VistaHabitat {
             for (VistaAnimal animalSprite : animalSprites) {
                 animalSprite.draw(g, imageObserver, new Point((int) (position.getX() + parquePosition.getX()), (int) (position.getY() + parquePosition.getY())), IMG_WIDTH, IMG_HEIGHT);
             }
+        }
+
+        Font customFont = loadCustomFont("src/main/java/resources/Candy_Beans.otf", Font.PLAIN, 20);
+        g.setFont(customFont);
+
+        g2d.setColor(Color.WHITE);
+
+        g2d.drawString("Cantidad de comida: " + modelHabitat.getCantidadAlimento(),
+                (int)(position.getX() + parquePosition.getX()+10),
+                (int)(position.getY() + parquePosition.getY())+ g.getFontMetrics().getHeight());
+    }
+    private Font loadCustomFont(String path, int style, int size) {
+        try {
+            // Carga la fuente desde el archivo .otf
+            File fontFile = new File(path);
+            Font baseFont = Font.createFont(Font.TRUETYPE_FONT, fontFile);
+            return baseFont.deriveFont(style, size);
+        } catch (FontFormatException | IOException e) {
+            System.out.println("NO SE PUDO CARGAR LA FUENTE CUSTOM");
+            // Devuelve una fuente predeterminada en caso de error
+            return new Font("Serif", Font.PLAIN, size);
         }
     }
     /**
@@ -94,9 +126,9 @@ public class VistaHabitat {
 
     public void addAnimalSprite(VistaAnimal vistaAnimal) throws HabitatLlenoException, AnimalesIncompatiblesException {
         animalSprites.add(vistaAnimal);
+    }
 
 
-}
     // GETTERS Y SETTERS
     public Habitat getModelHabitat(){
         return this.modelHabitat;

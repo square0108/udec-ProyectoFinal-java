@@ -1,11 +1,11 @@
 package Vista.Menu;
 
-import Controller.ZooController;
 import Model.Enumerations.EspeciesEnum;
 import Vista.Enumerations.BotonesEnum;
-import Vista.Enumerations.EnumCursor;
 import Vista.Enumerations.EnumEstadosBoton;
 import Vista.Interface.BotonClickListener;
+import Vista.Interface.ParentPanel;
+import Vista.Interface.SubPanel;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -20,20 +20,20 @@ import java.io.IOException;
 Quizas podria hacer una clase Panel Selección y que el panel seleccion animal extienda a esa, lo mismo con
 Panel comida
  */
-public class PanelSeleccionAnimal implements BotonClickListener, MouseListener {
+public class PanelSeleccionAnimal implements BotonClickListener, MouseListener, SubPanel {
     private final int WIDTH = 380;
     private final int HEIGHT = 200;
-    private EspeciesEnum animal = EspeciesEnum.ELEFANTE;
+    protected EspeciesEnum selectedAnimal = EspeciesEnum.ELEFANTE;
     private BufferedImage animalIcon;
     private BufferedImage fondo;
     protected BotonFlecha flechaDer;
     protected BotonFlecha flechaIzq;
     private Point position;
     private Rectangle clickableArea;
+    protected ParentPanel parentPanel;
 
 
     public PanelSeleccionAnimal(int x, int y) {
-
         try {
             this.fondo = ImageIO.read(new File("src/main/java/resources/icons/panelsbackgroud.png"));
         } catch (IOException e) {
@@ -66,11 +66,11 @@ public class PanelSeleccionAnimal implements BotonClickListener, MouseListener {
     }
 
     public void cambiarSiguienteAnimal() {
-        animal = animal.siguiente();
+        selectedAnimal = selectedAnimal.siguiente();
         setAnimalIcon();
     }
     public void cambiarAnteriorAnimal() {
-        animal = animal.anterior();
+        selectedAnimal = selectedAnimal.anterior();
         setAnimalIcon();
     }
 
@@ -84,7 +84,7 @@ public class PanelSeleccionAnimal implements BotonClickListener, MouseListener {
     }
 
     public void setAnimalIcon() {
-        String texture_path = "src/main/java/resources/icons/" + animal.getTexturePath();
+        String texture_path = "src/main/java/resources/icons/" + selectedAnimal.getTexturePath();
         try {
             this.animalIcon = ImageIO.read(new File(texture_path));
         } catch (IOException e) {
@@ -94,9 +94,12 @@ public class PanelSeleccionAnimal implements BotonClickListener, MouseListener {
 
     @Override
     public void mouseClicked(MouseEvent e) {
-
         if (clickableArea.contains(e.getPoint())) {
-            ZooController.changeCursorMode(EnumCursor.ANADIR_ANIMAL);
+            /**ZooController.changeCursorMode(EnumCursor.ANADIR_ANIMAL);
+            TODO: esto es para probar*/
+
+            notifyParent();
+            PanelAlertas.changeText("MODO AÑADIR ANIMAL");
             // TODO: aqui algo deberia, Además deeria cambia el modo en zooController???
         }
 
@@ -120,5 +123,10 @@ public class PanelSeleccionAnimal implements BotonClickListener, MouseListener {
     @Override
     public void mouseExited(MouseEvent e) {
 
+    }
+
+    @Override
+    public void notifyParent() {
+        parentPanel.contextualUpdate(this);
     }
 }

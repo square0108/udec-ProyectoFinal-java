@@ -1,0 +1,457 @@
+@startuml
+abstract class Model.Animal {
+- TerrenoEnum tipoTerreno
+- float[] rangoTemperatura
+- Habitat habitatHogar
+- int porcentajeComida
+- int gananciaHambre
+- EstadosEnum estado
++ {static} int MINIMO_PARA_ALIMENTARSE
++ {static} int PORCENTAJE_CHANCE_MOVIMIENTO
++ {static} int PORCENTAJE_CHANCE_DETENERSE
+- {static} Random rand
++ <<Create>> Animal(TerrenoEnum,int,float,float)
++ void update()
++ void comer()
++ void ganarHambre()
++ void intentarMovimiento()
++ {abstract}EspeciesEnum[] animalesCompatibles()
++ TerrenoEnum getTipoTerreno()
++ float[] getRangoTemperatura()
++ int getPorcentajeComida()
++ EstadosEnum getEstado()
+- void setEstado(EstadosEnum)
++ void setHabitatHogar(Habitat)
+}
+class Model.Exceptions.HabitatIncompatibleException {
+}
+enum Model.Enumerations.ComidaEnum {
++  CARNE
++  HENO
+~ String texturePath
+~ <<Create>> ComidaEnum(String)
++ String getTexturePath()
++ ComidaEnum siguiente()
++ ComidaEnum anterior()
+}
+class Vista.VistaPrincipal {
+- VistaParque zoo
+- VistaMenu menu
+- EnumCursor cursorState
+- ZooController parentController
++ <<Create>> VistaPrincipal(ZooController)
++ void update()
++ VistaParque getVistaParque()
++ EnumCursor getCursorState()
++ void setCursor(EnumCursor)
++ void mouseClicked(MouseEvent)
++ void mousePressed(MouseEvent)
++ void mouseReleased(MouseEvent)
++ void mouseEntered(MouseEvent)
++ void mouseExited(MouseEvent)
+}
+interface Vista.Interface.SubPanel {
+~ void notifyParent()
+}
+enum Vista.Enumerations.EnumCursor {
++  DEFAULT
++  ANADIR_ANIMAL
++  ANADIR_COMIDA
++  ANADIR_HABITAT
+~ String image_path
+~ <<Create>> EnumCursor(String)
++ String getImagePath()
+}
+class Model.Exceptions.HabitatLlenoException {
+}
+class Vista.Menu.VistaMenu {
+- int IMG_WIDTH
+- int IMG_HEIGHT
+- BufferedImage fondo
+- Point imageCorner
+- {static} PanelSeleccionAnimal panelAnimal
+- PanelSeleccionComida panelComida
+- PanelSeleccionHabitat panelHabitat
+- PanelAlertas panelAlertas
+- VistaPrincipal vistaPrincipal
++ <<Create>> VistaMenu(VistaPrincipal)
++ {static} EspeciesEnum getSelectedAnimal()
++ HabitatEnum getSelectedHabitat()
++ void draw(Graphics)
++ void paintComponent(Graphics)
++ void contextualUpdate(SubPanel)
+}
+class Model.Alimento {
+- boolean consumidoStatus
++ <<Create>> Alimento()
++ boolean estaConsumido()
++ void setConsumidoStatus(boolean)
+}
+enum Vista.Enumerations.EnumEstadosBoton {
++  DEFAULT
++  HOVER
++  CLICK
+~ int state
+~ <<Create>> EnumEstadosBoton(int)
++ int getInt()
+}
+class Model.Exceptions.HabitatNoExisteException {
+}
+class Vista.Zoo.VistaAnimal {
+- Animal animal
+- int state
+- int animationSize
+- int currentFrame
+- int cantFrames
+- int animalSize
+- int Velocity
+- BufferedImage texture
+- Timer timer
+- Point position
+- Point trackingPoint
++ <<Create>> VistaAnimal(Animal)
++ void draw(Graphics,ImageObserver,Point,int,int)
++ void updatePosition(int,int)
+- void setTexture()
++ void changeState()
++ Animal getAnimal()
++ void actionPerformed(ActionEvent)
+}
+class Model.Especies.Jirafa {
+- {static} EspeciesEnum[] animalesCompatiblesList
++ <<Create>> Jirafa()
++ EspeciesEnum[] animalesCompatibles()
+}
+class ModelTesting.AnimalTest {
+- Leon manuel
+- Jirafa pepe
+~ void PrintMovimiento(Animal)
+~ void PrintPorcentajeComida(Animal)
+~ void PrintEstado(Animal)
+~ void MovimientoTest()
+~ void MuertosNoSeMueven()
+}
+enum Model.Enumerations.EspeciesEnum {
++  LEON
++  JIRAFA
++  ELEFANTE
+~ Class<?> claseAsociada
+~ String texturePath
+~ <<Create>> EspeciesEnum(Class<?>,String)
++ {static} EspeciesEnum classToEnum(Animal)
++ String getTexturePath()
++ EspeciesEnum siguiente()
++ EspeciesEnum anterior()
+}
+class Model.UpdaterThread {
+# ZooController controller
++ <<Create>> UpdaterThread(ZooController)
++ void run()
+}
+class Vista.Menu.PanelSeleccionAnimal {
+- int WIDTH
+- int HEIGHT
+# EspeciesEnum selectedAnimal
+- BufferedImage animalIcon
+- BufferedImage fondo
+# BotonFlecha flechaDer
+# BotonFlecha flechaIzq
+- Point position
+- Rectangle clickableArea
+# ParentPanel parentPanel
++ <<Create>> PanelSeleccionAnimal(int,int)
++ void draw(Graphics,ImageObserver)
++ void cambiarSiguienteAnimal()
++ void cambiarAnteriorAnimal()
++ void onBotonClick()
++ void setAnimalIcon()
++ void mouseClicked(MouseEvent)
++ void mousePressed(MouseEvent)
++ void mouseReleased(MouseEvent)
++ void mouseEntered(MouseEvent)
++ void mouseExited(MouseEvent)
++ void notifyParent()
+}
+class Vista.Zoo.VistaHabitat {
+- Habitat modelHabitat
+- Point position
+- int IMG_WIDTH
+- int IMG_HEIGHT
+- ArrayList<VistaAnimal> animalSprites
+- BufferedImage texture
+# VistaParque vistaParque
++ <<Create>> VistaHabitat(Habitat,int,int,VistaParque)
++ void draw(Graphics,ImageObserver,Point)
+- Font loadCustomFont(String,int,int)
+- void setTexture(Habitat)
++ void addAnimalSprite(VistaAnimal)
++ Habitat getModelHabitat()
++ int getWidth()
++ int getHeight()
+}
+class Model.Exceptions.AnimalNoExisteException {
+}
+class Model.Especies.Elefante {
+- {static} EspeciesEnum[] animalesCompatiblesList
++ <<Create>> Elefante()
++ EspeciesEnum[] animalesCompatibles()
+}
+class Model.Exceptions.SinAlimentoException {
+}
+enum Vista.Enumerations.BotonesEnum {
++  FLECHAIZQUIERDA
++  FLECHADERECHA
+- String direccionImagen
+~ <<Create>> BotonesEnum(String)
++ String getDireccionImagen()
+}
+class Model.Especies.Leon {
+- {static} EspeciesEnum[] animalesCompatiblesList
++ <<Create>> Leon()
++ EspeciesEnum[] animalesCompatibles()
+}
+class Vista.Menu.BotonFlecha {
+- int IMG_WIDTH
+- int IMG_HEIGHT
+- int frameWidth
+- EnumEstadosBoton state
+- BotonClickListener botonClickListener
+~ BufferedImage texture
+- Point posBorders
++ <<Create>> BotonFlecha(Point,int,int,BotonesEnum)
++ void draw(Graphics,ImageObserver)
+- void setTexture(BotonesEnum)
++ void setBotonClickListener(BotonClickListener)
+- void notifyBotonClick()
++ int getWIDTH()
++ int getHEIGHT()
++ void mouseClicked(MouseEvent)
++ void mousePressed(MouseEvent)
++ void mouseReleased(MouseEvent)
++ void mouseEntered(MouseEvent)
++ void mouseExited(MouseEvent)
++ void mouseDragged(MouseEvent)
++ void mouseMoved(MouseEvent)
++ EnumEstadosBoton getState()
+}
+class Vista.Menu.PanelSeleccionComida {
+- int WIDTH
+- int HEIGHT
+- ComidaEnum comida
+- BufferedImage comidaIcon
+- BufferedImage fondo
+# BotonFlecha flechaDer
+# BotonFlecha flechaIzq
+- Point position
+# Rectangle clickableArea
+# ParentPanel parentPanel
++ <<Create>> PanelSeleccionComida(int,int)
++ void draw(Graphics,ImageObserver)
++ void cambiarSiguienteComida()
++ void cambiarAnteriorComida()
++ void onBotonClick()
++ void setComidaIcon()
++ void mouseClicked(MouseEvent)
++ void mousePressed(MouseEvent)
++ void mouseReleased(MouseEvent)
++ void mouseEntered(MouseEvent)
++ void mouseExited(MouseEvent)
++ void notifyParent()
+}
+class Controller.ZooController {
+# {static} VistaPrincipal GUI
+# {static} ArrayList<Habitat> zooHabitats
+- {static} ArrayList<Rectangle> coordshabitats
+- {static} boolean[] habitatUsability
++ int FRAMETIME_MS
++ <<Create>> ZooController()
++ {static} void nuevoHabitat(HabitatEnum,int,int)
++ {static} void nuevoAnimal(EspeciesEnum,int)
++ void updateHabitatsModelView()
+- void setHabitatCoordinates()
++ {static} ArrayList<Rectangle> getCoordshabitats()
++ {static} boolean[] getHabitatUsability()
+}
+class Vista.Menu.PanelSeleccionHabitat {
+- int WIDTH
+- int HEIGHT
+# {static} HabitatEnum selectedHabitat
+- BufferedImage comidaIcon
+- BufferedImage fondo
+# BotonFlecha flechaDer
+# BotonFlecha flechaIzq
+- Point position
+- Rectangle clickableArea
+# ParentPanel parentPanel
++ <<Create>> PanelSeleccionHabitat(int,int)
++ {static} HabitatEnum getSelectedHabitat()
++ void draw(Graphics,ImageObserver)
++ void cambiarSiguienteHabitat()
++ void cambiarAnteriorHabitat()
++ void onBotonClick()
++ void setComidaIcon()
++ void mouseClicked(MouseEvent)
++ void mousePressed(MouseEvent)
++ void mouseReleased(MouseEvent)
++ void mouseEntered(MouseEvent)
++ void mouseExited(MouseEvent)
++ void notifyParent()
+}
+enum Model.Enumerations.TerrenoEnum {
++  TERRESTRE
++  ACUATICO
++  AVIARIO
++  ANFIBIO
+}
+class Model.EntornosHabitat.Sabana {
++ <<Create>> Sabana()
+}
+class Model.Factories.AnimalHabitatFactory {
++ {static} Animal newAnimalInstance(EspeciesEnum)
++ {static} Habitat newHabitatInstance(HabitatEnum)
+}
+enum Model.Enumerations.HabitatEnum {
++  JUNGLA
+~ String texture_path
+~ Class<?> claseAsociada
+~ <<Create>> HabitatEnum(Class<?>,String)
++ {static} HabitatEnum classToEnum(Habitat)
++ String getTexturePath()
++ HabitatEnum siguiente()
++ HabitatEnum anterior()
+}
+class Model.Exceptions.AnimalesIncompatiblesException {
+}
+class Vista.Zoo.VistaParque {
+- int PANEL_WIDTH
+- int PANEL_HEIGTH
+- BufferedImage fondo
+- int IMG_WIDTH
+- int IMG_HEIGTH
+- Point imageCorner
+- Point previousPoint
+- ArrayList<VistaHabitat> VistaHabitatList
+- VistaPrincipal vistaPrincipal
++ <<Create>> VistaParque(VistaPrincipal)
++ void update()
++ void draw(Graphics)
++ void addHabitat(Habitat,int,int)
++ void addAnimal(int,VistaAnimal)
++ ArrayList<VistaHabitat> getVistaHabitats()
+# void paintComponent(Graphics)
++ void mouseClicked(MouseEvent)
++ void mousePressed(MouseEvent)
++ void mouseReleased(MouseEvent)
++ void mouseEntered(MouseEvent)
++ void mouseExited(MouseEvent)
+}
+class Vista.Zoo.VistaParque$ClickListener {
++ void mousePressed(MouseEvent)
+}
+class Vista.Zoo.VistaParque$DragListener {
++ void mouseDragged(MouseEvent)
+}
+interface Vista.Interface.ParentPanel {
+~ void contextualUpdate(SubPanel)
+}
+class app.App {
++ {static} void main(String[])
+}
+class Model.Testing {
++ {static} void main(String[])
+}
+enum Model.Enumerations.EstadosEnum {
++  PASIVO
++  MOVIENDO
++  COMIENDO
++  MUERTO
+~ int number
+~ <<Create>> EstadosEnum(int)
++ int getNumber()
+}
+abstract class Model.Habitat {
+- int poblacionMax
+- ArrayList<Animal> animalesCercados
+- ArrayList<Alimento> reservaAlimentos
+- boolean hayAlimento
+- TerrenoEnum tipoTerreno
+- float temperatura
+- {static} int ALIMENTO_MAX
+- {static} int ALIMENTO_INICIAL
+# {static} int UPDATE_TICK_RATE
+- int tickCounter
++ <<Create>> Habitat(float,int,TerrenoEnum)
++ void update()
++ void actualizarHambreAnimales()
++ void removerAnimalesMuertos()
++ void intentarMoverAnimales()
++ void addAnimal(Animal)
++ void removeAnimal(int)
++ TerrenoEnum getTipoTerreno()
++ float getTemperatura()
++ Alimento popAlimento()
++ void addAlimento(Alimento)
++ ArrayList<Alimento> getReservaAlimentos()
++ int getCantidadAlimento()
++ int getCurrentPop()
++ ArrayList<Animal> getArrayAnimales()
++ boolean isFull()
+}
+class Model.CompatibleChecker {
++ {static} boolean isCompatible(Animal,Animal)
++ {static} boolean isCompatible(Animal,Habitat)
+}
+interface Vista.Interface.BotonClickListener {
+~ void onBotonClick()
+}
+class Model.EntornosHabitat.Jungla {
++ <<Create>> Jungla()
+}
+class Vista.Menu.PanelAlertas {
+- int WIDTH
+- int HEIGHT
+- BufferedImage fondo
+- Point position
+- {static} String frase
++ <<Create>> PanelAlertas(int,int)
++ {static} void changeText(String)
+- java.util.List<String> getLines(Font,int)
+- Font loadCustomFont(String,int,int)
++ void draw(Graphics,ImageObserver)
+}
+
+
+Model.Exceptions.Exception <|-- Model.Exceptions.HabitatIncompatibleException
+java.awt.event.MouseListener <|.. Vista.VistaPrincipal
+Vista.JFrame <|-- Vista.VistaPrincipal
+Model.Exceptions.Exception <|-- Model.Exceptions.HabitatLlenoException
+Vista.Interface.ParentPanel <|.. Vista.Menu.VistaMenu
+Vista.Menu.JPanel <|-- Vista.Menu.VistaMenu
+java.awt.event.ActionListener <|.. Vista.Zoo.VistaAnimal
+Model.Animal <|-- Model.Especies.Jirafa
+Model.Runnable <|.. Model.UpdaterThread
+Vista.Interface.BotonClickListener <|.. Vista.Menu.PanelSeleccionAnimal
+java.awt.event.MouseListener <|.. Vista.Menu.PanelSeleccionAnimal
+Vista.Interface.SubPanel <|.. Vista.Menu.PanelSeleccionAnimal
+Model.Exceptions.Exception <|-- Model.Exceptions.AnimalNoExisteException
+Model.Animal <|-- Model.Especies.Elefante
+Model.Exceptions.Exception <|-- Model.Exceptions.SinAlimentoException
+Model.Animal <|-- Model.Especies.Leon
+java.awt.event.MouseListener <|.. Vista.Menu.BotonFlecha
+java.awt.event.MouseMotionListener <|.. Vista.Menu.BotonFlecha
+Vista.Interface.BotonClickListener <|.. Vista.Menu.PanelSeleccionComida
+java.awt.event.MouseListener <|.. Vista.Menu.PanelSeleccionComida
+Vista.Interface.SubPanel <|.. Vista.Menu.PanelSeleccionComida
+Vista.Interface.BotonClickListener <|.. Vista.Menu.PanelSeleccionHabitat
+java.awt.event.MouseListener <|.. Vista.Menu.PanelSeleccionHabitat
+Vista.Interface.SubPanel <|.. Vista.Menu.PanelSeleccionHabitat
+Model.Habitat <|-- Model.EntornosHabitat.Sabana
+Model.Exceptions.Exception <|-- Model.Exceptions.AnimalesIncompatiblesException
+Vista.Zoo.MouseListener <|.. Vista.Zoo.VistaParque
+Vista.Zoo.JPanel <|-- Vista.Zoo.VistaParque
+Vista.Zoo.VistaParque +.. Vista.Zoo.VistaParque$ClickListener
+Vista.Zoo.MouseAdapter <|-- Vista.Zoo.VistaParque$ClickListener
+Vista.Zoo.VistaParque +.. Vista.Zoo.VistaParque$DragListener
+Vista.Zoo.MouseMotionAdapter <|-- Vista.Zoo.VistaParque$DragListener
+Model.Habitat <|-- Model.EntornosHabitat.Jungla
+@enduml
