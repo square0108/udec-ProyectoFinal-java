@@ -2,7 +2,6 @@ package Vista.Zoo;
 
 import Controller.ZooController;
 import Model.EntornosHabitat.Jungla;
-import Model.EntornosHabitat.Sabana;
 import Model.Exceptions.AnimalesIncompatiblesException;
 import Model.Exceptions.HabitatLlenoException;
 import Model.Habitat;
@@ -107,7 +106,7 @@ public class VistaParque extends JPanel implements MouseListener {
         // TODO: PRUEBA PARA CREAR HABITATS
         ZooController.nuevoHabitat(new Jungla(),(int)(e.getX()-imageCorner.getX()),
                                                 (int)(e.getY()-imageCorner.getY()));
-        ZooController.changeCursor(EnumCursor.DEFAULT);
+        ZooController.changeCursorMode(EnumCursor.DEFAULT);
     }
 
     @Override
