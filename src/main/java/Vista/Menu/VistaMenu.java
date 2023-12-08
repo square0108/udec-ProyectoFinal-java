@@ -2,7 +2,6 @@ package Vista.Menu;
 
 import Model.Enumerations.EspeciesEnum;
 import Model.Enumerations.HabitatEnum;
-import Vista.Enumerations.EnumCursor;
 import Vista.Interface.ParentPanel;
 import Vista.Interface.SubPanel;
 import Vista.VistaPrincipal;
@@ -10,8 +9,6 @@ import Vista.VistaPrincipal;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -84,7 +81,7 @@ public class VistaMenu extends JPanel implements ParentPanel {
 
     public static EspeciesEnum getSelectedAnimal() {return panelAnimal.selectedAnimal;}
 
-    public HabitatEnum getSelectedHabitat() {return this.panelHabitat.selectedHabitat;}
+    public static HabitatEnum getSelectedHabitat() {return PanelSeleccionHabitat.selectedHabitat;}
 
     public void draw(Graphics g){
         g.setColor(Color.red);
