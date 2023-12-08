@@ -21,7 +21,7 @@ public class VistaPrincipal extends JFrame implements MouseListener {
     private ZooController parentController;
     public VistaPrincipal(ZooController parentController) {
         zoo = new VistaParque(this);
-        menu = new VistaMenu();
+        menu = new VistaMenu(this);
         this.parentController = parentController;
         setCursor(EnumCursor.DEFAULT);
 

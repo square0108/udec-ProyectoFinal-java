@@ -33,7 +33,6 @@ public class PanelSeleccionAnimal implements BotonClickListener, MouseListener {
 
 
     public PanelSeleccionAnimal(int x, int y) {
-
         try {
             this.fondo = ImageIO.read(new File("src/main/java/resources/icons/panelsbackgroud.png"));
         } catch (IOException e) {

@@ -1,5 +1,7 @@
 package Vista.Menu;
 
+import Vista.VistaPrincipal;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -21,7 +23,7 @@ public class VistaMenu extends JPanel implements ActionListener {
     private PanelSeleccionComida panelComida;
     private PanelSeleccionHabitat panelHabitat;
     private Timer timer;
-    public VistaMenu(){
+    public VistaMenu(VistaPrincipal parentFrame){
         this.setPreferredSize(new Dimension(IMG_WIDTH,IMG_HEIGHT));
         imageCorner = new Point(0,0);
 
