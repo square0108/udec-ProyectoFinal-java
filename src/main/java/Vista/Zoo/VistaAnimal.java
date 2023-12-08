@@ -122,12 +122,8 @@ public class VistaAnimal implements ActionListener {
     private void setTexture(){
         // Se podria mejorar esto si Animales guardaces su path "animal.png"
 
-        String texture_path = switch (EspeciesEnum.classToEnum(this.animal)) {
-            case ELEFANTE -> "src/main/java/resources/skins/elephant.png";
-            case LEON -> "src/main/java/resources/skins/animation_tile.png";
-            case JIRAFA -> "src/main/java/resources/skins/animation_tile.png";
-            default -> "src/main/java/resources/skins/animation_tile.png";
-        };
+        String texture_path = "src/main/java/resources/skins/" +
+                EspeciesEnum.classToEnum(this.animal).getTexturePath();
 
         try {
             this.texture = ImageIO.read(new File(texture_path));
