@@ -26,7 +26,7 @@ public class PanelAlertas {
         } catch (IOException e) {
             System.out.println("No se pudo cargar la Textura de ALERTAS");
         }
-        this.frase = "Zoo Simulator";
+        frase = "";
 
 
     }
@@ -86,6 +86,7 @@ public class PanelAlertas {
      */
     public void draw(Graphics g, ImageObserver imageObserver){
         Graphics2D g2 = (Graphics2D) g;
+        g2.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
 
         Font customFont = loadCustomFont("src/main/java/resources/Candy_Beans.otf", Font.PLAIN, 25);
         g2.setFont(customFont);

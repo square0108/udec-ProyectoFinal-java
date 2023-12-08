@@ -51,6 +51,9 @@ public class VistaHabitat {
      * @param parquePosition Posición relativa al habitat
      */
     public void draw(Graphics g, ImageObserver imageObserver, Point parquePosition){
+
+        Graphics2D g2d = (Graphics2D) g;
+        g2d.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
         g.setColor(Color.BLUE);
 
         g.drawImage(texture,(int) (position.getX() + parquePosition.getX()),
@@ -61,6 +64,27 @@ public class VistaHabitat {
             for (VistaAnimal animalSprite : animalSprites) {
                 animalSprite.draw(g, imageObserver, new Point((int) (position.getX() + parquePosition.getX()), (int) (position.getY() + parquePosition.getY())), IMG_WIDTH, IMG_HEIGHT);
             }
+        }
+
+        Font customFont = loadCustomFont("src/main/java/resources/Candy_Beans.otf", Font.PLAIN, 20);
+        g.setFont(customFont);
+
+        g2d.setColor(Color.WHITE);
+
+        g2d.drawString("Cantidad de comida: " + modelHabitat.getCantidadAlimento(),
+                (int)(position.getX() + parquePosition.getX()+10),
+                (int)(position.getY() + parquePosition.getY())+ g.getFontMetrics().getHeight());
+    }
+    private Font loadCustomFont(String path, int style, int size) {
+        try {
+            // Carga la fuente desde el archivo .otf
+            File fontFile = new File(path);
+            Font baseFont = Font.createFont(Font.TRUETYPE_FONT, fontFile);
+            return baseFont.deriveFont(style, size);
+        } catch (FontFormatException | IOException e) {
+            System.out.println("NO SE PUDO CARGAR LA FUENTE CUSTOM");
+            // Devuelve una fuente predeterminada en caso de error
+            return new Font("Serif", Font.PLAIN, size);
         }
     }
     /**

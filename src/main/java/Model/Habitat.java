@@ -193,6 +193,7 @@ public abstract class Habitat {
      * @return reserva de alimentos del habitat
      */
     public ArrayList<Alimento> getReservaAlimentos() {return reservaAlimentos;}
+    public int getCantidadAlimento(){return reservaAlimentos.size();}
     public int getCurrentPop() {return this.animalesCercados.size();}
     public ArrayList<Animal> getArrayAnimales(){
         return animalesCercados;
