@@ -1,11 +1,11 @@
 package Vista.Menu;
 
-import Controller.ZooController;
 import Model.Enumerations.HabitatEnum;
 import Vista.Enumerations.BotonesEnum;
-import Vista.Enumerations.EnumCursor;
 import Vista.Enumerations.EnumEstadosBoton;
 import Vista.Interface.BotonClickListener;
+import Vista.Interface.ParentPanel;
+import Vista.Interface.SubPanel;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -20,17 +20,17 @@ import java.io.IOException;
 Quizas podria hacer una clase Panel Selección y que el panel seleccion animal extienda a esa, lo mismo con
 Panel comida
  */
-public class PanelSeleccionHabitat implements BotonClickListener, MouseListener {
+public class PanelSeleccionHabitat implements BotonClickListener, MouseListener, SubPanel {
     private final int WIDTH = 380;
     private final int HEIGHT = 200;
-    private HabitatEnum habitat = HabitatEnum.JUNGLA;
+    protected static HabitatEnum selectedHabitat = HabitatEnum.JUNGLA;
     private BufferedImage comidaIcon;
     private BufferedImage fondo;
     protected BotonFlecha flechaDer;
     protected BotonFlecha flechaIzq;
     private Point position;
     private Rectangle clickableArea;
-
+    protected ParentPanel parentPanel;
 
     public PanelSeleccionHabitat(int x, int y) {
         try {
@@ -52,6 +52,8 @@ public class PanelSeleccionHabitat implements BotonClickListener, MouseListener 
         setComidaIcon();
     }
 
+    public static HabitatEnum getSelectedHabitat() {return selectedHabitat;} /* todo: ojala reducir la cantidad de metodos static */
+
     public void draw(Graphics g, ImageObserver imageObserver) {
         g.setColor(Color.GRAY);
         g.drawImage(fondo,(int) this.position.getX(), (int) this.position.getY(),WIDTH, HEIGHT,imageObserver);
@@ -65,11 +67,11 @@ public class PanelSeleccionHabitat implements BotonClickListener, MouseListener 
     }
 
     public void cambiarSiguienteHabitat() {
-        habitat = habitat.siguiente();
+        selectedHabitat = selectedHabitat.siguiente();
         setComidaIcon();
     }
     public void cambiarAnteriorHabitat() {
-        habitat = habitat.anterior();
+        selectedHabitat = selectedHabitat.anterior();
         setComidaIcon();
     }
 
@@ -83,7 +85,7 @@ public class PanelSeleccionHabitat implements BotonClickListener, MouseListener 
     }
 
     public void setComidaIcon() {
-        String texture_path = "src/main/java/resources/icons/" + habitat.getTexturePath();
+        String texture_path = "src/main/java/resources/icons/" + selectedHabitat.getTexturePath();
         try {
             this.comidaIcon = ImageIO.read(new File(texture_path));
         } catch (IOException e) {
@@ -94,8 +96,7 @@ public class PanelSeleccionHabitat implements BotonClickListener, MouseListener 
     @Override
     public void mouseClicked(MouseEvent e) {
         if (clickableArea.contains(e.getPoint())) {
-            ZooController.changeCursorMode(EnumCursor.ANADIR_HABITAT);
-            // TODO: esto es para probar
+            notifyParent();
             PanelAlertas.changeText("MODO AÑADIR HABITAT");
         }
     }
@@ -118,5 +119,10 @@ public class PanelSeleccionHabitat implements BotonClickListener, MouseListener 
     @Override
     public void mouseExited(MouseEvent e) {
 
+    }
+
+    @Override
+    public void notifyParent() {
+        parentPanel.contextualUpdate(this);
     }
 }
