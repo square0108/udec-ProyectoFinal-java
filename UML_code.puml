@@ -143,7 +143,7 @@ enum Model.Enumerations.EspeciesEnum {
 + EspeciesEnum siguiente()
 + EspeciesEnum anterior()
 }
-class Model.UpdaterThread {
+class Controller.UpdaterThread {
 # ZooController controller
 + <<Create>> UpdaterThread(ZooController)
 + void run()
@@ -429,7 +429,7 @@ Vista.Interface.ParentPanel <|.. Vista.Menu.VistaMenu
 Vista.Menu.JPanel <|-- Vista.Menu.VistaMenu
 java.awt.event.ActionListener <|.. Vista.Zoo.VistaAnimal
 Model.Animal <|-- Model.Especies.Jirafa
-Model.Runnable <|.. Model.UpdaterThread
+Model.Runnable <|.. Controller.UpdaterThread
 Vista.Interface.BotonClickListener <|.. Vista.Menu.PanelSeleccionAnimal
 java.awt.event.MouseListener <|.. Vista.Menu.PanelSeleccionAnimal
 Vista.Interface.SubPanel <|.. Vista.Menu.PanelSeleccionAnimal

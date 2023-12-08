@@ -1,7 +1,4 @@
-package Model;
-
-import Controller.ZooController;
-
+package Controller;
 
 public class UpdaterThread implements Runnable {
     protected ZooController controller;
