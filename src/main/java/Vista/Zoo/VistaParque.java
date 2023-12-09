@@ -6,8 +6,6 @@ import Model.Exceptions.AnimalesIncompatiblesException;
 import Model.Exceptions.HabitatLlenoException;
 import Model.Habitat;
 import Vista.Enumerations.EnumCursor;
-import Vista.Menu.PanelAlertas;
-import Vista.Menu.PanelSeleccionHabitat;
 import Vista.Menu.VistaMenu;
 import Vista.VistaPrincipal;
 
@@ -124,10 +122,8 @@ public class VistaParque extends JPanel implements MouseListener {
                 for (int i = 0; i < habitatCoords.length; i++) {
                     if (habitatCoords[i].contains((int)(e.getX()-imageCorner.getX()),(int)(e.getY()-imageCorner.getY()))
                             && habitatUsability[i]) {
-                        System.out.println("chupalo huevito rey");
                         ZooController.nuevoHabitat(VistaMenu.getSelectedHabitat(), i);
                         habitatUsability[i] = false;
-                        PanelAlertas.changeText("Se añadió un nuevo habitat.");
                     }
                 }
                 break;

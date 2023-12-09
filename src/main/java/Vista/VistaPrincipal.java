@@ -15,12 +15,13 @@ import java.io.File;
 import java.io.IOException;
 
 public class VistaPrincipal extends JFrame implements MouseListener {
-    private VistaParque zoo;
-    private VistaMenu menu;
+    private final VistaParque zoo;
+    private final VistaMenu menu;
     private EnumCursor cursorState;
     /* pondre una referencia a Controller, no se si sera necesaria.. */
     private ZooController parentController;
     public VistaPrincipal(ZooController parentController) {
+        super("El Magnífico Zoológico de la Universidad de Concepción");
         zoo = new VistaParque(this);
         menu = new VistaMenu(this);
         this.parentController = parentController;
@@ -47,6 +48,8 @@ public class VistaPrincipal extends JFrame implements MouseListener {
     public VistaParque getVistaParque(){
         return zoo;
     }
+
+    public VistaMenu getMenu() {return menu;}
 
     public EnumCursor getCursorState() {return this.cursorState;}
 
