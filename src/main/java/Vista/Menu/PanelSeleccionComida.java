@@ -102,7 +102,6 @@ public class PanelSeleccionComida implements BotonClickListener, MouseListener, 
             // TODO: esto es para probar */
 
             notifyParent();
-            PanelAlertas.changeText("MODO AÑADIR COMIDA");
         }
     }
 

@@ -97,7 +97,6 @@ public class PanelSeleccionHabitat implements BotonClickListener, MouseListener,
     public void mouseClicked(MouseEvent e) {
         if (clickableArea.contains(e.getPoint())) {
             notifyParent();
-            PanelAlertas.changeText("MODO AÑADIR HABITAT");
         }
     }
 
