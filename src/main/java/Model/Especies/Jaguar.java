@@ -3,11 +3,12 @@ package Model.Especies;
 import Model.Animal;
 import Model.Enumerations.EspeciesEnum;
 import Model.Enumerations.TerrenoEnum;
+import static Model.Enumerations.EspeciesEnum.*;
 
 public class Jaguar extends Animal {
-    private static final EspeciesEnum[] animalesCompatiblesList = {EspeciesEnum.JIRAFA, EspeciesEnum.ELEFANTE};
+    private static final EspeciesEnum[] animalesCompatiblesList = {JAGUAR};
     public Jaguar() {
-        super(TerrenoEnum.TERRESTRE,10, 18.0F, 32.0F);
+        super(TerrenoEnum.TERRESTRE,4, 12.0F, 40.0F);
     }
 
     @Override
