@@ -11,7 +11,6 @@ import Model.Exceptions.AnimalesIncompatiblesException;
 import Model.Exceptions.HabitatLlenoException;
 import Model.Factories.ZooItemFactory;
 import Vista.*;
-import Vista.Menu.PanelAlertas;
 import Vista.Menu.VistaMenu;
 import Vista.Zoo.VistaAnimal;
 
@@ -45,14 +44,14 @@ public class ZooController {
             Animal nuevoAnimal = instanceFactory.newAnimalInstance(tipoAnimal);
             zooHabitats[habitatIndex].addAnimal(nuevoAnimal);
             GUI.getVistaParque().addAnimal(habitatIndex, new VistaAnimal(nuevoAnimal));
-            PanelAlertas.changeText("Se añadió un nuevo animal: " + VistaMenu.getSelectedAnimal().toString().toLowerCase());
+            GUI.getMenu().setPanelAlertasMessage("Añadiste: " + VistaMenu.getSelectedAnimal().toString().toLowerCase() + " en el slot N°" + habitatIndex);
             System.out.println("Poblacion del habitat N°" + habitatIndex + ": " + zooHabitats[habitatIndex].getCurrentPop());
         }
         catch (HabitatLlenoException e) {
-            PanelAlertas.changeText("El habitat N°" + habitatIndex + " está lleno");
+            GUI.getMenu().setPanelAlertasMessage("El habitat N°" + habitatIndex + " está lleno");
         }
         catch (AnimalesIncompatiblesException e) {
-            PanelAlertas.changeText(tipoAnimal.name() + "tiene conflicto con uno de los animales!");
+            GUI.getMenu().setPanelAlertasMessage(tipoAnimal.name() + "tiene conflicto con uno de los animales!");
         }
     }
 
@@ -61,7 +60,7 @@ public class ZooController {
             Alimento nuevoAlimento = instanceFactory.newAlimentoInstance(tipoComida);
             zooHabitats[habitatIndex].addAlimento(nuevoAlimento);
         } catch (AlimentoLimiteException e) {
-            PanelAlertas.changeText("Este habitat (" + habitatIndex + ") tiene alimento máximo");
+            GUI.getMenu().setPanelAlertasMessage("Este habitat (" + habitatIndex + ") tiene alimento máximo");
         }
     }
 
