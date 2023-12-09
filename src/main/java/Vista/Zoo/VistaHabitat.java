@@ -69,11 +69,26 @@ public class VistaHabitat {
         Font customFont = loadCustomFont("src/main/java/resources/Candy_Beans.otf", Font.PLAIN, 20);
         g.setFont(customFont);
 
+        g2d.setColor(new Color(0, 0, 0, 150));
+        g2d.fillRect((int)(position.getX() + parquePosition.getX()),
+                (int)(position.getY() + parquePosition.getY()),225,40);
+
         g2d.setColor(Color.WHITE);
 
         g2d.drawString("Cantidad de comida: " + modelHabitat.getCantidadAlimento(),
                 (int)(position.getX() + parquePosition.getX()+10),
                 (int)(position.getY() + parquePosition.getY())+ g.getFontMetrics().getHeight());
+
+        if (modelHabitat.getCantidadAlimento() == 0){
+            try {
+                g.drawImage(ImageIO.read(new File("src/main/java/resources/icons/warning.png")),
+                        (int) (position.getX() + parquePosition.getX() + IMG_WIDTH-60),
+                        (int)(position.getY() + parquePosition.getY()+10),
+                        50,50,imageObserver);
+            } catch (IOException e) {
+                System.out.println("No se pudo cargar la textura de Warning.");
+            }
+        }
     }
     private Font loadCustomFont(String path, int style, int size) {
         try {
@@ -119,6 +134,9 @@ public class VistaHabitat {
         return this.modelHabitat;
     }
     public int getWidth(){return IMG_WIDTH;
+    }
+    public ArrayList<VistaAnimal> getAnimalSprites(){
+        return animalSprites;
     }
     public int getHeight(){
         return IMG_HEIGHT;

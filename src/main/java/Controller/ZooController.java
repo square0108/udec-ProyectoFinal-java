@@ -50,7 +50,7 @@ public class ZooController {
             GUI.getMenu().setPanelAlertasMessage("El habitat N°" + habitatIndex + " está lleno");
         }
         catch (AnimalesIncompatiblesException e) {
-            GUI.getMenu().setPanelAlertasMessage(tipoAnimal.name() + "tiene conflicto con uno de los animales!");
+            GUI.getMenu().setPanelAlertasMessage(tipoAnimal.name() + " tiene conflicto con uno de los animales!");
         }
     }
 

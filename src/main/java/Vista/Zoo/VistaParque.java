@@ -1,6 +1,7 @@
 package Vista.Zoo;
 
 import Controller.ZooController;
+import Model.Enumerations.EstadosEnum;
 import Model.Exceptions.AnimalNoExisteException;
 import Model.Exceptions.AnimalesIncompatiblesException;
 import Model.Exceptions.HabitatLlenoException;
@@ -148,8 +149,24 @@ public class VistaParque extends JPanel implements MouseListener {
                     }
                 }
                 break;
+            case DEFAULT:
+                for (int i = 0; i < habitatCoords.length; i++) {
+                    if (habitatCoords[i].contains((int) (e.getX() - imageCorner.getX()), (int) (e.getY() - imageCorner.getY()))
+                            && !habitatUsability[i]) {
+
+                        for(int j=0; j<vistaHabitatList[i].getAnimalSprites().size(); j++){
+
+                            if(vistaHabitatList[i].getAnimalSprites().get(j).getAnimal().getEstado() ==
+                            EstadosEnum.MUERTO){
+                                vistaHabitatList[i].getAnimalSprites().remove(j);
+                            }
+                        }
+
+                    }
+                }
             default:
                 break;
+
         }
 
         vistaPrincipal.setCursor(EnumCursor.DEFAULT);

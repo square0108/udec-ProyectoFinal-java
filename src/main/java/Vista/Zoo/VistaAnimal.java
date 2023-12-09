@@ -49,7 +49,7 @@ public class VistaAnimal implements ActionListener {
 
         setTexture();
         trackingPoint = new Point(10,10);
-        position = new Point(10,10);
+        position = new Point(150,150);
         timer = new Timer(250,this);
         timer.start();
     }
