@@ -14,6 +14,16 @@ public class ZooItemFactory {
             case JIRAFA -> new Jirafa();
             case ELEFANTE -> new Elefante();
             case LEON -> new Leon();
+            case CARPINCHO -> new Carpincho();
+            case PEZ -> new Pez();
+            case MONO -> new Mono();
+            case POLAR -> new Polar();
+            case PULPO -> new Pulpo();
+            case GORILA -> new Gorila();
+            case JABALI -> new Jabali();
+            case JAGUAR -> new Jaguar();
+            case CANGREJO -> new Cangrejo();
+            case PINGUINO -> new Pinguino();
             default -> throw new AnimalNoExisteException();
         };
     }

@@ -4,9 +4,20 @@ import Model.Animal;
 import Model.Especies.*;
 
 public enum EspeciesEnum {
-    LEON(Leon.class, "lion.png"),
-    JIRAFA(Jirafa.class, "giraffe.png"),
-    ELEFANTE(Elefante.class, "elefante.png");
+    LEON(Leon.class, "leon.png"),
+    JIRAFA(Jirafa.class, "jirafa.png"),
+    ELEFANTE(Elefante.class, "elefante.png"),
+    CARPINCHO(Carpincho.class, "carpincho.png"),
+    CANGREJO(Cangrejo.class, "cangrejo.png"),
+    GORILA(Gorila.class, "gorila.png"),
+    JABALI(Jabali.class, "jabali.png"),
+    JAGUAR(Jaguar.class, "jaguar.png"),
+    MONO(Mono.class, "mono.png"),
+    PEZ(Pez.class, "pez.png"),
+    PINGUINO(Pinguino.class, "pinguino.png"),
+    POLAR(Polar.class, "polar.png"),
+    PULPO(Pulpo.class, "pulpo.png");
+
     final Class<?> claseAsociada;
     final String texturePath;
 
