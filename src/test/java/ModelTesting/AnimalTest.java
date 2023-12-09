@@ -5,6 +5,7 @@ import Model.Especies.*;
 import Model.Especies.Leon;
 import Model.EntornosHabitat.*;
 import Model.Exceptions.AnimalesIncompatiblesException;
+import Model.Exceptions.HabitatIncompatibleException;
 import Model.Exceptions.HabitatLlenoException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -33,7 +34,7 @@ public class AnimalTest {
     }
 
     @Test
-    void MuertosNoSeMueven() throws HabitatLlenoException, AnimalesIncompatiblesException {
+    void MuertosNoSeMueven() throws HabitatLlenoException, AnimalesIncompatiblesException, HabitatIncompatibleException {
         Leon L = new Leon();
         Jungla S = new Jungla();
         S.getReservaAlimentos().remove(0);

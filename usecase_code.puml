@@ -1,0 +1,29 @@
+@startuml
+left to right direction
+actor "Usuario" as fc
+rectangle Zoo {
+  usecase "Ver celdas de hábitat" as UC1
+  usecase "Agregar nuevo hábitat" as UC2
+  usecase "Agregar comida en hábitat" as UC3
+  usecase "Agregar animal en hábitat" as UC4
+
+  UC1 .-> (Ver comida restante) : include
+  UC1 .-> (Ver terreno del hábitat) : include
+  UC1 .-> (Ver animales presentes) : include
+
+  UC2 .-> (Elegir tipo de hábitat) : include
+  UC2 .-> (Elegir celda vacía) : include
+
+  UC3 .-> (Elegir tipo de comida) : include
+  UC3 .-> (Elegir hábitat/Celda no-vacía) : include
+
+  UC4 .-> (Elegir hábitat/Celda no-vacía) : include
+  UC4 .-> (Elegir especie) : include
+
+
+}
+fc --> UC1
+fc --> UC2
+fc --> UC3
+fc --> UC4
+@enduml

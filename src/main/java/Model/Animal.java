@@ -155,6 +155,7 @@ public abstract class Animal {
     }
 
     public EstadosEnum getEstado() {return this.estado;}
+
     private void setEstado(EstadosEnum nuevoEstado) {this.estado = nuevoEstado;}
 
     public void setHabitatHogar(Habitat h) {this.habitatHogar = h;}
