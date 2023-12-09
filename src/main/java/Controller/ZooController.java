@@ -11,7 +11,6 @@ import Model.Exceptions.AnimalesIncompatiblesException;
 import Model.Exceptions.HabitatLlenoException;
 import Model.Factories.ZooItemFactory;
 import Vista.*;
-import Vista.Menu.VistaMenu;
 import Vista.Zoo.VistaAnimal;
 
 /**
@@ -34,9 +33,10 @@ public class ZooController {
     }
 
     public static void nuevoHabitat(HabitatEnum tipoHabitat, int habitatIndex) {
-            Habitat nuevoHabitat = instanceFactory.newHabitatInstance(tipoHabitat);
-            zooHabitats[habitatIndex] = nuevoHabitat;
-            GUI.getVistaParque().addHabitat(nuevoHabitat, habitatIndex);
+        Habitat nuevoHabitat = instanceFactory.newHabitatInstance(tipoHabitat);
+        zooHabitats[habitatIndex] = nuevoHabitat;
+        GUI.getVistaParque().addHabitat(nuevoHabitat, habitatIndex);
+        GUI.getMenu().setPanelAlertasMessage("Añadiste: Habitat " + tipoHabitat.toString().toLowerCase() + " en el slot N°" + habitatIndex);
     }
 
     public static void nuevoAnimal(EspeciesEnum tipoAnimal, int habitatIndex) throws AnimalNoExisteException {
@@ -44,8 +44,7 @@ public class ZooController {
             Animal nuevoAnimal = instanceFactory.newAnimalInstance(tipoAnimal);
             zooHabitats[habitatIndex].addAnimal(nuevoAnimal);
             GUI.getVistaParque().addAnimal(habitatIndex, new VistaAnimal(nuevoAnimal));
-            GUI.getMenu().setPanelAlertasMessage("Añadiste: " + VistaMenu.getSelectedAnimal().toString().toLowerCase() + " en el slot N°" + habitatIndex);
-            System.out.println("Poblacion del habitat N°" + habitatIndex + ": " + zooHabitats[habitatIndex].getCurrentPop());
+            GUI.getMenu().setPanelAlertasMessage("Añadiste: " + tipoAnimal.toString().toLowerCase() + " en el slot N°" + habitatIndex);
         }
         catch (HabitatLlenoException e) {
             GUI.getMenu().setPanelAlertasMessage("El habitat N°" + habitatIndex + " está lleno");
