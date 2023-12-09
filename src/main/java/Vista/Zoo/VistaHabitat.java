@@ -52,23 +52,26 @@ public class VistaHabitat {
      */
     public void draw(Graphics g, ImageObserver imageObserver, Point parquePosition){
 
+        // Se carga el antialiasing
         Graphics2D g2d = (Graphics2D) g;
         g2d.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
-        g.setColor(Color.BLUE);
 
-        g.drawImage(texture,(int) (position.getX() + parquePosition.getX()),
+        // Dibujamos la Imagen de fondo del habitat
+        g2d.drawImage(texture,(int) (position.getX() + parquePosition.getX()),
                 (int)(position.getY() + parquePosition.getY()),IMG_WIDTH,IMG_HEIGHT,imageObserver);
 
-        // Aquí se dibujan los
+        // Aquí se dibujan los sprites de los animales
         if(!animalSprites.isEmpty()){
             for (VistaAnimal animalSprite : animalSprites) {
                 animalSprite.draw(g, imageObserver, new Point((int) (position.getX() + parquePosition.getX()), (int) (position.getY() + parquePosition.getY())), IMG_WIDTH, IMG_HEIGHT);
             }
         }
 
+        // Cargamos la fuente
         Font customFont = loadCustomFont("src/main/java/resources/Candy_Beans.otf", Font.PLAIN, 20);
-        g.setFont(customFont);
+        g2d.setFont(customFont);
 
+        // Dibujamos el rectangulo negro con la cantidad de comida
         g2d.setColor(new Color(0, 0, 0, 150));
         g2d.fillRect((int)(position.getX() + parquePosition.getX()),
                 (int)(position.getY() + parquePosition.getY()),225,40);
@@ -79,17 +82,28 @@ public class VistaHabitat {
                 (int)(position.getX() + parquePosition.getX()+10),
                 (int)(position.getY() + parquePosition.getY())+ g.getFontMetrics().getHeight());
 
+        // En caso de que no quede comida aparece un icono de ALERTA
         if (modelHabitat.getCantidadAlimento() == 0){
             try {
                 g.drawImage(ImageIO.read(new File("src/main/java/resources/icons/warning.png")),
                         (int) (position.getX() + parquePosition.getX() + IMG_WIDTH-60),
                         (int)(position.getY() + parquePosition.getY()+10),
                         50,50,imageObserver);
+
+                // TODO: QUIZAS PONER QUE SE PONGA UN TEXTO EN MENU ALERTAS
             } catch (IOException e) {
                 System.out.println("No se pudo cargar la textura de Warning.");
             }
         }
     }
+
+    /**
+     * Carga una fuente guardada de forma interna.
+     * @param path Dirección de la fuente dentro de la carpeta del proyecto.
+     * @param style Estilo que la fuente usara, puede ser PLAIN, BOLD, ITALIC, ETC.
+     * @param size Tamaño en el que se mostrara la fuente.
+     * @return fuente, esta se guarda en el tipo "Font".
+     */
     private Font loadCustomFont(String path, int style, int size) {
         try {
             // Carga la fuente desde el archivo .otf
@@ -123,7 +137,6 @@ public class VistaHabitat {
      * Crea añade un Habitat dentro de el array de VistaAnimal.
      * @param vistaAnimal Animal a ser añadido a VistaHabitat, debe ser del tipo VistaAnimal
      */
-
     public void addAnimalSprite(VistaAnimal vistaAnimal) throws HabitatLlenoException, AnimalesIncompatiblesException {
         animalSprites.add(vistaAnimal);
     }
@@ -133,8 +146,7 @@ public class VistaHabitat {
     public Habitat getModelHabitat(){
         return this.modelHabitat;
     }
-    public int getWidth(){return IMG_WIDTH;
-    }
+    public int getWidth(){return IMG_WIDTH;}
     public ArrayList<VistaAnimal> getAnimalSprites(){
         return animalSprites;
     }

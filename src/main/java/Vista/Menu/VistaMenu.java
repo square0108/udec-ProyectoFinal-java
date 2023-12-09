@@ -17,27 +17,31 @@ import java.io.IOException;
 import static Vista.Enumerations.EnumCursor.*;
 
 /**
- * Es un panel el cual muestra el menu de opciones
+ * Jpanel, en el cual se muestran los menus de selección y el panel de alerta.
  */
 public class VistaMenu extends JPanel implements ParentPanel {
     final private int IMG_WIDTH = 400;
     final private int IMG_HEIGHT = 900;
     private BufferedImage fondo;
-    private Point imageCorner;
-    private static final PanelSeleccionAnimal panelAnimal = new PanelSeleccionAnimal(10, 250);
-    private static final PanelSeleccionComida panelComida = new PanelSeleccionComida(10, 480);
+    private static final PanelSeleccionAnimal panelAnimal = new PanelSeleccionAnimal(10, 230);
+    private static final PanelSeleccionComida panelComida = new PanelSeleccionComida(10, 440);
     private static final PanelSeleccionHabitat panelHabitat = new PanelSeleccionHabitat(10,20);
     private final PanelAlertas panelAlertas;
     private final VistaPrincipal vistaPrincipal;
+
+    /**
+     * Constructor de VistaMenu, Aqui se definene los parent, se carga la textura de fondo de menu
+     * y se añaden los listener
+     * @param parentFrame
+     */
     public VistaMenu(VistaPrincipal parentFrame){
         this.setPreferredSize(new Dimension(IMG_WIDTH,IMG_HEIGHT));
-        imageCorner = new Point(0,0);
 
         panelHabitat.parentPanel = this;
         panelAnimal.parentPanel = this;
         panelComida.parentPanel = this;
 
-        panelAlertas = new PanelAlertas(10,710);
+        panelAlertas = new PanelAlertas(10,650);
 
         this.vistaPrincipal = parentFrame;
 
@@ -47,6 +51,7 @@ public class VistaMenu extends JPanel implements ParentPanel {
         } catch (IOException e) {
             System.out.println("TEXTURA NO ENCONTRADA!!!!! (FondoPanelSelecciónAnimal)");
         }
+        // Añadimos listener de Panel habitat
 
         this.addMouseListener(panelHabitat.flechaDer);
         this.addMouseListener(panelHabitat.flechaIzq);
@@ -78,16 +83,24 @@ public class VistaMenu extends JPanel implements ParentPanel {
 
     }
 
+    /**
+     * Cambia el mensaje de alerta en el panel correspondiente.
+     * @param message texto a mostrar en alerta.
+     */
+    public void setPanelAlertasMessage(String message) {
+        this.panelAlertas.changeText(message);
+    }
+
     public static EspeciesEnum getSelectedAnimal() {return panelAnimal.getSelectedAnimal();}
 
     public static HabitatEnum getSelectedHabitat() {return panelHabitat.getSelectedHabitat();}
 
     public static ComidaEnum getSelectedFood() {return panelComida.getSelectedComida();}
 
-    public void setPanelAlertasMessage(String message) {
-        this.panelAlertas.changeText(message);
-    }
-
+    /**
+     * Ejecuta las instrucciones para dibujar los paneles dentro de menu.
+     * @param g
+     */
     public void draw(Graphics g){
         g.setColor(Color.red);
         g.drawImage(fondo,0,0,IMG_WIDTH,IMG_HEIGHT,this);
@@ -104,6 +117,10 @@ public class VistaMenu extends JPanel implements ParentPanel {
         draw(g);
     }
 
+    /**
+     * TODO: poner que hace esto.
+     * @param subPanel
+     */
     @Override
     public void contextualUpdate(SubPanel subPanel) {
         if (subPanel == panelAnimal) vistaPrincipal.setCursor(ANADIR_ANIMAL);

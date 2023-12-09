@@ -16,14 +16,15 @@ import java.awt.image.ImageObserver;
 import java.io.File;
 import java.io.IOException;
 
-/*
-Quizas podria hacer una clase Panel Selección y que el panel seleccion animal extienda a esa, lo mismo con
-Panel comida
+/**
+ * Panel en que se muestra de forma visual, los animales que se pueden poner en los distintos habitats,
+ * Este posee dos botones a los costados para cambiar entre el animal seleccionado, para añadir un animal
+ * Se presiona una vez sobre el botón con el icono del animal y luego en el habitat donde se quiere añadir este.
  */
 public class PanelSeleccionAnimal implements BotonClickListener, MouseListener, SubPanel {
     private final int WIDTH = 380;
     private final int HEIGHT = 200;
-    private static EspeciesEnum selectedAnimal = EspeciesEnum.ELEFANTE;
+    private static EspeciesEnum selectedAnimal = EspeciesEnum.CARPINCHO;
     private BufferedImage animalIcon;
     private BufferedImage fondo;
     protected BotonFlecha flechaDer;
@@ -32,7 +33,11 @@ public class PanelSeleccionAnimal implements BotonClickListener, MouseListener, 
     private Rectangle clickableArea;
     protected ParentPanel parentPanel;
 
-
+    /**
+     * Constructor de PanelSeleccionAnimal. Se le dan las coordenadas donde se dibujara el panel.
+     * @param x Coordenada x.
+     * @param y Coordenada y.
+     */
     public PanelSeleccionAnimal(int x, int y) {
         try {
             this.fondo = ImageIO.read(new File("src/main/java/resources/icons/panelsbackgroud.png"));
@@ -54,8 +59,11 @@ public class PanelSeleccionAnimal implements BotonClickListener, MouseListener, 
         setAnimalIcon();
     }
 
-    public EspeciesEnum getSelectedAnimal() {return selectedAnimal;}
-
+    /**
+     * Dibuja el Panel.
+     * @param g
+     * @param imageObserver
+     */
     public void draw(Graphics g, ImageObserver imageObserver) {
         g.setColor(Color.GRAY);
         g.drawImage(fondo,(int) this.position.getX(), (int) this.position.getY(),WIDTH, HEIGHT,imageObserver);
@@ -67,15 +75,26 @@ public class PanelSeleccionAnimal implements BotonClickListener, MouseListener, 
                 100, 100, imageObserver);
     }
 
+    /**
+     * Cambia el parametro selectedAnimal(Enum), al siguiente del Enum.
+     */
     public void cambiarSiguienteAnimal() {
         selectedAnimal = selectedAnimal.siguiente();
         setAnimalIcon();
     }
+    /**
+     * Cambia el parametro selectedAnimal(Enum), al anterior del Enum.
+     */
     public void cambiarAnteriorAnimal() {
         selectedAnimal = selectedAnimal.anterior();
         setAnimalIcon();
     }
 
+    /**
+     * Controla los Comandos ejercidos por los botones flecha.
+     * 1. Boton derecha: Cambia a siguiente animal.
+     * 2. Boton izquierda: Cambia a animal anterior.
+     */
     @Override
     public void onBotonClick() {
         if (flechaDer.getState() == EnumEstadosBoton.CLICK) {
@@ -85,6 +104,14 @@ public class PanelSeleccionAnimal implements BotonClickListener, MouseListener, 
         }
     }
 
+    @Override
+    public void notifyParent() {
+        parentPanel.contextualUpdate(this);
+    }
+
+    /**
+     * Selecciona la textura del icono mostrado en el Panel, va cambiando dependiendo del animal seleccionado.
+     */
     public void setAnimalIcon() {
         String texture_path = "src/main/java/resources/icons/" + selectedAnimal.getTexturePath();
         try {
@@ -93,6 +120,8 @@ public class PanelSeleccionAnimal implements BotonClickListener, MouseListener, 
             System.out.println("TEXTURA NO ENCONTRADA!!!!! (PanelSeleccionAnimal)");
         }
     }
+
+    public EspeciesEnum getSelectedAnimal() {return selectedAnimal;}
 
     @Override
     public void mouseClicked(MouseEvent e) {
@@ -124,10 +153,5 @@ public class PanelSeleccionAnimal implements BotonClickListener, MouseListener, 
     @Override
     public void mouseExited(MouseEvent e) {
 
-    }
-
-    @Override
-    public void notifyParent() {
-        parentPanel.contextualUpdate(this);
     }
 }

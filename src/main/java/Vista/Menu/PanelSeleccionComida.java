@@ -16,9 +16,11 @@ import java.awt.image.ImageObserver;
 import java.io.File;
 import java.io.IOException;
 
-/*
-Quizas podria hacer una clase Panel Selección y que el panel seleccion animal extienda a esa, lo mismo con
-Panel comida
+/**
+ * Panel en que se muestra de forma visual, los tipos de comida que se pueden poner en los distintos habitats,
+ * Este posee dos botones a los costados para cambiar entre la comida seleccionada, para añadir alimento a un habitat
+ * Se presiona una vez sobre el botón con el icono de la comida y luego en el habitat donde se quiere añadir esta.
+ * OJO: NO esta implementado elegir entre distintos tipos de comida todavia, pero se podria agregar.
  */
 public class PanelSeleccionComida implements BotonClickListener, MouseListener, SubPanel {
     private final int WIDTH = 380;
@@ -32,7 +34,11 @@ public class PanelSeleccionComida implements BotonClickListener, MouseListener, 
     protected Rectangle clickableArea;
     protected ParentPanel parentPanel;
 
-
+    /**
+     * Constructor de PanelSeleccionComida. Se le dan las coordenadas donde se dibujara el panel.
+     * @param x Coordenada x.
+     * @param y Coordenada y.
+     */
     public PanelSeleccionComida(int x, int y) {
         try {
             this.fondo = ImageIO.read(new File("src/main/java/resources/icons/panelsbackgroud.png"));
@@ -55,22 +61,36 @@ public class PanelSeleccionComida implements BotonClickListener, MouseListener, 
 
     public ComidaEnum getSelectedComida() {return selectedComida;}
 
+    /**
+     * Dibuja el Panel.
+     * @param g
+     * @param imageObserver
+     */
     public void draw(Graphics g, ImageObserver imageObserver) {
+        // Dibujar fondo
         g.setColor(Color.GRAY);
         g.drawImage(fondo,(int) this.position.getX(), (int) this.position.getY(),WIDTH, HEIGHT,imageObserver);
+
+        /* OJO: Si esto se agrega se dibujarian los Botones con flechas.
+        Esto se debe hacer en caso de querer agregar distintos tipos de comida
         flechaIzq.draw(g, imageObserver);
         flechaDer.draw(g, imageObserver);
+        */
 
-        // Dibuja el panel intermedio directamente
-        // TODO: Aquí puede estar el error
+        // Dibujar Icono
         g.drawImage(comidaIcon, (int) this.position.getX() + WIDTH/2 -50, (int) this.position.getY() + HEIGHT/2 - 50,
                 100, 100, imageObserver);
     }
-
+    /**
+     * Cambia el parametro selectedComida(Enum), al siguiente del Enum.
+     */
     public void cambiarSiguienteComida() {
         selectedComida = selectedComida.siguiente();
         setComidaIcon();
     }
+    /**
+     * Cambia el parametro selectedComida(Enum), al anterior del Enum.
+     */
     public void cambiarAnteriorComida() {
         selectedComida = selectedComida.anterior();
         setComidaIcon();
@@ -84,7 +104,9 @@ public class PanelSeleccionComida implements BotonClickListener, MouseListener, 
             cambiarAnteriorComida();
         }
     }
-
+    /**
+     * Selecciona la textura del icono mostrado en el Panel, va cambiando dependiendo de la comida seleccionada.
+     */
     public void setComidaIcon() {
         String texture_path = "src/main/java/resources/icons/" + selectedComida.getTexturePath();
         try {
@@ -95,12 +117,13 @@ public class PanelSeleccionComida implements BotonClickListener, MouseListener, 
     }
 
     @Override
+    public void notifyParent() {
+        parentPanel.contextualUpdate(this);
+    }
+
+    @Override
     public void mouseClicked(MouseEvent e) {
         if (clickableArea.contains(e.getPoint())) {
-            /*
-            ZooController.changeCursorMode(EnumCursor.ANADIR_COMIDA);
-            // TODO: esto es para probar */
-
             notifyParent();
         }
     }
@@ -123,10 +146,5 @@ public class PanelSeleccionComida implements BotonClickListener, MouseListener, 
     @Override
     public void mouseExited(MouseEvent e) {
 
-    }
-
-    @Override
-    public void notifyParent() {
-        parentPanel.contextualUpdate(this);
     }
 }

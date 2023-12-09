@@ -19,10 +19,10 @@ import java.io.File;
 import java.io.IOException;
 
 /**
- * Panel que muestra de forma grafica el conjunto de elementos dentro del Parque
+ * Panel que muestra de forma grafica el conjunto de elementos dentro del Parque.
  */
 public class VistaParque extends JPanel implements MouseListener {
-    private final int PANEL_WIDTH = 1400;
+    private final int PANEL_WIDTH = 1200;
     private final int PANEL_HEIGTH = 900;
     private BufferedImage fondo;
     private final int IMG_WIDTH= 2800;
@@ -34,14 +34,10 @@ public class VistaParque extends JPanel implements MouseListener {
     private static boolean[] habitatUsability;
     private final VistaPrincipal vistaPrincipal;
 
-    /**
-     * Cont
-     */
     public VistaParque(VistaPrincipal parentFrame){
-        // OJO: Este JPANEL ES PARA PINTAR EL RESTO DE COSAS, NO HAY QUE PONERLE MAS JPANELS
+
         this.vistaPrincipal = parentFrame;
-        // Creamos habitat (cambiar más adelante)
-        // Y cargamos imagen de fondo
+
         vistaHabitatList = new VistaHabitat[9];
         habitatCoords = new Rectangle[9];
         this.addMouseListener(this);
@@ -73,6 +69,9 @@ public class VistaParque extends JPanel implements MouseListener {
         this.setPreferredSize(new Dimension(PANEL_WIDTH,PANEL_HEIGTH));
     }
 
+    /**
+     * Volvemos a pintar completamente la vista del parque.
+     */
     public void update() {
         this.repaint();
     }
@@ -95,13 +94,22 @@ public class VistaParque extends JPanel implements MouseListener {
         VistaHabitat habitat = new VistaHabitat(tipo,(int)habitatCoords[habitatIndex].getX(),(int)habitatCoords[habitatIndex].getY(), this);
         vistaHabitatList[habitatIndex] = habitat;
     }
-    /*
-    * Añade un Animal en el habitat con el Id utilizado en el metodo
-    * */
-    public void addAnimal(int id, VistaAnimal animal) throws HabitatLlenoException, AnimalesIncompatiblesException {
-        vistaHabitatList[id].addAnimalSprite(animal);
+
+    /**
+     * Añade un Animal en el habitat con indice index.
+     * @param index
+     * @param animal
+     * @throws HabitatLlenoException
+     * @throws AnimalesIncompatiblesException
+     */
+    public void addAnimal(int index, VistaAnimal animal) throws HabitatLlenoException, AnimalesIncompatiblesException {
+        vistaHabitatList[index].addAnimalSprite(animal);
     }
 
+    /**
+     * Verifica si no hay habitats construidos en el parque.
+     * @return
+     */
     private boolean habitatListIsEmpty() {
         for (VistaHabitat vistaHabitat : vistaHabitatList) {
             if (vistaHabitat != null) return false;
@@ -115,8 +123,16 @@ public class VistaParque extends JPanel implements MouseListener {
         draw(g);
     }
 
+    /**
+     * El click del mouse hace cosas dependiendo del modo de este. Las acciones segun los modos son las siguientes:
+     * 1. Añadir habitat: crea un habitat si el slot esta vacio, si no, no hace nada.
+     * 2. Añadir animal: si se hace click sobre un habitat añade el tipo de animal seleccionado en el menu.
+     * 3. Añadir comida: agrega uno de comida al habitat seleccionado.
+     * 4. Default: Si hay animales muertos en un habitat, remueves las tumbas del habitat seleccionado.
+     */
     @Override
     public void mouseClicked(MouseEvent e) {
+
         EnumCursor cursorState = vistaPrincipal.getCursorState();
         switch(cursorState) {
             case ANADIR_HABITAT:
@@ -133,7 +149,6 @@ public class VistaParque extends JPanel implements MouseListener {
                 for (int i = 0; i < habitatCoords.length; i++) {
                     if (habitatCoords[i].contains((int) (e.getX() - imageCorner.getX()), (int) (e.getY() - imageCorner.getY()))
                             && !habitatUsability[i]) {
-                        System.out.println("colocaste animal wuouoouo");
                         try {
                             ZooController.nuevoAnimal(VistaMenu.getSelectedAnimal(), i);
                         } catch (AnimalNoExisteException ex) {
@@ -184,12 +199,18 @@ public class VistaParque extends JPanel implements MouseListener {
     @Override
     public void mouseExited(MouseEvent e) {}
 
-    // Desde Aquí son cosas para el Mouse Drag
+    /**
+     * Clase que se usa para poder hacer drag and click en el mapa
+     */
     private class ClickListener extends MouseAdapter{
         public void mousePressed(MouseEvent e){
             previousPoint = e.getPoint();
         }
     }
+
+    /**
+     * Clase que se usa para poder hacer drag and click en el mapa
+     */
     private class DragListener extends MouseMotionAdapter{
         public void mouseDragged(MouseEvent e){
 
@@ -199,8 +220,7 @@ public class VistaParque extends JPanel implements MouseListener {
             int newY = (int) (imageCorner.getY() + currentPoint.getY() - previousPoint.getY());
 
             // Verificar los límites en X
-            //TODO: BUSCAR OTRA FORMA DE HACER ESTO, el 200 corresponde al ancho del menu
-            if (newX <= 0 && newX >= -(IMG_WIDTH - PANEL_WIDTH+200)) {
+            if (newX <= 0 && newX >= -(IMG_WIDTH - PANEL_WIDTH)) {
                 imageCorner.setLocation(newX, imageCorner.getY());
             }
 
