@@ -5,10 +5,7 @@ import Model.Enumerations.ComidaEnum;
 import Model.Enumerations.EspeciesEnum;
 import Model.Animal;
 import Model.Enumerations.HabitatEnum;
-import Model.Exceptions.AlimentoLimiteException;
-import Model.Exceptions.AnimalNoExisteException;
-import Model.Exceptions.AnimalesIncompatiblesException;
-import Model.Exceptions.HabitatLlenoException;
+import Model.Exceptions.*;
 import Model.Factories.ZooItemFactory;
 import Vista.*;
 import Vista.Zoo.VistaAnimal;
@@ -45,6 +42,9 @@ public class ZooController {
             zooHabitats[habitatIndex].addAnimal(nuevoAnimal);
             GUI.getVistaParque().addAnimal(habitatIndex, new VistaAnimal(nuevoAnimal));
             GUI.getMenu().setPanelAlertasMessage("Añadiste: " + tipoAnimal.toString().toLowerCase() + " en el slot N°" + habitatIndex);
+        }
+        catch (HabitatIncompatibleException e) {
+            GUI.getMenu().setPanelAlertasMessage(tipoAnimal.name() + " es incompatible con este habitat");
         }
         catch (HabitatLlenoException e) {
             GUI.getMenu().setPanelAlertasMessage("El habitat N°" + habitatIndex + " está lleno");

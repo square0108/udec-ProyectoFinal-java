@@ -5,6 +5,7 @@ import Model.Enumerations.EstadosEnum;
 import Model.Enumerations.TerrenoEnum;
 import Model.Exceptions.AlimentoLimiteException;
 import Model.Exceptions.AnimalesIncompatiblesException;
+import Model.Exceptions.HabitatIncompatibleException;
 import Model.Exceptions.HabitatLlenoException;
 import org.jetbrains.annotations.NotNull;
 
@@ -68,21 +69,6 @@ public abstract class Habitat {
     }
 
     /**
-     * Actualiza el porcentajeComida de todos los animales presentes en este habitat, llamando el metodo ganarHambre()
-     * de cada uno de ellos.
-     */
-    public void actualizarHambreAnimales() {
-        /* todo: poner esta alerta en otra parte */
-        if (!this.hayAlimento) System.out.println("!!! " + this + " no tiene alimento !!!");
-        for (Animal animal : this.animalesCercados) {
-            if (animal == null) break; /* con objetivo de no causar NullPointerException (se llamarian metodos en espacios null del arreglo */
-            else {
-                animal.ganarHambre();
-            }
-        }
-    }
-
-    /**
      * El nombre es bastante descriptivo.
      */
     public void removerAnimalesMuertos() {
@@ -96,21 +82,10 @@ public abstract class Habitat {
     }
 
     /**
-     * Llama el método interno de animales "intentarMovimiento()" el cual rollea una chance para cambiar el
-     * estado de los animales desde PASIVO -> MOVIENDO. Si ya están moviéndose, los cambia desde MOVIENDO -> PASIVO.
-     * Bajo cualquier otro estado (COMIENDO, MUERTO) no pueden comenzar a moverse.
-     */
-    public void intentarMoverAnimales() {
-        for (Animal animal : animalesCercados) {
-            animal.intentarMovimiento();
-        }
-    }
-
-    /**
      * Agrega un nuevo animal a este habitat. Debe pasar por varios checks logicos de compatibilidad.
      * @param nuevoAnimal Animal nuevo a agregar
      */
-    public void addAnimal(Animal nuevoAnimal) throws AnimalesIncompatiblesException, HabitatLlenoException {
+    public void addAnimal(Animal nuevoAnimal) throws AnimalesIncompatiblesException, HabitatLlenoException, HabitatIncompatibleException {
             /* Checkear si el habitat ya se encuentra lleno. */
             if (animalesCercados.size() >= poblacionMax) {
                 throw new HabitatLlenoException();
@@ -118,9 +93,8 @@ public abstract class Habitat {
 
             /* Checkear si este animal es compatible con el habitat */
             if (CompatibleChecker.isCompatible(nuevoAnimal, this) == false) {
-                /*TODO: QUizas seria bueno poner un error aquí para atraparlo en vista y mostrar un
-                *  mensaje cuando no se pueda poner un animal*/
                 System.out.println("Error." + EspeciesEnum.classToEnum(nuevoAnimal) + " no es compatible con este habitat.");
+                throw new HabitatIncompatibleException();
             }
 
             for (Animal animal : animalesCercados) {
@@ -139,11 +113,6 @@ public abstract class Habitat {
             animalesCercados.add(nuevoAnimal);
             nuevoAnimal.setHabitatHogar(this);
         }
-        /* TODO: ME DA ERROR ESTE CATCH POR ALGUNA RAZON
-        catch (HabitatIncompatibleException exc) {
-            System.out.println("El animal: " + nuevoAnimal + "no es compatible con el habitat: " + HabitatEnum.classToEnum(this));
-        }*/
-
     /**
      * Remueve un animal específico y además setea su habitatHogar a NULL, de esta forma el resto del programa sabe que el animal no pertenece a algún habitat.
      * @param index indice del arreglo
