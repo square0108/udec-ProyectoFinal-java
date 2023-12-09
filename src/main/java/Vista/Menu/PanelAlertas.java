@@ -10,13 +10,19 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Panel que muestra las alertas del programa de forma visual.
+ */
 public class PanelAlertas {
     private final int WIDTH = 380;
-    private final int HEIGHT = 180;
+    private final int HEIGHT = 200;
     private BufferedImage fondo;
     private Point position;
     private static String frase;
 
+    /**
+     * Contructor de panel alertas, se le da una posición, en esta se dibujara.
+     */
     public PanelAlertas(int x, int y){
         this.position = new Point(x,y);
         try {
@@ -28,6 +34,11 @@ public class PanelAlertas {
 
 
     }
+
+    /**
+     * Sirve para cambiar el texto mostrado en el panel
+     * @param string texto a mostrar
+     */
     public void changeText(String string){
         frase = string;
     }

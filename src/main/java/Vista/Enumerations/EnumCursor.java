@@ -1,5 +1,8 @@
 package Vista.Enumerations;
 
+/**
+ * Enumerador usado para elegir el modo del Mouse. Además es usado para saber la ruta de la textura.
+ */
 public enum EnumCursor {
     DEFAULT("cursor_default.png"),
     ANADIR_ANIMAL("cursor_anadir_animal.png"),
@@ -10,6 +13,10 @@ public enum EnumCursor {
         image_path = path;
     }
 
+    /**
+     * Devuelve la ruta de la textura.
+     * @return nombre del archivo que contiene la textura.
+     */
     public String getImagePath(){
         return image_path;
     }

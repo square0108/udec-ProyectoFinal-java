@@ -14,7 +14,10 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-public class VistaPrincipal extends JFrame implements MouseListener {
+/**
+ * Vista principal es una clase que extiende el JFrame, desde aqui se muestra toda la parte visual del programa.
+ */
+public class VistaPrincipal extends JFrame {
     private final VistaParque zoo;
     private final VistaMenu menu;
     private EnumCursor cursorState;
@@ -39,6 +42,9 @@ public class VistaPrincipal extends JFrame implements MouseListener {
         this.cursorState = EnumCursor.DEFAULT;
     }
 
+    /**
+     * Actualizamos todas las vistas (repaint)
+     */
     public void update() {
         this.zoo.update();
         this.menu.repaint();
@@ -53,6 +59,10 @@ public class VistaPrincipal extends JFrame implements MouseListener {
 
     public EnumCursor getCursorState() {return this.cursorState;}
 
+    /**
+     * Cambiamos la skin del cursor.
+     * @param tipo Enumerador Cursor, aquí se selecciona el modo en el que esta el cursor.
+     */
     public void setCursor(EnumCursor tipo){
         String cursor_path = "src/main/java/resources/icons/" + tipo.getImagePath();
         BufferedImage image;
@@ -64,31 +74,5 @@ public class VistaPrincipal extends JFrame implements MouseListener {
         } catch (IOException e) {
             System.out.println("NO CARGO LA IMAGEN DEL CURSOR AAAAA");
         }
-    }
-
-    @Override
-    public void mouseClicked(MouseEvent e) {
-        setCursor(EnumCursor.DEFAULT);
-        System.out.println("HOLA!!!!");
-    }
-
-    @Override
-    public void mousePressed(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseReleased(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseEntered(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseExited(MouseEvent e) {
-
     }
 }

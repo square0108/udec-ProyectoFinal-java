@@ -16,9 +16,10 @@ import java.awt.image.ImageObserver;
 import java.io.File;
 import java.io.IOException;
 
-/*
-Quizas podria hacer una clase Panel Selección y que el panel seleccion animal extienda a esa, lo mismo con
-Panel comida
+/**
+ * Panel en que se muestra de forma visual, los habitats que se pueden poner en los distintos slots vacios,
+ * Este posee dos botones a los costados para cambiar entre el habitat seleccionado, para añadir un habitat
+ * Se presiona una vez sobre el botón con el icono del habitat y luego en el slot vacio donde se quiere añadir este.
  */
 public class PanelSeleccionHabitat implements BotonClickListener, MouseListener, SubPanel {
     private final int WIDTH = 380;
@@ -32,6 +33,11 @@ public class PanelSeleccionHabitat implements BotonClickListener, MouseListener,
     private Rectangle clickableArea;
     protected ParentPanel parentPanel;
 
+    /**
+     * Constructor de PanelSeleccionHabitat. Se le dan las coordenadas donde se dibujara el panel.
+     * @param x Coordenada x.
+     * @param y Coordenada y.
+     */
     public PanelSeleccionHabitat(int x, int y) {
         try {
             this.fondo = ImageIO.read(new File("src/main/java/resources/icons/panelsbackgroud.png"));
@@ -49,11 +55,14 @@ public class PanelSeleccionHabitat implements BotonClickListener, MouseListener,
         flechaDer.setBotonClickListener(this);
         flechaIzq.setBotonClickListener(this);
 
-        setComidaIcon();
+        setHabitatIcon();
     }
 
-    public HabitatEnum getSelectedHabitat() {return selectedHabitat;} /* todo: ojala reducir la cantidad de metodos static */
-
+    /**
+     * Dibuja el Panel.
+     * @param g
+     * @param imageObserver
+     */
     public void draw(Graphics g, ImageObserver imageObserver) {
         g.setColor(Color.GRAY);
         g.drawImage(fondo,(int) this.position.getX(), (int) this.position.getY(),WIDTH, HEIGHT,imageObserver);
@@ -65,16 +74,20 @@ public class PanelSeleccionHabitat implements BotonClickListener, MouseListener,
         g.drawImage(comidaIcon, (int) this.position.getX() + WIDTH/2 -50, (int) this.position.getY() + HEIGHT/2 - 50,
                 100, 100, imageObserver);
     }
-
+    /**
+     * Cambia el parametro selectedHabitat(Enum), al siguiente del Enum.
+     */
     public void cambiarSiguienteHabitat() {
         selectedHabitat = selectedHabitat.siguiente();
-        setComidaIcon();
+        setHabitatIcon();
     }
+    /**
+     * Cambia el parametro selectedHabitat(Enum), al anterior del Enum.
+     */
     public void cambiarAnteriorHabitat() {
         selectedHabitat = selectedHabitat.anterior();
-        setComidaIcon();
+        setHabitatIcon();
     }
-
     @Override
     public void onBotonClick() {
         if (flechaDer.getState() == EnumEstadosBoton.CLICK) {
@@ -83,14 +96,23 @@ public class PanelSeleccionHabitat implements BotonClickListener, MouseListener,
             cambiarAnteriorHabitat();
         }
     }
-
-    public void setComidaIcon() {
+    /**
+     * Selecciona la textura del icono mostrado en el Panel, va cambiando dependiendo del habitat seleccionado.
+     */
+    public void setHabitatIcon() {
         String texture_path = "src/main/java/resources/icons/" + selectedHabitat.getTexturePath();
         try {
             this.comidaIcon = ImageIO.read(new File(texture_path));
         } catch (IOException e) {
             System.out.println("TEXTURA NO ENCONTRADA!!!!! (PanelSeleccionHabitat)");
         }
+    }
+
+    public HabitatEnum getSelectedHabitat() {return selectedHabitat;}
+
+    @Override
+    public void notifyParent() {
+        parentPanel.contextualUpdate(this);
     }
 
     @Override
@@ -118,10 +140,5 @@ public class PanelSeleccionHabitat implements BotonClickListener, MouseListener,
     @Override
     public void mouseExited(MouseEvent e) {
 
-    }
-
-    @Override
-    public void notifyParent() {
-        parentPanel.contextualUpdate(this);
     }
 }

@@ -14,6 +14,9 @@ import java.awt.image.ImageObserver;
 import java.io.File;
 import java.io.IOException;
 
+/**
+ * Clase que representa un Botón con una flecha dentro.
+ */
 public class BotonFlecha implements MouseListener, MouseMotionListener {
     final private int IMG_WIDTH = 240;
     final private int IMG_HEIGHT = 180;
@@ -39,7 +42,7 @@ public class BotonFlecha implements MouseListener, MouseMotionListener {
 
 
     /**
-     *
+     * Metodo que sirve para Dibujar Botón flecha, hay que utilizarlo en el draw del panel en el que se encuentra.
      * @param g
      * @param imageObserver
      */
@@ -58,6 +61,11 @@ public class BotonFlecha implements MouseListener, MouseMotionListener {
         g.drawImage(subImage,(int)(posBorders.getX()),(int)(posBorders.getY()),
                 frameWidth,IMG_HEIGHT,imageObserver);
     }
+
+    /**
+     * Elige la textura del botón según la necesidad.
+     * @param botonesEnum Tipo de flecha (Izquierda y Derecha)
+     */
     private void setTexture(BotonesEnum botonesEnum){
         String texture_path = "src/main/java/resources/icons/" + botonesEnum.getDireccionImagen();
         try {
@@ -66,13 +74,17 @@ public class BotonFlecha implements MouseListener, MouseMotionListener {
             System.out.println("TEXTURA NO ENCONTRADA!!!!! (VistaAnimal)");
         }
     }
-    public void setBotonClickListener(BotonClickListener listener) {
-        this.botonClickListener = listener;
-    }
+
+    /**
+     * Notifica que el botón accionado.
+     */
     private void notifyBotonClick() {
         if (botonClickListener != null) {
             botonClickListener.onBotonClick();
         }
+    }
+    public void setBotonClickListener(BotonClickListener listener) {
+        this.botonClickListener = listener;
     }
     public int getWIDTH(){
         return frameWidth;
@@ -81,6 +93,13 @@ public class BotonFlecha implements MouseListener, MouseMotionListener {
         return IMG_HEIGHT;
     }
 
+    public EnumEstadosBoton getState() {
+        return state;
+    }
+
+    /*
+    * Funciones de Mouse Listener.*/
+
     @Override
     public void mouseClicked(MouseEvent e) {
         if( ( posBorders.getX() < e.getX() && posBorders.getY() < e.getY() ) &&
@@ -88,6 +107,7 @@ public class BotonFlecha implements MouseListener, MouseMotionListener {
 
         }
     }
+
     @Override
     public void mousePressed(MouseEvent e) {
         if ((posBorders.getX() < e.getX() && posBorders.getY() < e.getY()) &&
@@ -96,7 +116,6 @@ public class BotonFlecha implements MouseListener, MouseMotionListener {
             notifyBotonClick();
         }
     }
-
     @Override
     public void mouseReleased(MouseEvent e) {
         if ((posBorders.getX() < e.getX() && posBorders.getY() < e.getY()) &&
@@ -105,6 +124,7 @@ public class BotonFlecha implements MouseListener, MouseMotionListener {
             notifyBotonClick();
         }
     }
+
     @Override
     public void mouseEntered(MouseEvent e) {
 
@@ -118,8 +138,8 @@ public class BotonFlecha implements MouseListener, MouseMotionListener {
     public void mouseDragged(MouseEvent e) {
     }
 
-
     // Funciona, pero la hitbox esta media rara
+
     @Override
     public void mouseMoved(MouseEvent e) {
         if( ( posBorders.getX() < e.getX() && posBorders.getY() < e.getY() ) &&
@@ -129,9 +149,5 @@ public class BotonFlecha implements MouseListener, MouseMotionListener {
         else{
             this.state = EnumEstadosBoton.DEFAULT;
         }
-    }
-
-    public EnumEstadosBoton getState() {
-        return state;
     }
 }

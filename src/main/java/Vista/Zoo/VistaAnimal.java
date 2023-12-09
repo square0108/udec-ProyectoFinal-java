@@ -13,17 +13,12 @@ import java.awt.image.ImageObserver;
 import java.io.File;
 import java.io.IOException;
 
-/*
-TODO: Sistema de movimiento / animaciones Animales
-TODO: hacer mas escalable las skins
- */
-
 /**
  *  Clase que Representa de forma visual a la clase Animal
  */
 public class VistaAnimal implements ActionListener {
     final private Animal animal;
-    private int state; // Es por ahora nomas, tiene que cambiar por enum
+    private int state;
     final private int animationSize = 250; // Pixeles que tiene en pixeles un frame de animación
     private int currentFrame;
     private int cantFrames;
@@ -39,7 +34,6 @@ public class VistaAnimal implements ActionListener {
      * @param animal Animal a ser mostrado de forma grafica.
      */
     public VistaAnimal(Animal animal){
-        // TODO prueba
         cantFrames = 4;
         state = 1;
         currentFrame = 0;
@@ -49,7 +43,7 @@ public class VistaAnimal implements ActionListener {
 
         setTexture();
         trackingPoint = new Point(10,10);
-        position = new Point(10,10);
+        position = new Point(150,150);
         timer = new Timer(250,this);
         timer.start();
     }
@@ -76,11 +70,12 @@ public class VistaAnimal implements ActionListener {
      * @param habitatHeight Alto del habitat
      */
     public void updatePosition(int habitatWidth, int habitatHeight){
+
+
         switch (this.state){
             case 0: // Quieto
                 break;
             case 1: // Caminar
-                // Primero asignamos Un punto para seguir ...
                 if (position.distance(trackingPoint) < 1) {
                     do {
                         trackingPoint.setLocation(
@@ -102,9 +97,9 @@ public class VistaAnimal implements ActionListener {
 
                     position.setLocation(Math.round(position.getX() + moveX), Math.round(position.getY() + moveY));
                 }
+
                 break;
             case 2: // Comer
-                // SE queda quieto y come ???
                 break;
             case 3: // Morir
                 break;
@@ -120,8 +115,6 @@ public class VistaAnimal implements ActionListener {
      * Solo usada al ser inicializado.
      */
     private void setTexture(){
-        // Se podria mejorar esto si Animales guardaces su path "animal.png"
-
         String texture_path = "src/main/java/resources/skins/" +
                 EspeciesEnum.classToEnum(this.animal).getTexturePath();
 
@@ -140,10 +133,6 @@ public class VistaAnimal implements ActionListener {
         state = this.animal.getEstado().getNumber();
     }
 
-    /**
-     * Getter de animal dentro de VistaAnimal
-     * @return referencia al animal guardado dentro
-     */
     public Animal getAnimal(){
         return animal;
     }
