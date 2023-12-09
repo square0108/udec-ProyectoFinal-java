@@ -3,12 +3,10 @@ package Vista.Menu;
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.font.FontRenderContext;
-import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.awt.image.ImageObserver;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,7 +28,7 @@ public class PanelAlertas {
 
 
     }
-    public static void changeText(String string){
+    public void changeText(String string){
         frase = string;
     }
 

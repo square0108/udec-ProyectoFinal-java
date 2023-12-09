@@ -101,7 +101,6 @@ public class PanelSeleccionAnimal implements BotonClickListener, MouseListener, 
             TODO: esto es para probar*/
 
             notifyParent();
-            PanelAlertas.changeText("MODO AÑADIR ANIMAL");
             // TODO: aqui algo deberia, Además deeria cambia el modo en zooController???
         }
 

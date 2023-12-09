@@ -84,6 +84,10 @@ public class VistaMenu extends JPanel implements ParentPanel {
 
     public static ComidaEnum getSelectedFood() {return panelComida.getSelectedComida();}
 
+    public void setPanelAlertasMessage(String message) {
+        this.panelAlertas.changeText(message);
+    }
+
     public void draw(Graphics g){
         g.setColor(Color.red);
         g.drawImage(fondo,0,0,IMG_WIDTH,IMG_HEIGHT,this);
