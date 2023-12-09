@@ -2,7 +2,10 @@ package Model.Factories;
 
 import Model.Alimento;
 import Model.Animal;
+import Model.EntornosHabitat.Acuatico;
+import Model.EntornosHabitat.Artico;
 import Model.EntornosHabitat.Jungla;
+import Model.EntornosHabitat.Sabana;
 import Model.Enumerations.*;
 import Model.Especies.*;
 import Model.Exceptions.AnimalNoExisteException;
@@ -31,6 +34,9 @@ public class ZooItemFactory {
     public Habitat newHabitatInstance(HabitatEnum hab) {
         return switch (hab) {
             case JUNGLA -> new Jungla();
+            case SABANA -> new Sabana();
+            case ARTICO -> new Artico();
+            case ACUATICO -> new Acuatico();
             default -> null;
         };
     }

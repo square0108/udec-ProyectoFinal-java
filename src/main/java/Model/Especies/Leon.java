@@ -8,7 +8,7 @@ import static Model.Enumerations.EspeciesEnum.*;
 public class Leon extends Animal {
     private static final EspeciesEnum[] animalesCompatiblesList = {LEON};
     public Leon() {
-        super(TerrenoEnum.TERRESTRE,20, 10.0F, 35.0F);
+        super(TerrenoEnum.TERRESTRE,5, 10.0F, 35.0F);
     }
 
     @Override
