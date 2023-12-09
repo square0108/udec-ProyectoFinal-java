@@ -3,11 +3,12 @@ package Model.Especies;
 import Model.Animal;
 import Model.Enumerations.EspeciesEnum;
 import Model.Enumerations.TerrenoEnum;
+import static Model.Enumerations.EspeciesEnum.*;
 
 public class Cangrejo extends Animal {
-    private static final EspeciesEnum[] animalesCompatiblesList = {EspeciesEnum.JIRAFA, EspeciesEnum.ELEFANTE};
+    private static final EspeciesEnum[] animalesCompatiblesList = {CANGREJO,PEZ};
     public Cangrejo() {
-        super(TerrenoEnum.TERRESTRE,10, 18.0F, 32.0F);
+        super(TerrenoEnum.ACUATICO,1, -1.8F, 12.0F);
     }
 
     @Override
