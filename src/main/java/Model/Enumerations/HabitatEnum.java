@@ -4,7 +4,10 @@ import Model.EntornosHabitat.*;
 import Model.Habitat;
 
 public enum HabitatEnum {
-    JUNGLA(Jungla.class, "jungla.png");
+    JUNGLA(Jungla.class, "jungla.png"),
+    SABANA(Sabana.class, "sabana.png"),
+    ARTICO(Artico.class, "artico.png"),
+    ACUATICO(Acuatico.class, "acuatico.png");
     final String texture_path;
     final Class<?> claseAsociada;
 
