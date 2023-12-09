@@ -23,7 +23,7 @@ Panel comida
 public class PanelSeleccionComida implements BotonClickListener, MouseListener, SubPanel {
     private final int WIDTH = 380;
     private final int HEIGHT = 200;
-    private ComidaEnum comida = ComidaEnum.CARNE;
+    private static ComidaEnum selectedComida = ComidaEnum.CARNE;
     private BufferedImage comidaIcon;
     private BufferedImage fondo;
     protected BotonFlecha flechaDer;
@@ -53,6 +53,8 @@ public class PanelSeleccionComida implements BotonClickListener, MouseListener, 
         setComidaIcon();
     }
 
+    public ComidaEnum getSelectedComida() {return selectedComida;}
+
     public void draw(Graphics g, ImageObserver imageObserver) {
         g.setColor(Color.GRAY);
         g.drawImage(fondo,(int) this.position.getX(), (int) this.position.getY(),WIDTH, HEIGHT,imageObserver);
@@ -66,11 +68,11 @@ public class PanelSeleccionComida implements BotonClickListener, MouseListener, 
     }
 
     public void cambiarSiguienteComida() {
-        comida = comida.siguiente();
+        selectedComida = selectedComida.siguiente();
         setComidaIcon();
     }
     public void cambiarAnteriorComida() {
-        comida = comida.anterior();
+        selectedComida = selectedComida.anterior();
         setComidaIcon();
     }
 
@@ -84,7 +86,7 @@ public class PanelSeleccionComida implements BotonClickListener, MouseListener, 
     }
 
     public void setComidaIcon() {
-        String texture_path = "src/main/java/resources/icons/" + comida.getTexturePath();
+        String texture_path = "src/main/java/resources/icons/" + selectedComida.getTexturePath();
         try {
             this.comidaIcon = ImageIO.read(new File(texture_path));
         } catch (IOException e) {

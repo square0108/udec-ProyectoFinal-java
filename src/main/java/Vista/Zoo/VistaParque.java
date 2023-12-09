@@ -98,7 +98,6 @@ public class VistaParque extends JPanel implements MouseListener {
     }
     /*
     * Añade un Animal en el habitat con el Id utilizado en el metodo
-    * TODO: Esto quizas deberia pedir una clase ANIMAL dentro, no un VistaAnimal
     * */
     public void addAnimal(int id, VistaAnimal animal) throws HabitatLlenoException, AnimalesIncompatiblesException {
         vistaHabitatList[id].addAnimalSprite(animal);
@@ -119,8 +118,6 @@ public class VistaParque extends JPanel implements MouseListener {
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        System.out.println("clicked VistaParque");
-
         EnumCursor cursorState = vistaPrincipal.getCursorState();
         switch(cursorState) {
             case ANADIR_HABITAT:
@@ -128,7 +125,7 @@ public class VistaParque extends JPanel implements MouseListener {
                     if (habitatCoords[i].contains((int)(e.getX()-imageCorner.getX()),(int)(e.getY()-imageCorner.getY()))
                             && habitatUsability[i]) {
                         System.out.println("chupalo huevito rey");
-                        ZooController.nuevoHabitat(PanelSeleccionHabitat.getSelectedHabitat(), i);
+                        ZooController.nuevoHabitat(VistaMenu.getSelectedHabitat(), i);
                         habitatUsability[i] = false;
                         PanelAlertas.changeText("Se añadió un nuevo habitat.");
                     }
@@ -142,7 +139,6 @@ public class VistaParque extends JPanel implements MouseListener {
                         System.out.println("colocaste animal wuouoouo");
                         try {
                             ZooController.nuevoAnimal(VistaMenu.getSelectedAnimal(), i);
-                            PanelAlertas.changeText("Se añadió un nuevo animal: " + VistaMenu.getSelectedAnimal().toString().toLowerCase());
                         } catch (AnimalNoExisteException ex) {
                             throw new RuntimeException(ex);
                         }
@@ -150,7 +146,11 @@ public class VistaParque extends JPanel implements MouseListener {
                 }
                 break;
             case ANADIR_COMIDA:
-                // TODO: implementar add comida
+                for (int i = 0; i < habitatCoords.length; i++) {
+                    if (habitatCoords[i].contains((int) (e.getX() - imageCorner.getX()), (int) (e.getY() - imageCorner.getY())) && !habitatUsability[i]) {
+                        ZooController.addAlimento(VistaMenu.getSelectedFood(), i);
+                    }
+                }
                 break;
             default:
                 break;

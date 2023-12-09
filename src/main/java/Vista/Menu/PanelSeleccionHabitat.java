@@ -52,7 +52,7 @@ public class PanelSeleccionHabitat implements BotonClickListener, MouseListener,
         setComidaIcon();
     }
 
-    public static HabitatEnum getSelectedHabitat() {return selectedHabitat;} /* todo: ojala reducir la cantidad de metodos static */
+    public HabitatEnum getSelectedHabitat() {return selectedHabitat;} /* todo: ojala reducir la cantidad de metodos static */
 
     public void draw(Graphics g, ImageObserver imageObserver) {
         g.setColor(Color.GRAY);

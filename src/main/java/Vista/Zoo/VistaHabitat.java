@@ -4,27 +4,19 @@ import Model.Enumerations.HabitatEnum;
 import Model.Exceptions.AnimalesIncompatiblesException;
 import Model.Exceptions.HabitatLlenoException;
 import Model.Habitat;
-import Vista.Interface.SubPanel;
 
 import javax.imageio.ImageIO;
-import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.awt.image.ImageObserver;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Objects;
 
 /**
  *  Clase que Representa de forma visual a la clase Habitat
  */
 public class VistaHabitat {
-    /* TODO: sera necesario que VistaHabitat agregue animales directamente a model.Habitat? -martin
-    *   si se me olvida que quise decir con esto mañana, me corto tres cuartos de coco */
     private final Habitat modelHabitat;
     private final Point position;
     private final int IMG_WIDTH;
@@ -126,8 +118,7 @@ public class VistaHabitat {
     public Habitat getModelHabitat(){
         return this.modelHabitat;
     }
-    public int getWidth(){
-        return IMG_WIDTH;
+    public int getWidth(){return IMG_WIDTH;
     }
     public int getHeight(){
         return IMG_HEIGHT;

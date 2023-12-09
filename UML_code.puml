@@ -306,7 +306,7 @@ enum Model.Enumerations.TerrenoEnum {
 class Model.EntornosHabitat.Sabana {
 + <<Create>> Sabana()
 }
-class Model.Factories.AnimalHabitatFactory {
+class Model.Factories.ZooItemFactory {
 + {static} Animal newAnimalInstance(EspeciesEnum)
 + {static} Habitat newHabitatInstance(HabitatEnum)
 }

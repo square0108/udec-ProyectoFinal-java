@@ -3,6 +3,7 @@ package Model;
 import Model.Enumerations.EspeciesEnum;
 import Model.Enumerations.EstadosEnum;
 import Model.Enumerations.TerrenoEnum;
+import Model.Exceptions.AlimentoLimiteException;
 import Model.Exceptions.AnimalesIncompatiblesException;
 import Model.Exceptions.HabitatLlenoException;
 import org.jetbrains.annotations.NotNull;
@@ -23,7 +24,7 @@ public abstract class Habitat {
     private final float temperatura;
 
     /* constantes */
-    private static final int ALIMENTO_MAX = 20;
+    private static final int ALIMENTO_MAX = 10;
     private static final int ALIMENTO_INICIAL = 3;
     protected static final int UPDATE_TICK_RATE = 60; // llamadas de run() necesarias para actualizar el backend
     private int tickCounter;
@@ -179,9 +180,9 @@ public abstract class Habitat {
         return alimentoOut;
     }
 
-    public void addAlimento(@NotNull Alimento a) {
-        if (reservaAlimentos.size() > ALIMENTO_MAX) {
-            System.out.println("El habitat " + this + " no acepta mas alimento");
+    public void addAlimento(@NotNull Alimento a) throws AlimentoLimiteException {
+        if (reservaAlimentos.size() >= ALIMENTO_MAX) {
+            throw new AlimentoLimiteException();
         }
         else {
             this.reservaAlimentos.add(a);

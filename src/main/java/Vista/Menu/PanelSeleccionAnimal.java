@@ -23,7 +23,7 @@ Panel comida
 public class PanelSeleccionAnimal implements BotonClickListener, MouseListener, SubPanel {
     private final int WIDTH = 380;
     private final int HEIGHT = 200;
-    protected EspeciesEnum selectedAnimal = EspeciesEnum.ELEFANTE;
+    private static EspeciesEnum selectedAnimal = EspeciesEnum.ELEFANTE;
     private BufferedImage animalIcon;
     private BufferedImage fondo;
     protected BotonFlecha flechaDer;
@@ -53,6 +53,8 @@ public class PanelSeleccionAnimal implements BotonClickListener, MouseListener, 
 
         setAnimalIcon();
     }
+
+    public EspeciesEnum getSelectedAnimal() {return selectedAnimal;}
 
     public void draw(Graphics g, ImageObserver imageObserver) {
         g.setColor(Color.GRAY);
@@ -95,7 +97,7 @@ public class PanelSeleccionAnimal implements BotonClickListener, MouseListener, 
     @Override
     public void mouseClicked(MouseEvent e) {
         if (clickableArea.contains(e.getPoint())) {
-            /**ZooController.changeCursorMode(EnumCursor.ANADIR_ANIMAL);
+            /* ZooController.changeCursorMode(EnumCursor.ANADIR_ANIMAL);
             TODO: esto es para probar*/
 
             notifyParent();

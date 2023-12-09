@@ -1,5 +1,6 @@
 package Vista.Menu;
 
+import Model.Enumerations.ComidaEnum;
 import Model.Enumerations.EspeciesEnum;
 import Model.Enumerations.HabitatEnum;
 import Vista.Interface.ParentPanel;
@@ -24,18 +25,16 @@ public class VistaMenu extends JPanel implements ParentPanel {
     private BufferedImage fondo;
     private Point imageCorner;
     private static final PanelSeleccionAnimal panelAnimal = new PanelSeleccionAnimal(10, 250);
-    private final PanelSeleccionComida panelComida;
-    private final PanelSeleccionHabitat panelHabitat;
+    private static final PanelSeleccionComida panelComida = new PanelSeleccionComida(10, 480);
+    private static final PanelSeleccionHabitat panelHabitat = new PanelSeleccionHabitat(10,20);
     private final PanelAlertas panelAlertas;
     private final VistaPrincipal vistaPrincipal;
     public VistaMenu(VistaPrincipal parentFrame){
         this.setPreferredSize(new Dimension(IMG_WIDTH,IMG_HEIGHT));
         imageCorner = new Point(0,0);
 
-        panelHabitat = new PanelSeleccionHabitat(10,20);
         panelHabitat.parentPanel = this;
         panelAnimal.parentPanel = this;
-        panelComida = new PanelSeleccionComida(10, 480);
         panelComida.parentPanel = this;
 
         panelAlertas = new PanelAlertas(10,710);
@@ -79,9 +78,11 @@ public class VistaMenu extends JPanel implements ParentPanel {
 
     }
 
-    public static EspeciesEnum getSelectedAnimal() {return panelAnimal.selectedAnimal;}
+    public static EspeciesEnum getSelectedAnimal() {return panelAnimal.getSelectedAnimal();}
 
-    public static HabitatEnum getSelectedHabitat() {return PanelSeleccionHabitat.selectedHabitat;}
+    public static HabitatEnum getSelectedHabitat() {return panelHabitat.getSelectedHabitat();}
+
+    public static ComidaEnum getSelectedFood() {return panelComida.getSelectedComida();}
 
     public void draw(Graphics g){
         g.setColor(Color.red);

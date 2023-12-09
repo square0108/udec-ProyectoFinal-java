@@ -1,4 +1,4 @@
 package Model.Exceptions;
 
-public class HabitatNoExisteException {
+public class HabitatNoExisteException extends Exception {
 }
