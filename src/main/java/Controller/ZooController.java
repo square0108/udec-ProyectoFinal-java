@@ -7,8 +7,8 @@ import Model.Animal;
 import Model.Enumerations.HabitatEnum;
 import Model.Exceptions.*;
 import Model.Factories.ZooItemFactory;
-import Vista.*;
-import Vista.Zoo.VistaAnimal;
+import View.*;
+import View.Zoo.VistaAnimal;
 
 /**
  * esta clase es un Mediator,

@@ -1,11 +1,11 @@
-package Vista.Menu;
+package View.Menu;
 
 import Model.Enumerations.EspeciesEnum;
-import Vista.Enumerations.BotonesEnum;
-import Vista.Enumerations.EnumEstadosBoton;
-import Vista.Interface.BotonClickListener;
-import Vista.Interface.ParentPanel;
-import Vista.Interface.SubPanel;
+import View.Enumerations.BotonesEnum;
+import View.Enumerations.EnumEstadosBoton;
+import View.Interface.BotonClickListener;
+import View.Interface.ParentPanel;
+import View.Interface.SubPanel;
 
 import javax.imageio.ImageIO;
 import java.awt.*;

@@ -1,4 +1,4 @@
-package Vista.Zoo;
+package View.Zoo;
 
 import Controller.ZooController;
 import Model.Enumerations.EstadosEnum;
@@ -6,9 +6,9 @@ import Model.Exceptions.AnimalNoExisteException;
 import Model.Exceptions.AnimalesIncompatiblesException;
 import Model.Exceptions.HabitatLlenoException;
 import Model.Habitat;
-import Vista.Enumerations.EnumCursor;
-import Vista.Menu.VistaMenu;
-import Vista.VistaPrincipal;
+import View.Enumerations.EnumCursor;
+import View.Menu.VistaMenu;
+import View.VistaPrincipal;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;

@@ -1,4 +1,4 @@
-package Vista.Menu;
+package View.Menu;
 
 import javax.imageio.ImageIO;
 import java.awt.*;

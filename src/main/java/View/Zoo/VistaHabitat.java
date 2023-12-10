@@ -1,4 +1,4 @@
-package Vista.Zoo;
+package View.Zoo;
 
 import Model.Enumerations.HabitatEnum;
 import Model.Exceptions.AnimalesIncompatiblesException;

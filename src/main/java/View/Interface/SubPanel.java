@@ -1,4 +1,4 @@
-package Vista.Interface;
+package View.Interface;
 
 /**
  * TODO: completar documentación

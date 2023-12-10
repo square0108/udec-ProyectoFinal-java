@@ -1,4 +1,4 @@
-package Vista.Enumerations;
+package View.Enumerations;
 
 /**
  * Enumerador el cual sirve para que en BotonFlecha, se pueda elegir la dirección del boton.

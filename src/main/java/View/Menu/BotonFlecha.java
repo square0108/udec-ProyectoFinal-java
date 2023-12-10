@@ -1,8 +1,8 @@
-package Vista.Menu;
+package View.Menu;
 
-import Vista.Enumerations.BotonesEnum;
-import Vista.Enumerations.EnumEstadosBoton;
-import Vista.Interface.BotonClickListener;
+import View.Enumerations.BotonesEnum;
+import View.Enumerations.EnumEstadosBoton;
+import View.Interface.BotonClickListener;
 
 import javax.imageio.ImageIO;
 import java.awt.*;

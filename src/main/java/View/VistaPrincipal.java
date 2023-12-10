@@ -1,15 +1,13 @@
-package Vista;
+package View;
 
 import Controller.ZooController;
-import Vista.Enumerations.EnumCursor;
-import Vista.Menu.VistaMenu;
-import Vista.Zoo.VistaParque;
+import View.Enumerations.EnumCursor;
+import View.Menu.VistaMenu;
+import View.Zoo.VistaParque;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;

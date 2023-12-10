@@ -1,11 +1,11 @@
-package Vista.Menu;
+package View.Menu;
 
 import Model.Enumerations.ComidaEnum;
 import Model.Enumerations.EspeciesEnum;
 import Model.Enumerations.HabitatEnum;
-import Vista.Interface.ParentPanel;
-import Vista.Interface.SubPanel;
-import Vista.VistaPrincipal;
+import View.Interface.ParentPanel;
+import View.Interface.SubPanel;
+import View.VistaPrincipal;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -14,7 +14,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-import static Vista.Enumerations.EnumCursor.*;
+import static View.Enumerations.EnumCursor.*;
 
 /**
  * Jpanel, en el cual se muestran los menus de selección y el panel de alerta.

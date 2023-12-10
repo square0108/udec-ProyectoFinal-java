@@ -1,4 +1,4 @@
-package Vista.Enumerations;
+package View.Enumerations;
 
 /**
  * Enumerador usado para elegir como se muestran los botones (Default, Hover, Click).

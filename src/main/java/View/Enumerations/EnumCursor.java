@@ -1,4 +1,4 @@
-package Vista.Enumerations;
+package View.Enumerations;
 
 /**
  * Enumerador usado para elegir el modo del Mouse. Además es usado para saber la ruta de la textura.
