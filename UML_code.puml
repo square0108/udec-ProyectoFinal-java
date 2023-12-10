@@ -451,7 +451,7 @@
         # {static} VistaPrincipal GUI
         # {static} Habitat[] zooHabitats
         # {static} ZooItemFactory instanceFactory
-        + int FRAMETIME_MS
+        + {final}int FRAMETIME_MS
         + <<Create>> ZooController()
         + {static} void nuevoHabitat(HabitatEnum,int)
         + {static} void nuevoAnimal(EspeciesEnum,int)
@@ -516,7 +516,7 @@
     Vista.Interface.ParentPanel <|.. Vista.Menu.VistaMenu
 
     java.awt.event.ActionListener <|.. Vista.Zoo.VistaAnimal
-    Controller.Runnable <|.. Controller.UpdaterThread
+    Controller.Runnable <|.. Controller.UpdaterThread : implements
 
 
 
@@ -531,13 +531,12 @@
     Vista.Zoo.VistaHabitat o-- Vista.Zoo.VistaAnimal
     Vista.Zoo.VistaParque o-- Vista.Zoo.VistaHabitat
 
-    Model.Habitat o-- Model.Animal
     Model.Habitat o-- Model.Alimento
 
-    Model.Especies.Elefante o-- Model.Enumerations.EspeciesEnum
-    Model.Especies.Leon o-- Model.Enumerations.EspeciesEnum
-    Model.Especies.Carpincho o-- Model.Enumerations.EspeciesEnum
-    Model.Especies.RestoDeAnimales o-- Model.Enumerations.EspeciesEnum
+    Model.Especies.Elefante o-- "0..*" Model.Enumerations.EspeciesEnum
+    Model.Especies.Leon o-- "0..*" Model.Enumerations.EspeciesEnum
+    Model.Especies.Carpincho o-- "0..*" Model.Enumerations.EspeciesEnum
+    Model.Especies.RestoDeAnimales o-- "0..*" Model.Enumerations.EspeciesEnum
 
     Controller.ZooController o-- Model.Habitat
 
@@ -583,8 +582,8 @@
 
          ' Modelo
 
-         Model.Animal *-- Model.Enumerations.TerrenoEnum
-         Model.Animal *-- Model.Habitat
+         Model.Animal *-- "1" Model.Enumerations.TerrenoEnum
+         Model.Animal "0..*" --* "1" Model.Habitat
          Model.Animal *-- Model.Enumerations.EstadosEnum
 
          Model.Habitat *-- Model.Enumerations.TerrenoEnum
@@ -597,6 +596,7 @@
 
 
     ' Uso ..>
+    app.App ..> Controller.ZooController : use
 
     Vista.Menu.BotonFlecha ..> Vista.Enumerations.BotonesEnum
     Vista.Menu.BotonFlecha ..> Vista.Interface.BotonClickListener
@@ -610,9 +610,6 @@
 
     Vista.VistaPrincipal ..> Vista.Enumerations.EnumCursor
 
-    Model.Animal ..> Model.Habitat
-
-    Model.Habitat ..> Model.Animal
     Model.Habitat ..> Alimento
 
     Model.CompatibleChecker ..> Model.Animal
@@ -622,9 +619,9 @@
     Model.Factories.ZooItemFactory ..> Model.Enumerations.HabitatEnum
     Model.Factories.ZooItemFactory ..> Model.Enumerations.ComidaEnum
 
-    Controller.ZooController ..> Model.Enumerations.EspeciesEnum
-    Controller.ZooController ..> Model.Enumerations.HabitatEnum
-    Controller.ZooController ..> Model.Enumerations.ComidaEnum
+    Controller.ZooController ..> Model.Enumerations.EspeciesEnum : use
+    Controller.ZooController ..> Model.Enumerations.HabitatEnum : use
+    Controller.ZooController ..> Model.Enumerations.ComidaEnum : use
 
 
 
