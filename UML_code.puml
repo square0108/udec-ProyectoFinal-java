@@ -545,8 +545,6 @@ skinparam linetype ortho
          Vista.VistaPrincipal *-- Vista.Zoo.VistaParque
          Vista.VistaPrincipal *-- Vista.Menu.VistaMenu
 
-         Vista.VistaPrincipal *-- Controller.ZooController
-
          ' Modelo
 
          Model.Animal *-- "1" Model.Enumerations.TerrenoEnum
@@ -576,8 +574,6 @@ skinparam linetype ortho
     Vista.Zoo.VistaParque ..> Vista.Zoo.VistaAnimal
 
     Vista.VistaPrincipal ..> Vista.Enumerations.EnumCursor
-
-    Model.Habitat ..> Alimento
 
     Model.CompatibleChecker ..> Model.Animal
     Model.CompatibleChecker ..> Model.Habitat
