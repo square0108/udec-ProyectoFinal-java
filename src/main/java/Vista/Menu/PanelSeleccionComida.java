@@ -25,7 +25,7 @@ import java.io.IOException;
 public class PanelSeleccionComida implements BotonClickListener, MouseListener, SubPanel {
     private final int WIDTH = 380;
     private final int HEIGHT = 200;
-    private static ComidaEnum selectedComida = ComidaEnum.CARNE;
+    private static ComidaEnum selectedComida = ComidaEnum.COMIDA;
     private BufferedImage comidaIcon;
     private BufferedImage fondo;
     protected BotonFlecha flechaDer;
