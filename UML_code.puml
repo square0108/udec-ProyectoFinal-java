@@ -1,5 +1,5 @@
 @startuml
-
+skinparam linetype ortho
 ' Clases
     ' Model
 
@@ -490,13 +490,10 @@
     java.awt.event.ActionListener <|.. Vista.Zoo.VistaAnimal
     Controller.Runnable <|.. Controller.UpdaterThread : implements
 
-
-
-    ' TODO: Como irian estas, asi nomas??
-    Vista.Zoo.VistaParque +.. Vista.Zoo.VistaParque$ClickListener
-    Vista.Zoo.VistaParque +.. Vista.Zoo.VistaParque$DragListener
-
     ' Asociacion   Class 1 "3" <-- "1..." Class 2
+
+    Vista.Menu.BotonFlecha <-- Vista.Interface.BotonClickListener
+    Vista.VistaPrincipal *-- Vista.Enumerations.EnumCursor
 
     ' Agregación o--
 
@@ -515,13 +512,10 @@
     ' Composición *--
 
         ' Package Vista.Menu
-        ' Todo: Quizas esto es agregación??¿¿??
-         Vista.Menu.PanelSeleccionAnimal "2" *--  Vista.Menu.BotonFlecha
-         Vista.Menu.PanelSeleccionComida "2" *--  Vista.Menu.BotonFlecha
-         Vista.Menu.PanelSeleccionHabitat "2" *--  Vista.Menu.BotonFlecha
 
-         ' TODO: No estoy seguro de esto
-         Vista.Menu.BotonFlecha *-- Vista.Interface.BotonClickListener
+         Vista.Menu.PanelSeleccionAnimal  *-- "2" Vista.Menu.BotonFlecha
+         Vista.Menu.PanelSeleccionComida  *-- "2" Vista.Menu.BotonFlecha
+         Vista.Menu.PanelSeleccionHabitat *-- "2"  Vista.Menu.BotonFlecha
 
          Vista.Menu.PanelSeleccionHabitat *-- Vista.Interface.ParentPanel
          Vista.Menu.PanelSeleccionComida *-- Vista.Interface.ParentPanel
@@ -537,6 +531,9 @@
 
          Vista.Zoo.VistaParque *-- Vista.VistaPrincipal
 
+         Vista.Zoo.VistaParque *.. Vista.Zoo.VistaParque$ClickListener
+         Vista.Zoo.VistaParque *.. Vista.Zoo.VistaParque$DragListener
+
          ' Zoo
          Vista.Zoo.VistaAnimal *-- Model.Animal
 
@@ -547,8 +544,6 @@
 
          Vista.VistaPrincipal *-- Vista.Zoo.VistaParque
          Vista.VistaPrincipal *-- Vista.Menu.VistaMenu
-         ' Todo: No estoy muy seguro
-         Vista.VistaPrincipal *-- Vista.Enumerations.EnumCursor
 
          Vista.VistaPrincipal *-- Controller.ZooController
 
@@ -594,13 +589,5 @@
     Controller.ZooController ..> Model.Enumerations.EspeciesEnum : use
     Controller.ZooController ..> Model.Enumerations.HabitatEnum : use
     Controller.ZooController ..> Model.Enumerations.ComidaEnum : use
-
-
-
-
-
-
-
-
 
 @enduml
