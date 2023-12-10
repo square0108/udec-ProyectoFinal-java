@@ -1,8 +1,7 @@
 package Model.Enumerations;
 
 public enum ComidaEnum {
-    CARNE("carne.png"),
-    HENO("heno.png");
+    COMIDA("comida.png");
     String texturePath;
 
     ComidaEnum(String texturePath) {

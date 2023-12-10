@@ -108,6 +108,7 @@ public class VistaMenu extends JPanel implements ParentPanel {
         panelComida.draw(g,this);
         panelHabitat.draw(g,this);
         panelAlertas.draw(g,this);
+        g.dispose();
 
     }
 
