@@ -121,6 +121,7 @@ public class VistaParque extends JPanel implements MouseListener {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         draw(g);
+
     }
 
     /**
