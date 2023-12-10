@@ -6,7 +6,7 @@ import Model.Enumerations.TerrenoEnum;
 import static Model.Enumerations.EspeciesEnum.*;
 
 public class Pulpo extends Animal {
-    private static final EspeciesEnum[] animalesCompatiblesList = {EspeciesEnum.JIRAFA, EspeciesEnum.ELEFANTE};
+    private static final EspeciesEnum[] animalesCompatiblesList = {PULPO, PEZ};
     public Pulpo() {
         super(TerrenoEnum.ACUATICO,3, -1.8F, 12.0F);
     }
