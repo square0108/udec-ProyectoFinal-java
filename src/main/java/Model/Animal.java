@@ -1,10 +1,8 @@
 package Model;
 
-import Model.Alimento;
 import Model.Enumerations.EspeciesEnum;
 import Model.Enumerations.EstadosEnum;
 import Model.Enumerations.TerrenoEnum;
-import Model.Habitat;
 
 import java.util.Random;
 
@@ -12,17 +10,17 @@ import static Model.Enumerations.EstadosEnum.*;
 
 public abstract class Animal {
     private final TerrenoEnum tipoTerreno;
-    private final float rangoTemperatura[]; // celsius
+    private final float[] rangoTemperatura; // celsius
     private Habitat habitatHogar;
     private int porcentajeComida;
     private final int gananciaHambre;
     private EstadosEnum estado;
 
     /* Constantes */
-    public static final int MINIMO_PARA_ALIMENTARSE = 50;
-    public static final int PORCENTAJE_CHANCE_MOVIMIENTO = 70;
-    public static final int PORCENTAJE_CHANCE_DETENERSE = 50;
-    private static final Random rand = new Random(); /* generador de numeros aleatorios */
+    public static final int MINIMO_PARA_ALIMENTARSE = 50; // Si porcentajeComida baja de este número, el animal intenta llamar comer()
+    public static final int PORCENTAJE_CHANCE_MOVIMIENTO = 70; // Chance de que el animal comience a moverse
+    public static final int PORCENTAJE_CHANCE_DETENERSE = 50; // Chance de que el animal se detenga
+    private final Random rand = new Random(); // Utilizado para los checks de movimiento
 
     /**
      * Clase que simula las propiedades comunes a todos los animales del zoologico.
@@ -43,6 +41,9 @@ public abstract class Animal {
         this.estado = PASIVO;
     }
 
+    /**
+     * Actualiza los estados internos de esta instancia de Animal. Esta hecho para ser llamado por un TIMER/THREAD
+     */
     public void update() {
         this.ganarHambre();
         this.intentarMovimiento();
@@ -66,7 +67,6 @@ public abstract class Animal {
             /* Alimentos siempre sacian el hambre completamente. */
             this.porcentajeComida = 100;
             this.estado = EstadosEnum.COMIENDO;
-            alimento.setConsumidoStatus(true);
         }
     }
 
@@ -141,6 +141,7 @@ public abstract class Animal {
      * @return array de AnimalEnum conteniendo solo las constantes que representan los animales compatibles con este animal.
      */
     public abstract EspeciesEnum[] animalesCompatibles();
+
 
     public TerrenoEnum getTipoTerreno() {
         return this.tipoTerreno;

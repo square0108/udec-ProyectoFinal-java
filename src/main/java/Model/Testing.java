@@ -7,6 +7,10 @@ import Model.Exceptions.AnimalesIncompatiblesException;
 import Model.Exceptions.HabitatIncompatibleException;
 import Model.Exceptions.HabitatLlenoException;
 
+/**
+ * Fue utilizada en fases iniciales del desarrollo para testear funcionalidad del back-end.
+ */
+@Deprecated
 public class Testing {
     public static void main(String[] args) throws HabitatLlenoException, AnimalesIncompatiblesException, HabitatIncompatibleException {
         Leon manuel = new Leon();

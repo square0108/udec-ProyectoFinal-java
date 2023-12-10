@@ -3,19 +3,18 @@ package Model;
 import Model.Enumerations.EspeciesEnum;
 
 /**
- * utility class con metodos para verificar compatibilidades entre animal-animal o animal-habitat
+ * Utility class con metodos para verificar compatibilidades entre animal-animal o animal-habitat
  */
 public class CompatibleChecker {
     /**
      * Devuelve true o false dependiendo de si este par de animales individuales son compatibles para estar en un mismo
-     * habitat. Este metodo DEPENDE de que el primer elemento en la lista de compatibilidad en cualquier animal sea
-     * siempre el animal mismo. (es decir, que el primer elemento de la lista de compatibilidad de Leon sea LEON).
+     * habitat. Notar que si un animal no se incluye a si mismo en su lista de compatibilidad entonces no es compatible
+     * con si mismo por defecto.
      * @param animal1 primer animal
      * @param animal2 segundo animal
      * @return booleano que describe la relacion de compatibilidad
      */
     public static boolean isCompatible(Animal animal1, Animal animal2) {
-        /* TODO: devolver todos los animales que no son compatibles */
         EspeciesEnum[] List1 = animal1.animalesCompatibles();
         EspeciesEnum[] List2 = animal2.animalesCompatibles();
 

@@ -18,7 +18,6 @@ public abstract class Habitat {
 
     /* variables relacionadas con alimentos */
     private final ArrayList<Alimento> reservaAlimentos;
-    private boolean hayAlimento;
 
     /* variables relacionadas con ambiente */
     private final TerrenoEnum tipoTerreno;
@@ -51,10 +50,12 @@ public abstract class Habitat {
         for (int i = 0; i < ALIMENTO_INICIAL; i++) {
             reservaAlimentos.add(new Alimento());
         }
-
-        this.hayAlimento = true;
     }
 
+    /**
+     * Actualiza el estado interno de este habitat, en realidad lo unico que cambia de habitat es que remueve a los animales muertos, pero se actualiza el estado de cada animal.
+     * Hecho para ser llamado por un TIMER/THREAD.
+     */
     public void update() {
         if (this.tickCounter == UPDATE_TICK_RATE) {
             removerAnimalesMuertos();
@@ -70,6 +71,7 @@ public abstract class Habitat {
 
     /**
      * El nombre es bastante descriptivo.
+     * (09/12/23) ¿Puede que esté relacionado con el memory leak? ¿Quizas las referencias de animal no son removidas completamente?
      */
     public void removerAnimalesMuertos() {
         for (int i = 0; i < animalesCercados.size(); i++) {
@@ -137,16 +139,10 @@ public abstract class Habitat {
     public Alimento popAlimento() {
         /* si es que la reserva ya estaba vacia */
         if (reservaAlimentos.isEmpty()) {
-            hayAlimento = false;
             return null;
         }
 
-        Alimento alimentoOut = reservaAlimentos.remove(0);
-
-        /* si el alimento consumido fue el ultimo, setear hayAlimento = false */
-        if (reservaAlimentos.size() == 0) hayAlimento = false;
-
-        return alimentoOut;
+        return reservaAlimentos.remove(0);
     }
 
     public void addAlimento(@NotNull Alimento a) throws AlimentoLimiteException {
@@ -155,17 +151,15 @@ public abstract class Habitat {
         }
         else {
             this.reservaAlimentos.add(a);
-            hayAlimento = true;
         }
     }
 
     /**
-     * usar con cuidado
+     * usar con cuidado. Uso exclusivo en Unit Testing
      * @return reserva de alimentos del habitat
      */
     public ArrayList<Alimento> getReservaAlimentos() {return reservaAlimentos;}
     public int getCantidadAlimento(){return reservaAlimentos.size();}
-    public int getCurrentPop() {return this.animalesCercados.size();}
     public ArrayList<Animal> getArrayAnimales(){
         return animalesCercados;
     }

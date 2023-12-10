@@ -59,6 +59,23 @@ public class AnimalTest {
         assertEquals(animal.getEstado(), EstadosEnum.COMIENDO);
     }
     @Test
+    @DisplayName("Animal no restaura hambre al comer de un habitat vacio")
+    void AnimalComeVacioTest() throws HabitatLlenoException, AnimalesIncompatiblesException, HabitatIncompatibleException {
+        Habitat habitat = new Jungla();
+        Animal animalUno = new Jirafa();
+        Animal animalDos = new Jirafa();
+        habitat.addAnimal(animalUno);
+        habitat.addAnimal(animalDos);
+        for (int i = 0; i < 5; i++) {
+            animalUno.comer();
+        }
+        animalDos.ganarHambre();
+        int porcentajeAntes = animalDos.getPorcentajeComida();
+        animalDos.comer();
+        int porcentajeDespues = animalDos.getPorcentajeComida();
+        assertEquals(porcentajeAntes,porcentajeDespues);
+    }
+    @Test
     @DisplayName("Movimiento a traves del generador de numeros de Animal")
     void MovimientoTest() {
         for (int i = 0; i < 5; i++) {

@@ -3,6 +3,9 @@ package Model.Enumerations;
 import Model.EntornosHabitat.*;
 import Model.Habitat;
 
+/**
+ * Posee constantes representativas de algún objeto extensión de Habitat con el mismo nombre que la constante. Utilizado para instanciación encapsulada, principalmente.
+ */
 public enum HabitatEnum {
     JUNGLA(Jungla.class, "jungla.png"),
     SABANA(Sabana.class, "sabana.png"),
@@ -25,7 +28,6 @@ public enum HabitatEnum {
         for (int i = 0; i < HabitatEnum.values().length; i++) {
             if (habitat.getClass() == HabitatEnum.values()[i].claseAsociada) return HabitatEnum.values()[i];
         }
-        // todo: exception handling
         System.out.println("Error en el metodo animalToEnum(); Input: " + habitat + "; Ninguna constante corresponde con esta clase.");
         return null;
     }

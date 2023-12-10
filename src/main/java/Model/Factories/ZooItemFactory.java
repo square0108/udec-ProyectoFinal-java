@@ -11,6 +11,9 @@ import Model.Especies.*;
 import Model.Exceptions.AnimalNoExisteException;
 import Model.Habitat;
 
+/**
+ * Factory para encapsular la creación de nuevas instancias de los tres elementos principales del zoológico: animales, hábitats y alimentos.
+ */
 public class ZooItemFactory {
     public Animal newAnimalInstance(EspeciesEnum animal) throws AnimalNoExisteException {
         return switch (animal) {

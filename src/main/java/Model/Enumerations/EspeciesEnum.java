@@ -3,6 +3,9 @@ package Model.Enumerations;
 import Model.Animal;
 import Model.Especies.*;
 
+/**
+ * Posee constantes representativas de algún objeto extensión de Animal con un mismo nombre. Utilizado para instanciación encapsulada, principalmente.
+ */
 public enum EspeciesEnum {
     LEON(Leon.class, "leon.png"),
     JIRAFA(Jirafa.class, "jirafa.png"),
@@ -17,10 +20,14 @@ public enum EspeciesEnum {
     PINGUINO(Pinguino.class, "pinguino.png"),
     POLAR(Polar.class, "polar.png"),
     PULPO(Pulpo.class, "pulpo.png");
-
     final Class<?> claseAsociada;
     final String texturePath;
 
+    /**
+     * Es requerido agregar un nuevo animal a esta enumeration para implementarlo correctamente.
+     * @param claseEspecie .class de la subclase de Animal que representa esta constante
+     * @param texturePath archivo textura .png de este animal
+     */
     EspeciesEnum(Class<?> claseEspecie, String texturePath) {
         this.claseAsociada = claseEspecie;
         this.texturePath = texturePath;
@@ -35,17 +42,15 @@ public enum EspeciesEnum {
         for (int i = 0; i < EspeciesEnum.values().length; i++) {
             if (animal.getClass() == EspeciesEnum.values()[i].claseAsociada) return EspeciesEnum.values()[i];
         }
-        // todo: exception handling
         System.out.println("Error en el metodo animalToEnum(); Input: " + animal + "; Ninguna constante corresponde con esta clase.");
         return null;
     }
-
-    //todo: MEtodos que hice yoo aaa
 
     public String getTexturePath() {
         return texturePath;
     }
 
+    /* Estos métodos iteran sobre las texturas de cada animal. Utilizado por el panel selector de animales. */
     public EspeciesEnum siguiente() {
         int siguienteIndice = (this.ordinal() + 1) % EspeciesEnum.values().length;
         return EspeciesEnum.values()[siguienteIndice];

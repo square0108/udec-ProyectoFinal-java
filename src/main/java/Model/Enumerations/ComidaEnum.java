@@ -1,5 +1,8 @@
 package Model.Enumerations;
 
+/**
+ * Hubiese sido utilizado para distintos tipos de comida. Finalmente, quedó sólo un tipo.
+ */
 public enum ComidaEnum {
     COMIDA("comida.png");
     String texturePath;

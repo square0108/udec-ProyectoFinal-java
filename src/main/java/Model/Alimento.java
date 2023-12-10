@@ -1,8 +1,9 @@
 package Model;
 
 public class Alimento {
-    private boolean consumidoStatus = false;
+
+    /**
+     * Alimento generico. Se tenia planeado implementar dietas para distintos animales, pero ahora todos los animales consumen el mismo objeto de Alimento
+     */
     public Alimento() {};
-    public boolean estaConsumido() {return this.consumidoStatus;}
-    public void setConsumidoStatus(boolean b) {this.consumidoStatus = b;}
 }
