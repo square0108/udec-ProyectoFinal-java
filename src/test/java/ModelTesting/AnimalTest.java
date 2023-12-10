@@ -1,6 +1,8 @@
 package ModelTesting;
 import Model.Animal;
+import Model.Enumerations.EspeciesEnum;
 import Model.Enumerations.EstadosEnum;
+import Model.Enumerations.TerrenoEnum;
 import Model.Especies.*;
 
 import Model.Especies.Leon;
@@ -8,6 +10,7 @@ import Model.EntornosHabitat.*;
 import Model.Exceptions.AnimalesIncompatiblesException;
 import Model.Exceptions.HabitatIncompatibleException;
 import Model.Exceptions.HabitatLlenoException;
+import Model.Habitat;
 import org.junit.Assert;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -30,6 +33,32 @@ public class AnimalTest {
     }
 
     @Test
+    @DisplayName("Animales se MUEREN")
+    void AnimalMuerteTest() {
+        class Instakill extends Animal {
+            Instakill() {
+                super(TerrenoEnum.TERRESTRE, 9999, 0f, 30f);
+            }
+            @Override
+            public EspeciesEnum[] animalesCompatibles() {
+                return new EspeciesEnum[0];
+            }
+        }
+        Animal ded = new Instakill();
+        ded.ganarHambre();
+        Assertions.assertEquals(EstadosEnum.MUERTO, ded.getEstado());
+    }
+    @Test
+    @DisplayName("Animal cambia a estado COMIENDO")
+    void AnimalComiendoTest() throws HabitatLlenoException, AnimalesIncompatiblesException, HabitatIncompatibleException {
+        Animal animal = new Jirafa();
+        Habitat habitat = new Jungla();
+        habitat.addAnimal(animal);
+        assertEquals(animal.getEstado(), EstadosEnum.PASIVO);
+        animal.comer();
+        assertEquals(animal.getEstado(), EstadosEnum.COMIENDO);
+    }
+    @Test
     @DisplayName("Movimiento a traves del generador de numeros de Animal")
     void MovimientoTest() {
         for (int i = 0; i < 5; i++) {
@@ -37,7 +66,6 @@ public class AnimalTest {
             PrintMovimiento(pepe);
         }
     }
-
     @Test
     void MuertosNoSeMueven() throws HabitatLlenoException, AnimalesIncompatiblesException, HabitatIncompatibleException {
         Leon L = new Leon();
