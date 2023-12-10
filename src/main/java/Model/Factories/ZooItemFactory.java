@@ -48,8 +48,7 @@ public class ZooItemFactory {
      */
     public Alimento newAlimentoInstance(ComidaEnum tipoComida) {
         return switch (tipoComida) {
-            case CARNE -> new Alimento();
-            case HENO -> new Alimento();
+            case COMIDA -> new Alimento();
             default -> null;
         };
     }
