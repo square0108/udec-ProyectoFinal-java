@@ -161,27 +161,6 @@
             + EspeciesEnum[] animalesCompatibles()
         }
 
-        ' Exceptions
-        class Model.Exceptions.HabitatIncompatibleException {
-        }
-
-        class Model.Exceptions.HabitatNoExisteException {
-        }
-
-        class Model.Exceptions.HabitatLlenoException {
-        }
-
-        class Model.Exceptions.AnimalNoExisteException {
-        }
-
-        class Model.Exceptions.SinAlimentoException {
-        }
-
-        class Model.Exceptions.AlimentoLimiteException {
-        }
-
-        class Model.Exceptions.AnimalesIncompatiblesException {
-        }
 
         ' Factories
 
@@ -482,13 +461,6 @@
     Model.Habitat <|-- Model.EntornosHabitat.Sabana
     Model.Habitat <|-- Model.EntornosHabitat.Jungla
     Model.Habitat <|-- Model.EntornosHabitat.Acuatico
-    Model.Exceptions.Exception <|-- Model.Exceptions.AnimalNoExisteException
-    Model.Exceptions.Exception <|-- Model.Exceptions.SinAlimentoException
-    Model.Exceptions.Exception <|-- Model.Exceptions.AlimentoLimiteException
-    Model.Exceptions.Exception <|-- Model.Exceptions.HabitatIncompatibleException
-    Model.Exceptions.Exception <|-- Model.Exceptions.HabitatNoExisteException
-    Model.Exceptions.Exception <|-- Model.Exceptions.AnimalesIncompatiblesException
-    Model.Exceptions.Exception <|-- Model.Exceptions.HabitatLlenoException
     Vista.Menu.JPanel <|-- Vista.Menu.VistaMenu
     Vista.Zoo.JPanel <|-- Vista.Zoo.VistaParque
     Vista.Zoo.MouseAdapter <|-- Vista.Zoo.VistaParque$ClickListener
