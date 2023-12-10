@@ -1,4 +1,4 @@
-# Proyecto final Programación II, 2° Semestre 2023
+# Proyecto final Programación II, 2° Semestre 2023, Grupo 16
 ## Integrantes:
 - Martin Llanos Fariña
 - Guillermo Oliva Orellana
