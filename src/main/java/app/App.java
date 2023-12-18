@@ -10,6 +10,6 @@ import Model.Exceptions.HabitatLlenoException;
  */
 public class App {
     public static void main(String[] args) throws HabitatLlenoException, AnimalesIncompatiblesException, HabitatIncompatibleException, AnimalNoExisteException {
-        ZooController controller = new ZooController();
+    ZooController controller = new ZooController();
     }
 }
